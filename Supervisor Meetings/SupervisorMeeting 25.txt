@@ -1,0 +1,47 @@
+09/10/2020
+==========
+
+1.  Example 4 maybe show how each individual subformulae is evaluated.
+
+2.  Page 17 make the initalisation phase a subsection by \subsection*{Initialisation Phase} and then the evaluation phase as well.
+
+3.  Add in the first section the year that R/H was published and a reference to the paper.
+
+4.  Remove the sentance 'If the operator ...' is moved out of each \item and put to the top.  Then each \item starts as 'a literal ...'.
+
+If the operator of the subformula corresponding to now[i] is 
+
+1. a literal l, then now[i]= (e==l)
+
+1. a literal \begin{center} now[i] = (e==l)\end{center}
+
+
+Better idea is to reuse the semantics from 3.3.2 but replace phi and si with indexed registers.
+
+Write a sentance describing that the evaluation is the same as 3.3.2 but phi and si are replaced with now and next etc.
+
+Say that j and k are the 'index of corresponding to the subformula'.
+
+
+
+The sentance 'Set the boolean value of the now[i] ... ', put this before the 9 cases.
+
+After the 9 cases add a sentance
+'Note that in case 1. ...x., we only use cells from the now register, while cases x+1, ... 9 make also use of the next register.'  This is because those operators that make use of the next register are  the temporal registers.
+
+Mention that i < j and i < k
+
+5.  Step 3 say next[i] = now[i] for all i ranging from 1..length(subformulae)
+
+
+6.  Could evaluate the Example 5 in chapter 3 on page 16.
+
+Then in example 5 on page 21 we say now we are using the algorithm to evaluate the example from chapter 3.  The result should be the same and we should be able to see a correspondance between the evaluation in chapter 3 and in chapter 4.   Say why the evaluation holds true for the example trace.  And mention the example phi is from the R/H paper.
+
+In phase 1 initialisation we need to show how at least some of the subformula are arrived at, not just the overall result and also mention that the now register is blank because we do not need to know what it is yet.
+
+From and empty next register show steps for evaluating phi10, then phi9 then phi8.
+
+Do the same for iteration 1 of the evaluation.
+
+

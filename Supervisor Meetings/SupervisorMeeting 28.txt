@@ -1,0 +1,11 @@
+13/11/2020
+==========
+
+1. Before the definition 3.1 talk about events in the context of android.  Such as when an operating system call or a call to a library is made that is an event.
+
+An event characterises a change in state that we are interested in observing.
+
+This should come before definition 3.1 because it talks about events.
+
+
+

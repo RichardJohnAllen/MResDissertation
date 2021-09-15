@@ -1,0 +1,32 @@
+Supervisor Meeting - 03/06/2020
+
+
+Marcus
+Myself
+
+
+BACKGROUND
+==========
+
+1.  Describe temporal logic, put formulae for collusion as examples (but possibly contributions).
+2.  Describe the Rosu/Havelund algorithm, with examples
+3.  Android operating system, how it works in particular regarding security
+4.  Programming for Android
+5.  Exposed framework, how it works and things that need to be implemented in an android project to use it.
+6.  Related work.
+
+
+Contribution
+============
+Section about scalability is different to description of the algorithm
+
+
+Section of dissertation concerning the algorithm, this is part of the contribution
+
+1.  Write down the algorithm in pseudo code
+2.  Demonstrate correctness by example
+3.  Argue why it is more efficient than original Rosu/Havelund
+4.  Describe architecture (interceptor and monitor)
+5.  Describe each half of the architecture
+
+

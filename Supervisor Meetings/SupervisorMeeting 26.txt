@@ -1,0 +1,47 @@
+16/10/2020
+==========
+
+1.  Site that the formular used in the examples is from the R/H paper.
+
+2.  In step 2 of the evaluation phase say 'see below for more detail'.
+
+3.  Before example 5 talk about the complexity.  Define complexity of a formula as the number of subformulas.  Write size of a formula is the number of subformula.  The complexity of a formula is | phi |.  The length of a trace is the number of events occuring in it. | t |.  The cardinality.  The memory needed is O(| phi |) and is linear to the size of phi.
+
+The execution time of the initialisation phase is O(| phi |) - the evaluation of a forumla over the empty trace.
+
+The execution time of the evaluation phase is:
+
+A loop where the number of iteration is the length of the trace
+Execution time or run-time complexity is length of the trace * the number of subformula.
+
+Total static complexity is O(length(trace) * size(forumla)) or O(|t| * |phi|).
+
+The run-time (or dynamic) complexity for adding a new event to a trace is length(t) * size(phi).  In application the trace always grows as it represents a log of events.  In such an application has the following costs a quadratic complexity.  (1+2+3+ ... + n) *|phi|  n *(n+1)/2.  In practical application it becomes an n^2 algorithm O(n^2*|phi|).
+
+(1+ ... + n) = n(n+1)/2
+O(n(n+1)/2) = O( (n^2+n) /2 ) = O(n^2)
+
+each event that is added requires |trace|^2 * |phi|) steps.
+
+
+
+Big O notation
+==============
+abstraction mechanism that allows us to forget about the details of a function and describe the growth of the function.
+
+Eg. f = n^2 + c
+is O(n^2 + c) = O(n^2)
+
+Big O ignores the coefficients in the polynomial.  It takes a function as an argument and expresses the order of the function.  O = order of a function.
+
+O( |phi| + |trace| * |phi|) = O(|trace|*|phi|)
+
+
+
+------------------
+
+4. Section 3.3.2 write in these terms.  eg for the or oerator.
+
+e t |= phi1 \/ phi 2 iff and only iff e t |=phi1 or e t |= phi2 
+
+in the RH chapter 

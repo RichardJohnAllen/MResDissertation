@@ -1,0 +1,22 @@
+Supervisor Meeting 1
+
+Date 17/10/2019 - 16:30
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+.  I explained the logging and replay idea
+.  We identified the need to make it scientifically worthy
+.  Markus informed the aim should be to finish the project by the end of September 2020 so that any overrun will be within the deadline of 1 extra year.
+.  There is a scientific requirement to read and understand the field within which the project applies.  To bring something new to the field while relating it to existing techniques so as to preserve the existing discoveries and build upon them.
+
+TODO
+.  Read about runtime verification as this is the field that the project relates to.  Use Google Scholar and search for 'runtime verification survey'
+.  Continue reading the testing chapter in Markus' book and ask questions
+.  Read the paper 'Runtime Verification for LTL and TLTL'.  Read some of in enough detail to understand and be able to give a presentation of it for 15 minutes.
+.  Send Markus my timetable before Sunday (DONE)
+
+

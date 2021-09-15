@@ -1,0 +1,69 @@
+1.  Put this into the introduction:
+
+In the context of the Pegasus spyware \cite{Guardian} we speculate detection using our RV approach will be successful:
+
+We reason that most threats require the use of the O/S to access resources because Android runs on a diverse array of hardware and the O/S provides the only unified means to access resources.  Consequently it is likely that the Pegasus spyware works on the operating system level.
+
+Explain what happens in the Pegasus spyware and say RV warns the user if any resource is used without user interaction.  
+
+We leave the concrete form of warning open and concentrate on the following: on recognising security breaches only.
+
+
+
+
+2.  9.3 Responding to a Security Breach:  We will warn when a security breach has happend.  Alternative is we warn before the last event in the sequence has been recognised.  The alternative is preferred in the case of collusion.  For other properties it might only be possible to warn after the breach has happened e.g. when it is turning on the camera.
+
+We leave the concrete form of warning open and concentrate on the following: on recognising security breaches only.
+
+
+3.  In RRH chapter where we have the graph we need to explain the graph.
+
+
+4.  New chapter in the contribution.  Show collusion detection.  Here is my phone, here are the two apps.  Here is collusion happening and here the software detects it.  The demo from the presentation should be the chapter with screen shots of the app working.
+
+The collusion chapter would be a good place to introduce the Reader and Publisher apps.
+
+
+5.  Important to say in the introduction that we are beyond smart phones, TVs, tablets, cars, IoT devices.
+
+Say that monitoring takes resources, Android runs on devices with limited resources.  It is unclear if RV can be used on Android and we will find an answer to this question.
+
+
+6.  In the Summary make it short.  We fulfilled all our project aims - list them and reflect upon how well we have achieved them and why.  We have an app etc.
+
+We have found the original algorithm not to be suitable to realtime RV.  We have developed the RRH algorithm and shown thatthat it is effective for realtime RV on android thanks to its constant monitoring time.  We have developed an app for runtime monitoring and instantiated it with a property for collusion detection of information theft and shown that it worked effectively.  
+
+7.  Future work:
+ a) What would we do with 6 more months?
+
+	Systematic experimentation with the monitors, e.g. investigate if we can detect (part of) Pegasus by monitoring for 	more properties.
+	
+	Collusion over unlimited chains.
+	
+	Concerning the technical implementation of the monitor we would seek to cover more Android versions, integrate Xposed framework 	into monitor, provide a security monitoring app.
+
+
+
+ b) What progress is enabled thanks to the dissertation on Android security and RV?
+	
+	Investigate if our technique deriving monitors for concrete events from monitors for abstract events leads to better results 	than using monitors derived from LTLFO.
+
+	Investigate the relationship conjecture between future and past operators.
+
+
+
+ c) What progress is enabled thanks to the dissertation in computer science?
+
+	Investigate monitoring possibilties in saftey and security thanks to the RRH algorithm.
+
+
+8.  Use abstract from the presentation.
+
+9.  Submit on 10th September.  Send final version to Markus on the 3rd.
+
+When filling in the submission forms ask Phil if necessary.
+
+
+
+
+

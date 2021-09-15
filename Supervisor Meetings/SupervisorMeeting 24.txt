@@ -1,0 +1,143 @@
+25/09/2020
+==========
+
+Chapter 3
+
+Introduction section talks about background of LTL.  Look in Markus' book - page 85 non-classical logic for a description of LTL.  Section 2.5.3.  Write the introduction section directly  in the chapter not a subsection.
+Say in the presentation of LTL at the start of the chapter that this section follows the description of LTL according the R/H paper.
+
+
+
+In section 3.3 don't mention Android devices just say system - keep it general.
+
+The next sentance say the events we are interested in are observations we can make about the system.
+
+Event is a marker of where the system changes state.
+
+Make this paragraph independent of Android.
+
+
+Then bring in an Android specific example.  
+
+
+Follow this same approach of general followed by specific for the R/H chapter.
+
+
+
+Distinguish between general constructions and examples.
+
+Have an example environment.  Look to Markus' book for this where he puts examples in boxes.
+
+Maybe a security environment.  Latex has features for this:
+
+
+in the preamble
+
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\mdfsetup{skipabove=\topskip,skipbelow=\topskip}
+
+\global\mdfdefinestyle{mystyle}{
+  outerlinewidth=1pt,
+  innerlinewidth=0pt,
+  outerlinecolor=gray,
+%%  topline=false,
+%%  leftline=false,
+  roundcorner=5pt,
+  frametitlerule=true,
+}
+
+\newcounter{FMcont}
+\setcounter{FMcont}{0}
+
+%% the example environment:
+\newcounter{FMexample}
+\setcounter{FMexample}{0}
+\newenvironment{FMexample}[1]
+{\refstepcounter{FMexample}\setcounter{FMcont}{0}\begin{mdframed}[style=mystyle,frametitle={\textbf{Example~\theFMexample: #1}}]}
+{\end{mdframed}}
+
+%% the example continuation environment:
+\newenvironment{FMexampleContMR}[2]
+{\refstepcounter{FMcont}\begin{mdframed}[style=mystyle,frametitle={\textbf{Example~#1.\theFMcont: #2}}]}
+{\end{mdframed}}
+
+
+===========================
+
+\begin{FMexample}{A simple ATM}\label{example:atm_new}
+
+
+Initially the ATM shows a ready screen.  
+A customer then proceeds to
+\medskip
+    \begin{itemize}
+     \item insert a bank card, and
+      \item enter the pin for the card 
+    \end{itemize}
+\medskip
+\noindent
+    following which the ATM will
+\medskip
+    \begin{itemize}
+      \item deliver cash to the customer, and
+      \item return the bank card,
+    \end{itemize}
+\medskip
+before getting ready for a new session.
+\end{FMexample}
+
+
+\begin{FMexampleContMR}{\ref{example:atm_new}}{Modelling basic cash
+    withdrawal}
+
+A single session of our simple ATM can be modelled as follows
+%
+$$
+\mathit{ATM0} = \mathit{ready} \rightarrow
+                \mathit{cardI} \rightarrow 
+                \mathit{pinE} \rightarrow 
+                \mathit{cardO} \rightarrow 
+                \mathit{cashO} \rightarrow \cspStop
+$$
+
+\end{FMexampleContMR}
+
+
+
+http://web.mit.edu/rsi/www/pdfs/theorems.pdf
+
+
+\newtheorem{ex}{Example}
+
+\begin{ex}
+This is my example
+\end{ex}
+
+
+
+When describing LTL:
+
+LTL comes in two flavours one that records states and the other that records transitions.
+
+We are recording transitions and that is what R/H are doing.
+
+https://en.wikipedia.org/wiki/Kleene_star
+
+We are only interested in events not atomic properties.  And we do not say AP we just say sigma.  Do not mentions p is a member of AP and do not mention ai.
+
+Introduce epsilon as the empty trace.  Introduce the e as an event and t as an arbitray trace that could also be the empty trace.  That would be in the case when you are at the end of the trace or the trace only has one event.
+
+Some people use a symbol to glue the event to the trace. Lookin Markus's book.
+
+In the LTL grammar explain what the word literal means.  Because it is used in the sematics definition.  Don't need the LTL operators section.
+
+In the grammar and traces sections we are explaining the symbols used in the semantics secion.
+
+Don't need to use {} in traces, just <>
+
+
+
+
+In chapter 4 separate between general construction and example.  The diagram is an example but the next part is a general contruction.  Use the example environment for the diagram.

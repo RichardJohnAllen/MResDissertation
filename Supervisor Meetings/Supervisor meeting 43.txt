@@ -1,0 +1,16 @@
+1.  In the introduction say that the abstract is on the workshop web page and give the URL.  Say that the abstract was peer reviewed.
+
+2. say the villian maleware _in this case_ steals information.
+
+3. Cite in chapter 2, the paper 62 from the paper Detecting malicious collusion between mobile software application.  This classifies mobile maleware.  Put this in when listing the types of maleware.
+
+4.  We might want to change the order of chapter 3 and 4.
+
+5.  Try to add more flesh to the LTL chapter - we introduce a trace and what properties traces can have can be described in LTL.  It comes in two varients - future and past.
+
+6.  Say that the R/H chpater is for the LTL of the future and name the algorithm R/H.
+
+7.  First paper referenced in related work publishes that collusion in the wild is definately happening.
+
+8.  Say in collusion chapter that collusion was introduced as theoritical concept in 2011 and discovered in the wild in 2017.  Cite the first related paper.  Say thanks to ACiD project collusion was confirmed in the wild.  Make a reference to the ACiD web page.
+

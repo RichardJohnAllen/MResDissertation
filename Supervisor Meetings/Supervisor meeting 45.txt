@@ -1,0 +1,72 @@
+1.  Have citations for points 1 - 4 in collusion chapter
+
+2.  typo in 2.2
+
+3.  regarding machine learning, collusion makes it harder for ml to recognise malware.
+
+4.  Put a link to the acid project as a foot note in the related work chapter.
+
+5.  Information on RV results can be shared on social media or via our app (P2P ideally).
+
+6.  LTL chapter section 4.4 LTL of the future, 4.4.1 grammar 4.4.2 sematics, 4.5 LTL of the past, 4.5.1 grammar, 4.5.2 sematics
+
+7.  Past examples as well
+
+8.  Find citation for the number of bugs per line of code - Steve McConnell, Code Complete, 2nd Edition, 2004, Microsoft Press
+
+9.  Use talk on RV from start of MRES.
+
+Friday 25th group hike on the Gower from Mumbles to Casswell Bay.
+
+10.  Need to submit a intention to submit form.  Week after next.  Maybe Monika or Fan as the internal examiner.
+
+
+
+==================================
+
+
+%2.  In Chapter 3 we propose a solution to the threat of collusion by using a technique called Runtime Verification. We describe that it is a dynamic analysis technique that  monitors activity and does not require the source code of the applications being monitored.  We start by linking the activites that an application performs to operating system calls and describe that we will to record the O/S calls made by applications and then look for specific sequences that indicate possible collusion.  The exact method we use to record those O/S calls is described in the Xposed chapter.  We then reflect upon the limitation we have in detecting collusion because we do not have the specification or source code of the applications being monitored.  Because of this we cannot tell the difference between benign applications that are collaborating with each other to provide more features and malicious applications that are colluding to perform information theft.  Our policy is that if we detect behaviour that follows a pattern suggesting malicious activity then we will assume that it is malicious.  Any techincal process is forced to make this assumption because we do not know the intentions of the developers.
+
+%This chapter establishes that the monitor is more reliable that the applications being monitored because the montior is constructed by a generating algorithm that is assumed to be correct and therefore the monitor will be correct.  While the applications being monitored are assumed to be less reliable because we can say nothing about their construction other than it is recognised that all software contains mistakes therefore will assume they are not correct.
+
+%Runtime Verification also gives us the opportunity to prevent security attacks.  When the monitor recignises a malicious sequence of events has started it can prevent the final O/S call of the sequence from being executed.
+
+%A challenge we face is to keep the computation cost of monitoring low so that it is effective for realtime use.  Typically a monitor slows a system down by 50%.
+
+%We put Runtime Verification into context with other verification processes.  It is interesting compared to other approaches because in principle it is cheaper in terms of development than most other approaches.  We can allow a lower level of quality control because we can be sure the monitor will catch identified hazards of the system. 
+
+
+
+==========================================
+
+
+
+Introduction + motivation of R/V
+
+ At a system level there are things that we do not want to happen.  We can classify these into safety or security properties.  What do we do to prevent these things happening at an implementation level?
+
+It is a serious problem because software is very buggy:  Quote the number of bugs per line of code.  
+
+There are a number of approaches in S/E to solve this problem:
+
+1.  Walk throughs + Code inspections.
+2.  Coding standards - McCabes comlexity metric.
+3.  Software testing.
+
+None of these methods guarantee that they will find all mistakes.
+
+One alternative would be code verification, this can be done with model checking or the use of provers like Dafny (from microsoft - link to web page https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/).
+
+The problem with S/W model checking is it does not scale well and provers need a lot of effort from the developer.
+
+R/V takes a different approach.  It automatically generates monitors from safety or security properties.  The monitor will act as a watchdog that will alert when a property violation happens, this allow intervention and therefore prevention of undesirable system runs.   Provided the monitor generation process is correct then the monitor will be correct.  The cost of R/V is slower system runs because the system needs to log events.
+
+<Flow diagram of classical generation of runtime monitors (have this in the MRES talk on Buchi automaton)>
+
+Here we are not generating the monitor, instead we have a general monitor in terms of the RH algorithm.  This interprets a formula at runtime.  RH is like a runtime interpreter.
+
+This is the bulk of the chapter.  Add some philosophy from the RH paper about why they discard the classical Buchi automaton approach.
+
+
+
+

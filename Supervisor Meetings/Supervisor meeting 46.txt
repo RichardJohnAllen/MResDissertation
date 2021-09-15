@@ -1,0 +1,40 @@
+1.  Expand the acronym KLOC
+
+2.  Make clear that the KLOC measurement is delivered lines of code.
+
+3.  Cite recent KLOC estimates as 2 or 3 web pages.  Use web pages like stack overflow.  Recent data is hard to come by but there is broad agreement between developers that the metric has not improved.
+
+4.  Say that from personal experience of 20 years of working in the software development industry, the Steve McConnell Code Complete book is widely read and highly regarded.
+
+5.  Model checking analyses the state space and the problme is state space explosion.  Dafny has the problem of too many developer interactions to get a proof through.  Dafny also suffers from the problem of no specification.  And it requires source code.  This can be gained by disassembling but the source result is probably obfuscated and the problem is almost one of reverse engineering.  
+
+6.  Say that the dynamic techniques are done by the development team.  The dev team can also be done by the dev team but in our case we will be trying the verify the software of third parties - make this an explicit statement.
+
+7.  Discuss verification alternatives first in the context of the dev team doing them and then say in our case we are looking at third party software.
+
+Maybe think of a table of techniques and development situations, the cells would include the corresponding properties.  Organise thoughts in this way and have paragraphs on each different group.
+
+
+                  Developer effort   Requires source code   Requires Specification    Exhaustive
+================================================================================================
+                 |
+Testing          |    No			No			Yes		
+                 |
+RV               |    No			Not always              Yes		
+                 |
+Model Checking   |    No			Yes			Yes		
+                 |
+Program proovers |    Yes			Yes			Yes
+
+
+
+For each requirement there should be a test.  In the same way you can say for each requirement there should be a RV property or model checking property, or software prover proof.
+
+Usually one requirement one test is possible but with formal techniques we can only do it for selective requirements because each property is costly to verify.
+
+8.  The software crisis was stated in the late 1960s when the cost of software became larger that the cost of hardware.  Nowadays some people speak about software quality crisis as the cost of verification validation becomes larger than the cost of writing software.  Maybe use this in the introduction as well as RV chapter.
+
+
+
+
+

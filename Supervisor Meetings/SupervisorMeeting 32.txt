@@ -1,0 +1,26 @@
+11/12/2020
+==========
+
+1.  Produce an adhoc LTL evaluator for the Russel club by mid january.  Use the standard R/H algorithm.
+
+2.  In the Reverse R/H chapter the main thing is to describe what the differences are.  
+
+Before point 1 and 2 say the first steps are identical to the original algorithm.  Try and find a graphical way to show the differences.
+
+The difference are that the trace is evaluated in the opposite order, the registeres are named differently and the sematics for until are different.
+
+Missing the initialisation sematics for until.
+
+Regarding the next operator evaluate some traces against the standard and reverse R/H and see if the results are the same.
+
+latex has \fbox that puts a box around text.
+
+
+3.  Correctness proof is mostly likely to be by induction over the length of the trace.  We first do a proof on traces of length zero, then we show that provided we have a proof of correctness on a trace of length n we prove that the algorithm works for a trace of length n+1.
+
+
+4.  In the chapter on R/H implementation add some java code after the UML.
+
+
+
+

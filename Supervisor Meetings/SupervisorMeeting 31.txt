@@ -1,0 +1,106 @@
+04/12/2020
+==========
+Missing in the background is a subsection on Android security in the first chapter - Android Platform.
+
+Another subsection of chapter 1 on app collusion in Android.
+
+-------
+
+
+In the contributions we may need a second property for monitoring for microphone access.
+
+Chapter 8 goes and after chapter 9 there is a chapter 10 that is Monitoring Android for Security.  10.1 Monitoring for collusion.  10.2 Monitoring for microphone access.  Within these section demonstrate that these are working.  Put development of the formula under 10.1 and 10.2
+
+10.3 Monitoring for serveral properties at the same time.  Does it scale?
+
+Maybe a section on modelling of security properties in LTL.
+
+
+
+-------
+
+For future work think about the question of which monitoring applications would I like to investigate.
+
+
+-------
+
+Springer guidelines of how to capitalise in headings:
+
+Springer' style for capitalisations in all headings
+
+	• all words start with capitals, with the exeception of
+	•     1 - articles such as "a'', "the''
+	•     2 - prepositions "to'', "with'', "for'', "at’' 
+	•     3 - conjunctions such as  "and'', "or’'
+	• however, every word consisting of 5 or more letters is capitalised, e.g. “About”
+
+------
+
+For paragraph separation use the \medskip Latex command.
+
+------
+
+Umlout {\"o}
+
+------
+
+In the LTL chapter leave out the formula MaxEvents = .... just give a informal description.
+
+In example 1 put the names of the android function calls we are observing.
+
+Put <> around the trace in 3.3.
+
+In the example maybe say that because Android is a multitasking O/S events from different apps will be interleaved.  Put this as a separate paragraph.  On the O/S level the app id is part of the call.  Then explain that the event requires essential metadata which is the process id of the caller.
+
+------
+
+Put a sentance between the heading 3.4 and the definition.  Between two formal environments of a document always put some text.
+
+Try an replace the evntually <> symbol with one the same size as the square.
+
+For the example write something about why we don't use the minimal logic.  Take the part that is in semantics and put it in grammar.
+
+Put some description of the last example.  Just tell it as it is.
+
+Maybe introduce a formula like q -> s -> r -> p but with temporal relationships.
+
+-----
+
+In the backround a couple of pages on RV in a new section of chapter 3.  Name some examples in this section.  What it is and why it is useful.  
+
+
+-----
+
+The maths on page 27 can be centred by using $$ ... $$ commands.
+
+In section 4.3 start the sentance 'Collusion is...' with 'Recall that collusion is...'.
+
+-----
+
+
+Before 6.1 there should be an introduction to the chapter.
+
+Use the chapter 3 introduction as a blue print for other chapters.
+
+The whole paragraph in the 6.1 introduction in past tense.  Instead the Author use 'we'.  
+
+In the sentance beginning 'Key steps'  go into present tense.
+
+Could make the first paragraph of 6.1 as the introduction.
+
+Key steps sentance should be key steps are:  list of steps.
+
+Example 9 should just be a reference to the one in chapter 4.  But I want the arrows showing references to other cells in the array.
+
+Explain the key challenges exactly in the order they are introduced.
+
+6.3 would have performance graphs.  Do bitmaps.
+
+
+
+ 
+
+
+
+
+

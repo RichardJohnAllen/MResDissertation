@@ -1,0 +1,80 @@
+Model-Checking paper
+---------------------
+
+file in dalvic format (binary)
+    |
+    v
+file with assembler mnemonics [automaton too big]
+   |
+   V
+consider the assembler commands with memory abstractions [automaton finite]
+[apply methods of "abstract interpretation" to the program]
+["small" automaton is effectively constructed in K]
+  |
+  V
+check if collusion happens in the "small" automaton [here we use Maude as model checker
+through an automatic translation (should be correct, the model in K should be equivalent to the model in Maude)
+from K to Maude]
+
+
+the method is sound, i.e, if there is no collusion, we won't find collusion
+the method is not complete, i.e., if we find collusion, the collusion might be there due to abstraction
+
+    
+method analysis all possible execution paths
+
+
+======================
+
+Prolog filter paper:
+--------------------
+
+   serves as a rough sieve for potential collusion
+   uses static analysis: but does not know if a op-system call will actually be carried out or not
+
+   takes a piece of code (dalvic code)
+   uses a standard android analyser to get information on permissions + what op-system calls appear
+   somewhere in the code
+   this extracts a "signature" of an app
+
+   rules check if app signature allow of collusion
+
+   statistical data shows: about 25% of looked at app combinations have collusion potential
+
+   that is too much - so we need to take a closer look
+
+   closer look: could be model checking.
+
+
+
+cost for prolog filer < cost of model checking < cost of manual analysis
+
+==============
+
+ML paper:
+
+ML in too inaccurate to provide any reliable information [MR's private view]
+
+  extract "technical data" with static analysis
+  from the learned technical data, come to a classification
+
+====
+
+all 3 papers: 
+
+  first analyse the app
+  then
+  possibly install them
+
+here: a diffrerent approach
+
+  install and run
+  and
+  the monitor will stop anything bad from happening
+
+the trouble is: there are 1000 apps per day/week? [find some statistics!]
+
+
+all the analyses are very costly - 1-2 years of development of specialised analyses
+here: monitoring is well understood,
+      the monitor is "for free" the moment the monitoring framework has been established

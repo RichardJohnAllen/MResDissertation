@@ -1,0 +1,144 @@
+In background have a section describing rosu havelund in my own words and have an example and psudeocode.
+
+Use the listing package in Latex for writing the pseudocode
+
+https://www.overleaf.com/learn/latex/code_listing
+
+
+
+
+
+
+
+exposed framework
+
+
+Markus, 14:22
+developed by XX
+
+in year
+
+various Android versions that it covers
+
+you chose a specific one
+
+for the reason of stability, also taking into account how many people are using this version
+
+purpose of Xposed
+
+means to intercept operation system calls
+
+requires a rooted device
+
+explantion of "rooted"
+
+rooted is unproblematics in China - see newpaper report
+
+but rooted could hinder use of our sofware, as in the UK providers try to disuade users to do so
+
+-- introduction to exposed --
+
+how the exposed framework works
+
+in Android, all processes fork from a "super process" called psygoate
+
+14:30
+zygote
+
+Markus, 14:31
+add reference to biology
+
+the xposed framework inserts code into the zygote process 
+
+through this, it `spreads' all over the processes that are running
+
+what is the zygote process?
+
+how does xposed change the process?
+
+14:35
+geny motion virtual machine works with xposed
+standard android studio does not
+
+Markus, 14:36
+documentation of the xposed methods
+
+possibly, a small example from some xposed documentation 
+
+documentation is only via API documentation
+
+there are some articles that describe the xposed framework
+
+14:39
+10 - 15 lines of code in the background and the full code into an appendix
+
+Markus, 14:40
+references to the internet: rule is - just write "laste accessed on  date"
+
+==== Xposed contribution ===
+
+objective: create logs of selected system operation calls
+
+list of the calls to be logged for demonstrating  informaion stealing collusion
+
+=== section on the architecture of the monitoring system ===
+
+Interceptor 
+
+is the exposed module
+
+that intercepts operation system calls
+
+intercepter informs the monitor via an intent
+
+Monitor:
+
+analyses the trace in relation to a property
+
+if the trace is `accepting'
+
+the interceptor runs all the time in the background
+
+monitoring begins, when the monitoring app is started
+
+alternative design: let the monitor run in the background
+
+not chosen as time consuming to implement
+
+and does not make a difference when it comes to the querstion if the design is feasible
+
+add a picture of the architecture
+
+Note: architecture before implementation with xposed
+
+--- Xposed in Practice ---
+
+[what RA coded for this project]
+
+take your code
+
+and show 10-15 lines excerpts
+
+and explain them
+
+everywhere, where something "interesting" is happening
+
+show the principle
+
+but not all the details in repetition
+
+14:54
+from the write up the reader should be able to repeat the monitor
+
+Markus, 14:55
+writing situation:
+
+a) Rosu/Havelund Bg
+
+b) Rosu/Havelung Contribution
+
+a) Xposed Background
+
+b) Xposed architecture
+
+c) Xposed programming

@@ -1,0 +1,40 @@
+Supervisor Meeting 10
+
+Date 14/02/2020 - 14:15 - 15:30
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+=========
+
+.  Definition of subformula tree (syntax tree)
+	A subformula tree is a binary tree where the nodes are formula.
+	A node has either a left and a right successor, or a node has one successor, or a node is a leaf and has no successors.
+
+	Given a formula, if the outer most operator is binary then the nodes left successor is the first operand and the right successor is the second operand.
+
+	If the outermost operator is unary then the left successor is the single operand.
+
+	If there are no operators then the formula is a literal and the node has no successors.
+
+
+.  Observations of the Rosu / Havelund algorithm (NASA)
+	Cannot exit early
+	Operates in reverse which means the log will grow indefinitely
+	Could probably work forwards - attempt this
+	Algorithm evaluates LTL formulae instead of LTL3.  It may not be necessary to use LTL3, instead LTL formula could be constructed that give the same result as they would as LTL3.  Or if it is necessary to use LTL3 it may be possible to adapt the algorithm to use different evaluation semantics.
+
+
+Actions
+=======
+
+.  Read the prolog paper, find the specification of information theft collusion and create an LTL formula from that.
+
+.  Write up investigation of the Rosu / Havelund algorithm.  Describe the subformula tree as defined above.  Provide thermostat example.
+
+.  Attempt forward pass variation of the algorithm.
+
+

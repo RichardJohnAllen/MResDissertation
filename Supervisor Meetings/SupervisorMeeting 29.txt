@@ -1,0 +1,61 @@
+20/11/2020
+==========
+
+1.  In the LTL chapter, the sentance begining LTL operates upon historic...  this is problematic.  Read chapter2 from Markus' book on temporal logic.  There is a paragraph on what is temporal logic and chapter 5 is on testing where there is also a paragraph on temporal logic.
+
+
+Page 105 has historical notes.
+"The use of temporal logic in computer science was introduced by Kr ̈oger [Kr ̈o76] and Pnueli [Pnu77], who took inspiration from the work done in phi- losophy by Prior and others. For a more extensive presentation of temporal logic, including a proposal of a deductive system for the logic, see the book se- ries by Manna and Pnueli [MP92], and the book by Kr ̈oger and Merz [KM08]."
+
+
+Basic idea of LTL is to describe the temporal order of events and reason upon the order.  By example the phenomenon we want to describe are things like when we send a print request are that eventually the job will be printed.
+
+Logic in computer science is not singular but plural because we want to describe different concepts.
+
+
+2.  Section 3.2 make a trace written in natual language of an application and the user performing actions.  Then formalise it as a trace.  Develop the example from page 13 further.
+
+
+3.  There should be some text around grammar and semantics.  Argue why we do not use a minimal set of operators but instead include and or and implies.  This was chosen for practical purposes because I use all these logical operators and I am not studying the theoretical foundation.  It is not necessary to use a minimal language because the proofs have been done already.
+
+Say that we are defining semantics in two steps which in unusual because we want to explicitly define the empty trace because it corresponds with the two phases of the R/H algorithm.
+
+4.  Put the LTL formulae example after the grammar.
+
+5.  Use an example trace and the formulae to show the evaluation of the trace.  Example evaluations.  Use the formula that we later use as an example in the R/H algorithm.
+
+6.  Need a chapter on android security within the background half.  It shoudl talk about security in general then security in Android and app collusion as a specific threat.  A page each. It should be between chapters 2 and 3.
+
+7.  Also a chapter on runtime verification?
+
+
+
+Complexity analysis (7.4)
+===================
+
+Have a section on the interpretation of the anaylis in a montitoring situation.
+
+In a monitoring situation the monitor should react to events.  To this end the monitor needs to compute its reaction before the next event arises.  Lets call the interval between two events I.  Lets call the computation time of the monitor T.  Then we require from the monitor that T < I.
+
+In the R/H algorithm T grows with the length of the trace therfore the runtime of R/H algorithm is unbounded and will exceed any I eventually.  
+
+Give an order for I in the contrext of Android.  For a technical system it is realistic to have an expectation on the duration of I is that there is no upper bound and the lower bound is in the order of milliseconds in the context of an operating system like android.  Maybe discuss the quantum given for each process (the interval between context switches) and the time to perform the context switch.
+
+As I is small R/H will be limited to small traces i.e one has to delete information but this comes at the price that monitoring becomes incorrect because it might miss attacks.
+
+
+
+At the beginning of the R/H section say that the algorithm was chosen thanks to its low runtime complexity and quote R/H saying they are the fastest.  In practical experiments we discovered a weakness - see section X.  In section 4.2 we provide a complexity analysis and show in section 4.3 why R/H might be problematic in a monitoring situation.
+
+Put the analysis into the context of monitoring and collusion.
+
+Make the point that it is not known when the act of collusion starts.  It may be that information is read and then the trace is deleted before the information is passed to another application.
+
+
+Maybe make the analysis the start of the contribution section.
+
+Make chapter 7 into two chapters.  7.1, 7.2 and 7.3 would be the new chapter 7. Conclude this new chapter 7 with our discussions of the problems with R/H.  7.4 is the discussion described above.
+
+Make a new chapter 8 which is the reverse R/H algorithm.
+
+Make chapter 6 into chapter 9.  

@@ -1,0 +1,18 @@
+Supervisor meeting
+
+03/07/2020
+
+1.  Must reference the diagrams in the text.  Guide the reader.
+
+2.  Multiplicity * means unbounded.  n means bounded.
+
+3.  Architecture diagram should include the O/S stack.
+
+4.  In the background section describe how to install the xposed framework, how to develop using it.
+
+5.  All diagrams should be described in text, refer to the diagram and say what it illustrates.
+
+
+
+
+

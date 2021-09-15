@@ -1,0 +1,12 @@
+27/11/2020
+==========
+Instead of saying LTL operates on 1 list of infinite length.  We are saying there will be infinitely many lists of finite length and LTL will tell us if any one of those lists satisfies a property.
+
+Evaluating LTL over infinite traces is necessary when dealing with e.g. issues of fairness.  For example a print server serving client fairly.  At any given time the server may only have served one client but if the trace is infinite then there is still an oportunity to server other clients in future.
+
+We are using finite traces because we are doing runtime verification.  RV says we observe the system for a finite period of time and come to a conclusion if the process is running safely or not.  Therefore we only look at finite traces (assuming that the interval between events there is a finite amount of time).  The minimum interval between events is a single processor clock tick.  So if we observe for a finite period we can observe a maximum number of events because we will have x clock ticks in that period.  Although the monitor is intended to run forever, after each event the trace will finite in length.
+
+Put this last paragraph into the introduction.  Don't need to say too much on fairness, just say it is one of the reason why infinite traces are necessary.
+
+In the semantics comment on where RH deviates from standard defintions over infinite traces.
+

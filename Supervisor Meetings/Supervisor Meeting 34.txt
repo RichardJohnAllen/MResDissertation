@@ -1,0 +1,48 @@
+1.  Can use the figure from the android secuirty book but reference the book.
+
+2.  Use the sentance 'closely following <Android Security book>, we give an overview of the topic of android security.
+
+3.  Use of DVM is also due to the security aspects?  Check this.
+
+4.  Argue that code increase is smaller than data so memory usage does not increase much.  Rather than process energy risign exponetially and memory lineraly.
+
+5.  the chapter should prepare the reader for the impact of Android on collusion.  So android considers certain resoures as protected and the naive view we are taking is to say that everything android sees as protect is a secret for information theft.  Concrete examples are that android protects access to location information therefore data coming from accessing location information is seen as a secret.  Similar for access to pictures, camera, microphone, contacts.  Android protects proccedure calls and we are saying the data is a secret.
+
+6.  In the LTL chapter use the word action instead of activity.
+
+7.  In the reverse algorithm chapter.  There next register is an intermediate result of evaluating a trace event that we wish to reuse when the next event is received and must be evaluated.  Something like:
+
+T = a1 .. an
+
+For the computation of RH what we are doing is
+next[an]
+next[an-1, an]
+..
+next[a1..an]
+
+!!!!!  what Markus said there doesn not quite make sense
+
+I think it should be
+
+For the computation of RH what we are doing is
+next[an]
+next[an, an-1]
+..
+next[an..a1]
+
+!!!!!
+
+Reverse RH
+prev[a1]
+prev[a1,a2]
+...
+prev[a1..an]
+
+T' = a1 .. an, an+1
+
+In Reverse RH we can reuse prev however in RH we cannot reuse next because T' is a1 .. an+1 but next[a1..an] and does not contain an+1.
+
+
+
+
+

@@ -1,0 +1,13 @@
+Supervisor Meeting 37 - 16/04/2021
+==================================
+
+Questions for Markus I have go into a habit with some names.
+
+1.  Names of registers previous and next are in italic.  I don't know if this is a good idea or if I should just have done that for the first usage.
+
+2.  Names of interceptor and monitor are sometimes capitalised and sometimes not.  Which should I use?  The same for Reader and Publisher.
+
+3.  Should Android be capitalised?
+
+4.  Should Rosu-Havelund be capitalised?
+

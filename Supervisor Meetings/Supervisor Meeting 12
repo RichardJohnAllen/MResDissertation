@@ -1,0 +1,33 @@
+Supervisor Meeting 12
+
+Date 26/02/2020 - 14:00 - 15:00
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+=========
+
+.  Helping with a lab session on Friday for one of Markus's subjects.  Agreed to assist.
+
+.  Brought my write up of the R-H algorithm but Markus had not read the copy I sent earlier via email.
+
+.  Discussed the second Rosu Havelund paper (Testing LTL Formulae On Finite Execution Traces).  It is not a alternative to the algorithm in the first paper (Synthesizing Dynamic Programming Algorithms from Linear Temporal Logic Formulae).  The second paper describes a study of the algorithm using Maude.  It also describes a correctness and completeness proof.  The paper describes one difference between LTL and infinite trace compared to LTL and finite traces.  The difference is the definition of the Always operator which has to be defined differently for finite traces because every finite trace ends with an empty trace and this causes a problem.
+
+.  Discussed my first attempt at an LTL formula for detecting sensitive information theft - ¬(E(a -> E(c) -> E(s))).  This formula is supposed to describe that a will not precede c and c will not precede s.  I found this did not work satifactorily.  Have been investigating another formula for describing a precedes b - A(¬a) V ((¬b) U a).  This works better but still have problems.  We get onto the semantics of LTL according to the R-H paper.
+
+.  We discuss LTL3 and if we still need it.  It does sound like it has advantages to standard LTL.  Markus suggests a study of the differences that attempts to prove that when an LTL3 formula is evaluates as true for a given trace that it will evaluate T in R-H LTL.  And that an LTL3 formula that evaluates as false will evaluate as false in R-H LTL semantics.
+My implementation of traces include single propositions for each event rather than a set of propositions as described in LTL3.  When defining a trace for LTL3 use events that are sets with a single proposition as a member.
+
+
+
+Actions
+=======
+
+.  Further investigate precedence formula.
+
+.  Attempt proof that validity of formulas LTL3 is equal to the validity in R-H LTL.
+
+.  Continue programming monitor in time for easter.

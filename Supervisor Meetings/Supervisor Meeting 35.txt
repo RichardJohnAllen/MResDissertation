@@ -1,0 +1,23 @@
+Supervisor Meeting 35 - 29/01/2021
+==================================
+
+1) In the figure 1.1 say in caption ,c.f. [6]  (cite the book)
+
+2) Manifest is missing from secutiry chapter and a table of different permission type, make this an independent subsection.  Before IPC section
+
+3) Say why security is important for android because android is big so it runs on mobile phone, tablets etc and is installed millions of times (cite this)  Users store secrets on their devices.  Look at the McAfee threat report on growth of malware or cybercrime for android.  Google the monthly threat reports that show the statistics.  This section could also be part of the introduction to the dissertation.
+
+4) Start an abstract in Latex for MT-CPS https://sites.google.com/virginia.edu/mt-cps2021/past-events
+
+2 pages
+
+include visualisation of the performance of the reverse monitor
+
+5) Make the conplexity analysis the first section in chapter 7.
+
+
+
+
+
+
+

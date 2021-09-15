@@ -1,0 +1,38 @@
+Supervisor Meeting 36 - 05/02/2021
+==================================
+
+1.  Put a sentance summariesing the RH chapter at the end.
+
+2.  Tell the strategy behind the test case selection.  Here the 2 inputs - trace and formula.  Question is why do we choice a specific trace and formula.  This is what we need to answer.
+
+Testing
+-------
+1.  Test case selection
+2.  Test execution
+3.  Test evaluation
+4.  Test documentation
+
+Write about 1, 2 and 3, put 4 in an appendix.
+
+In number 3 we have a summation of the test results.  Just say how many of the tests passed.  The appendix contains the results of all the tests.
+
+Write about the automation of the testing in test execution (2).
+
+
+
+
+
+Algorithms
+
+Program - implementation of an algorithm
+
+Verification checks that the algorithm works
+
+Testing checks that algorithm and program
+
+
+
+
+3.  In example10 where I describe the extending trace give T an index T_1, T_2 etc.  T' is T_n+1.
+
+Keep description of what is happening in the example.

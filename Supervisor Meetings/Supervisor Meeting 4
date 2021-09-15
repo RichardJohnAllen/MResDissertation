@@ -1,0 +1,37 @@
+Supervisor Meeting 4
+
+Date 06/11/2019 - 15:15 - 17:45
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+
+.  3 areas of focus
+  a) Vellemann book, presentation needs to be done by next week and essay shortly after.  Need to get going on this.  I have read most of chapter 3 but still have to read the section I am presenting.
+
+  b) Study paper for presentation and report, making progress on this.
+
+  c) Project initial document
+	i)   Background - Read about the Android O/S from the Data Analytics and Decision Support for Cybersecurity book.  Learn how to develop for Android phones that are rooted.  Android Studio for Eclipse is only for non-rooted phones.
+
+	ii)  First Own Contribution - Software to extend O/S calls and log them.  Techniques for doing this use the Xposed framework and are in https://github.com/idanr1986/droidmon, https://github.com/cyruliu/Sensitive_API_Monitor.  
+		Should have something done by end of Dec/Jan that can log a single protected O/S call along with it's parameters.
+
+	iii) Related work
+
+.  Research Hypothesis:
+  Runtime verification at O/S call level can effectively protect andriod phones against security threats.
+    
+
+TODO
+.  Prepare for the presentation of Vellemann chapter
+.  Do background reading of Android O/S
+.  Try to get a phone from Phil James.
+.  Make some progress on development environment for rooted Android phones
+
+
+  
+

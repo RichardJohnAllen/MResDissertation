@@ -1,0 +1,34 @@
+07/09/2021
+==========
+
+Want to talk about:
+
+1.  No code snippets.
+
+2.  Only 5 papers in related work.
+
+3.  Section about complexity of RRH is only a paragraph.
+
+4.  Long term future work is a bit light.
+
+5.  Added OS calls intercepted into the high-lvel Monitor design chapter.  Is that adequate?
+
+
+
+================================
+
+1.  In collusion photo write Monitor 0: Possible Collusion Detected.  Explain there is an array of Monitors within the app. - DONE
+
+2.  Demonstrate a negative test.  Don't send an intent from the Reader. - DONE
+
+3.  In Future work rephase - with a further six months, with 'in the medium term, say, with six more months of research'. - DONE
+
+4.  In abstract put a footnote saying the abstract is the one published for the talk. - DONE
+
+5.  Clarify what we think related work is.  Start related work chapter with: 'As related work we consider publications on collusion detection and publications on monitoring for security in Android.'  'Here we have identified two main streams of work.  For collusion detection it is the outcomes of the ACiD project,for monitoring for security it is publications from the group of Bauer.  We discuss both below.  - DONE
+
+6.  In the O/S call description, add that for every security threat we must understand how that threat is performed and identify the O/S calls to monitor.  Talk about that the events we are looking for are abstract.  But each abstract even may be performed in different ways.  Many different O/S calls could result in the same abstract event.  Cite the paper on the prolog checker, there is an analysis on which O/S calls perform each part of an attack.  Say that people have done this analysis already.
+
+Say that we can anticipate a weakness and speculate that it will be exploited in future and monitor for it.
+
+7.  In biblography make the visited date November 2021

@@ -1,0 +1,39 @@
+Introduction
+
+1.  Write up introduction is a half page version of the first slide.
+
+2.  Project Aims come next.
+
+3.  Gave presentation at workshop.
+
+4.  Overview on the dissertation.  A spelled out table of contents.
+
+4.5  The section in chapter 2 on Collusion (section 2.5) needs to be improved from the presentation slides.  Talk abstractly without LTL.  Read the book cited in App Collusion and Operating Systems from the presentation (Detecting Malicious Collusion Between Mobile Software Applications).  Read the page before the definition.  Reflect upon collusion.  Malware in principle has malicious intentions but they use benign O/S calls to achive this.  How do we know that the software we are running is malicious when we do not have a specification for the app?  When we see behaviour that follows a pattern that suggests malicious activity then we make the assumption that it is.  Any technical process can only work on that assumption because we don't know what the developers were trying to achieve and it could be malicious or benign.
+
+We are trying to say what a techincal system can and cannot detect.
+
+5.  LTL chapter needs to include the past operators
+
+6.  Need to write Runtime verification chapter.  Construct monitor automatically under assumption that the generating algorithm is correct then the monitor is correct as well.  Therefore the monitor is more reliable than the system to be monitored.  Explain every S/W includes mistakes (cite microsoft book circa 2000 said 50-100 bugs per 1000 lines of code), if our monitor does not then we have improved the system by using a monitor.  
+
+Write on R/V on security.  It is helpful because it catches attacks the moment they happen.  For instance our collusion property could stop the system after 3 conditions and the collusion would be prevented.  
+
+The monitor has computation cost.  The benchmark is that monitoring slows a system by 50% (citation required).
+
+Put R/V into context with other verification processes.  Why is it interesting compared to other approaches?  In principle adding a monitor is cheaper in terms of development than most other approaches.  
+
+Given a general analysis of what are the hazards of a system then we can monitor for those hazards and we can have a lower level of quality control.  Static analysis, testing, formal verification.  We can be sure the monitor will catch hazards.  Do not need to do a deep comparision.
+
+7.  Related work
+
+Two parts
+
+A)  Other approaches for collusion detection, take the 3 paper references from the presentation (Runtime Monitoring In Context).  Half a page for each.
+
+B)  Other approaches for security on Android  - the two papers from the collegues we know.  The paper that we cite in out abstract and the follow up paper.
+
+
+
+7.  In R/H chapter speak about the Buchi construction and why Rosu-Havelund instead.
+
+8.  Put Xposed Framework chapter directly after Android Chapter.

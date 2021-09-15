@@ -1,0 +1,43 @@
+Supervisor meeting 16
+
+1.  Put some UML diagrams in for the architecture section.
+
+2.  Describe in detail the overriding of operating system method use examples of overriden methods in the background section where I describe corresponding interceptor methods overriding O/S methods.  Do this as a figure so it reaches a technical level.
+
+3.  In the background section about Android, describe what an intent is.
+
+4.  Give another figure in the background section that details the intent.
+
+5.  Section 6.2 there is a reference to Rosu-Havelund, after mentioning this reference the chapter where it is described and a reference to the new version.
+
+6.  Describe two development cycles, one is the strategy I have taken with two modules.  The other strategy is both combined.  Illustrate there are two possible strategies, compare and contrast so as to explain why the choosen strategy is better.  Give a flow diagram to describe it.
+
+Write about how the stable part of the system is the reporting of events and the part that requires more development cycles is the analysis of the trace.
+
+7.  Papirus for generating UML diagrams, tricky to use but free.
+
+8.  Correct the error in 1.3 - it is a Dalvik Virtual Macine not a Java Virtual Machine.
+
+9.  Rosu-Havelund algorithm background section
+
+Should say:
+Where to find the paper
+When it is dated
+What the benefits are, R/H give reasons why they developed algorithm
+Present pseudocode for the algorithm
+Give complexity results for time and space in terms of the size of the LTL formula
+Present example LTL formula
+Execute the algorithm on a given trace just like in my notes.
+Probably 3-4 pages of work
+
+10.  In the Rosu-Havelund contribution section I can begin my saying how I implemented their version and found it did not perform adequately.  Give test results.  Then say how I made changes to improve it.  And describe the new verison.
+
+11.  Background on LTL
+Read section 2.1 and section 2.2 in Markus's Formal Methods in SE book.  Discuss with Markus next time.  And then read 2.5.1 and 2.5.3.  This gives background knowledge to write on LTL.
+
+
+
+
+
+
+

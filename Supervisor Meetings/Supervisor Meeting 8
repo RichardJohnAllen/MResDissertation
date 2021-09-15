@@ -1,0 +1,19 @@
+Supervisor Meeting 8
+
+Date 28/01/2020 - 10:00 - 11:00
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+
+Feedback on essays
+  Vellemann essay was good but mistake on the interpretation of quantifiers.  To say they are shorthand for CNF and DNF is only true for finite domains.  Godel shows this does not work for infinite domains such as the natural numbers.  Quantifiers solve the problems associated with infinite domains.
+
+Literary review of RV papers
+  Read 'Runtime Verification meets Android Security' paper that I cited[5] in the proposal.  List the papers that cite that paper to decide which of those to read further.  Present findings next meeting.
+
+
+Look for tools to automatically construct a monitor from LTL.  Read 'Synthesizing Dynamic Programming Algorithms from Linear Temporal Logic Formulae' paper and the example within it.

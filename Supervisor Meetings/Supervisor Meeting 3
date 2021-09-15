@@ -1,0 +1,39 @@
+Supervisor Meeting 3
+
+Date 29/10/2019 - 14:00 - 15:00
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+.  Markus suggested using the Runtime verification for LTL and TLTL paper as my subject paper for CSM-05 essay and talk Advanced Topics in Logic.  Write the essay on sections 2 + 3.  This requires a proof so prove the lemma in 2.5 or 3.8 lemma.  Theorem 2.7 follows from 2.5.
+
+Give a talk on the same thing.
+
+.  I talked about more of the RV paper.  Markus suggested I give traces as examples of T, ⊥, ?.
+
+   φ := ¬pUinit
+
+Traces in the notation or what ever is the notation of LTL
+  <{¬p, ¬init} , {p, ¬init}> |= ⊥
+  <{¬p, init}> |= T
+  <{¬p, ¬init}> |= ?
+
+
+ sigma = 2^AP is the power set of AP so it is all combinations of the finite set of AP
+
+eg AP = {j, k ,l}
+2^AP = { {}, {j}, {k}, {l}, {j, k}, {j, l}, {k, l}, {j, k, l} }
+
+Which is similar to my thought of j k l and ¬j, ¬k, ¬l because where a letter is left out it is equivalent to the ¬ of that letter.
+
+.  Markus described android project further and it is exciting
+
+
+TODO
+.  Read more runtime verification
+
+  
+

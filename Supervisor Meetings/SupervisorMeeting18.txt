@@ -1,0 +1,9 @@
+1.  Background - Propositional Logic (LTL).
+
+Don't read so much about deductive systems.
+
+Read 2.5 and 2.5.1 about non-classical logics and 2.5.3 about Temporal Logic.
+
+
+
+

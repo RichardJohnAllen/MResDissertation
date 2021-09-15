@@ -1,0 +1,76 @@
+Supervisor Meeting 7
+
+Date 16/01/2020 - 14:00 - 15:30
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+
+Exam dates
+  Blockchain 20th 14:00-16:00
+  Logic 23rd 9:30 - 11:30
+
+Proposal approximately 20 pages
+
+  Introduction 1.5 pages
+    Place the topic in Computer Science
+      Cyber Security - Davos say this is very important for mankind
+      Android use is widespread
+      Project is about mobile security for android
+
+    Specific angle of the project
+      Runtime verification and mobile security
+      For app collusion and other threats.  Paper on prolog filtering
+
+    Project aims
+      Formulate app collusion properties in LTL
+      Generate monitors for the LTL formulas
+      Realise the monitors in android
+      Evaluate the monitoring technique - does it work well, can it discover app collusion
+
+
+  Related Work 1 page
+    3-4 other related publications that are similar but say how they differ to this
+    Talkabout the prolog paper
+    Talkabout the model checking paper
+    These are both static analysis techniques and differ to ours which is dynamic analysis
+    Look into 2-3 papers for runtime verification and security
+
+
+  Background 6-8 pages
+    Explain fundamental principles of domain we a working in
+      Android security
+        Apps run in sandboxes
+        Apps have persmissions
+        Interapp communication is possible
+
+    Explain concept of collusion
+      Get this from data analysis book
+      
+    Explain runtime verification
+      Use transformation picture + lightweight explaination from essay
+    
+    Write about how the exposed framework works
+
+
+  First own steps 6-8 pages
+    Demonstrate first results that may have been achieved
+      Put the code for the proof of concept in an appendix
+      Put code snippets that illustrate steps into the text and explain the steps
+      Put trace output snippets into the text
+
+
+  Planning
+    Feb - LTL security properties
+    Mar - LTL -> Monitors
+    Apr - Realise monitors as apps or 1 app
+    May - Testing and evaluating monitors
+    Jun - Look at different sec properties, optimise approach and scale approach
+    Jul -
+    Aug - Write up
+    Sep - Write up
+
+

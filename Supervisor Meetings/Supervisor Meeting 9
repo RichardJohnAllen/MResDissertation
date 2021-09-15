@@ -1,0 +1,57 @@
+Supervisor Meeting 9
+
+Date 04/02/2020 - 14:00 - 15:05
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+
+Literary review of RV papers
+============================
+  Presented brief description of 9 papers that I had read abstracts from.  See Project Notes/Papers Citing Runtime Verification Meets Android Security
+
+    Read further in order of priority
+
+      'RV-Android: Efficient Parametric Android Runtime Verification, a Brief Tutorial' - If the monitor generation libraries are commercial then we will make our own.
+
+      'Verifiying Policy Enforcers' - Read for the material about monitoring, otherwise lower priority/out of scope
+
+      'Android Fragmentation Classification, Causes, Problems and Solutions' - Lower priority but I think it might be useful to understand something of the issue.
+
+      'Efficient runtime-enforcement techniques for policy weaving' - Related but lower priority
+
+      'Device-centric Monitoring for mobile device management' - Related but we will achieve this by a different means.  Read + look at examples they wish to monitor.
+      
+
+Continue to review papers looking for related material until about easter.  Keep a document of related papers that should describe:
+  1.  What they are doing
+  2.  How we are related
+  3.  How we differ
+
+When searching look for papers that cite ours and the others we are interested in and look for papers by reoccuring authors.
+
+
+Objectives for monitor
+======================
+
+1.  To list all network activity by applications in the last 24 hours.  Be able to show app name, amount of data read and written, server name
+
+2.  Ability to block apps from using the internet in the background.  Could be done when we intercept an O/S call by exiting intercepted call without delegating to proper O/S method.  If we do this then our monitor is not simply reading state but it is effecting state so it becomes an enforcer.  This could be left until the next step of research.
+
+
+Algorithm from 'Synthesizing Dynamic Programming Algorithms from Linear Temporal Logic Formulae' paper
+======================================================================================================
+
+Look up formal definition of 'path tree for a grammar' in Compilers: Principles, Techniques and Tools (Dragon book) by Aho and Ullman
+
+Need this to know how to draw a tree for a formulae.
+
+Read more about the algorithm so we can understand the semantics fully and how to implement it.  Keep in mind that it operates on LTL rather than LTL3.  We want to be able to take any formulae as the input to the algorithm.
+
+Will have to give a correctness proof for algorithm if we use it.
+
+
+

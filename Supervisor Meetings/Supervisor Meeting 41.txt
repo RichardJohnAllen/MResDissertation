@@ -1,0 +1,43 @@
+Supervisor Meeting 41 - 07/05/2021
+==================================
+
+Issues.
+
+1.  The Monitoring For Security Properties chapter is difficult because I start talking about the monitor architecture and complexity before the respective chapters.  I am getting ahead of myself.
+
+
+2.  The thoughts on a finite length trace and loosing events.  Even if the earliest event is removed from the trace the previous register still includes that evaluation so it will still be acted upon.
+
+
+3.  The list of satisfying events that I keep can grow indefinitely.  I keep this list for two reasons, initially it was just so that when a monitor is triggered it can report which events caused it to be triggered.  I now use that list for evaluating the dynamic conditions.  It is quite necessary but it will grow indefinitely.  Infact it could end up being the same length as the full trace.  This will be the case when only one formula is being monitored and the interceptor only produces events to support that formula.
+
+
+
+
+
+<>(q /\ <>s)
+
+
+q s |= q /\ <>s or s |= <>(q /\ <>s)
+
+q s |= q and q s |= <>s
+
+q s |= q = True
+
+q s |= s or s |= <>s
+
+q s |= s = False
+
+s |= s or <> |= <>s
+
+s |= s = True
+
+
+
+
+
+E(q /\ E(s /\ E(r /\ Ep)))
+
+
+
+

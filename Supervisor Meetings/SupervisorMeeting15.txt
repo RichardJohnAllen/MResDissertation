@@ -1,0 +1,22 @@
+In the background describe the operating system layers, a section on Linux, Android and the Exposed framework.  Introduce the operating system stack.  Like a novel first act describes the people, place, time etc.
+
+
+In the background section I do need to state which Xposed API calls I use and explain what they do.  Give an overview of the Xposed API, decribe what the Xposed API offers.  Then say out of the whole API which parts I am using.  Explain fully the parts that I use.  This makes the document self-contained.
+
+
+Background will be 40%.
+
+
+Put references in early because it is quicker.  Otherwise it may never happen.  In scientific writing every statement is either new and explained and proven or it is a reference to something that has been proven already.
+
+
+Do a skeleton Latex document with all the sections in that we can adjust where necessary and fill in.
+
+
+Don't bother too much about the version of Android and Xposed as this is prototypical research.
+
+
+
+Jump between writing background and contribution during the day.
+
+

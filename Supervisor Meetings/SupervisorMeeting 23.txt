@@ -1,0 +1,80 @@
+18/09/2020
+==========
+
+Page 31 where it says the nodes are formula say it is decorated with a formulae - they are not actually formula.  Two nodes are connected if one node has the other node as a direct subformula.
+
+Step 3 show a diagram of the registers.
+
+Step 4 where I say about the initialisation of the next register put the truth values in that come from the empty trace.
+
+In the second stage of the algorithm there is nothing that mentions referencing the next register when evaluating.  Problem is the semantics are in a different section and they are not written in terms of the algorithm.  Move those into a LTL section and have new sematics here.
+
+On page 35 where I have operators for and and or use \land \lor.
+
+\, is a small space in latex.
+
+\ is a big space.
+
+
+In the test section we have to decide if the formulae is under test or the algorithm.
+
+We should be testing the implementation of the algorithm because RH have already proven the algorithm.  This means the testing section should go into section 7.5 (Implementation).
+
+
+Section 7.2 Semantics should go into chapter 3.
+
+Need to describe a trace in this section as well.
+
+What is in 7.1 should go into chapter 4.
+
+Chapter 7 should be 'Monitoring for LTL with performance analyses in Android'.  It should be the implementation of the algorithm + testing and then discuss scalability.  Say I implemented Rh and tested and had trouble with the scalability so I developed reverse RH, tested andmake remarks on scalability.
+
+7.1 implementation of R/H
+7.2 testing R/H
+7.3 scalability/perfomance evaluation
+7.4 reverse R/H
+7.5 correctness proof of reverse R/H (optional)
+7.6 implementation of reverse R/H
+7.7 testing of reverse R/H
+7.8 perfomance and scalability
+
+
+In chapter 6 talk about a Generic Monitoring System Architecture for Android
+
+Chapter 8 Monitoring App Collusion
+
+Investigate more things to montior such as opening the mic.
+
+Figuring out the formula for collusion should come in this chapter.
+
+
+Will have to write in the background section about android security and app collusion.    That should be chapter 5 and related work should be chapter 6.
+
+Future work section - there is a virtual xposed framework.  Was not available when this was started.  Integrate Xposed directly into monitor architecture.  Utilise monitoring for futher security properties.  Utilise monitoring beyond security but for safety applications.
+
+
+Introduction
+============
+Motivation for the project.
+
+Monitoring on Android was thought impossible due to energy and resource requirements being too high.  This project shows that is not the case.
+
+Try to find references where monitoring is dismissed.  
+
+
+
+
+Plan
+====
+It is about deciding how much time to spend on the document.
+
+
+
+
+
+
+
+
+
+
+

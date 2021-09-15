@@ -1,0 +1,15 @@
+Supervisor Meeting 36 - 12/02/2021
+==================================
+
+1.  If an LTL formula does not contain any temporal operators then it only considers the first event in the trace.
+
+2.  The semantics need changing
+
+
+Let sigma be and alphabet of actions
+phi is a literal
+
+For all e which are elements from sigma, t which are traces over sigma, phi which are LTL formulae over sigma, we define:
+
+Then the semantics of each operator.  Use the ^ to concatenate the e and t (<e> ^ t)
+

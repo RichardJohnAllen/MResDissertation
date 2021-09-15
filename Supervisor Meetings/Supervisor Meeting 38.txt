@@ -1,0 +1,78 @@
+Supervisor Meeting 37 - 26/02/2021
+==================================
+
+7.2.2
+=====
+
+1.  Modal logic convention.  Use G for always and F for eventually.
+
+2.  Potentially put the example before the parser paragraph.
+
+7.3
+===
+
+3.  7.3.1 For the testing we use the following testing hypothesis: we assume that an LTL operator works in the same way at any depth in the formula.
+
+4.  Maybe the tables could be one big picture.  A table of tables.
+
+Put a sentace in that refers to the table.
+
+
+5.  Put in a screenshot that shows a test pass into 7.3.11 and say all tests pass.  Count the number of test cases and say they all pass.
+
+
+7.4
+===
+
+6.  We can mention non-functional properties of the algorithm here.
+
+7.  Maybe put chapter 10 as the first contribution.  Say we want to do a monitor and it will look as described in chapter 10.  When describing the monitor say it will check from properties of collusion and will use an LTL evaluation system liek the RH algorithm.
+
+8.  Use a table to put the Read and Publisher GUI on the same diagram.
+
+9.  Put a footnote explaining Tom Waits.
+
+7.4.2
+=====
+
+10.  Say that the formula evaluation is correct but there is a problem with the environment which means the monitor crashes after 60 events.  We did not look into this further because we wasnt to produce a better solution.
+
+11.  We need a reference to Android Studio and the Profiler. Repeat the one from the earlier.  It must be a reference that describes what these things are and do.
+
+12.  Describe the screenshot of the Profiler tool.  Describe what we see in the screenshot.
+
+13.  Put a graph line of n(n+1)/2 and make the conjecture that the measured times are in correlation with this function.
+
+14.  Say that it is self-evident that the algorithm is not suitable and we will not continue with it or investigate why any further.
+
+15.  In table 7.2 use the Latex formatting R for right for the duration so that the column is not centred.
+
+16.  Move chapter 9 to before RH implementation as well.
+
+17.  In the abstract argue that an Android device is a cyber physical system.
+
+
+"As smartphones has replaces the personal computers, they have become a key component of CPS. However, the integration of mobile devices with industrial IoT networks (such as CPS) exposes the IoT devices to significant malware threats. Mobile malware is the highest threat to the security of IoT data, user’s personal information, identity, and corporate/financial information. This paper analyzes the efforts regarding malware threats aimed at the devices deployed in industrial mobile-IoT networks and related detection techniques."
+
+https://iopscience.iop.org/article/10.1088/1755-1315/322/1/012012/pdf
+
+
+Wikipedia definition of CPS:
+
+"A cyber-physical system (CPS) is a computer system in which a mechanism is controlled or monitored by computer-based algorithms. In cyber-physical systems, physical and software components are deeply intertwined, able to operate on different spatial and temporal scales, exhibit multiple and distinct behavioral modalities, and interact with each other in ways that change with context.[1] CPS involves transdisciplinary approaches, merging theory of cybernetics, mechatronics, design and process science.[2][3] The process control is often referred to as embedded systems. In embedded systems, the emphasis tends to be more on the computational elements, and less on an intense link between the computational and physical elements. CPS is also similar to the Internet of Things (IoT), sharing the same basic architecture; nevertheless, CPS presents a higher combination and coordination between physical and computational elements.[4]"
+
+
+An embedded is a system where the purpose is not to compute however it has a control component which is a computer.  A typical example would be a car.  The purpose is transporation however it has about 80 computers in it that support that function.
+
+A mobile phone has a purpose to communicate and the computer supports this.  A CPS is an embedded system that can communicate.
+
+1.  Study distributed systems because we have several embedded systems that communicate with each other.
+
+2.  Because the system is open it can be attacked over the communication interfaces.
+
+The second point is where our study fits in.
+
+Question, where does Android run?  1.  smart phone.  2.  tablet.  3.  Smart TVs. 
+
+
+Provide a paragraph arguing why Android is an operating system used for realising CPS.  Make this the opening statement.  Then say that Android is often attacked or open to malware.  What we are doing with RV provides the Android user with a warning system against attacks.  This warning system is a real time system.

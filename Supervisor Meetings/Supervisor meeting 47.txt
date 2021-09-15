@@ -1,0 +1,65 @@
+1.  
+
+
+                  Extra Code Required   Requires source code   Requires Specification    Exhaustive(all inputs tried) Should be performed by QA Can be performed by dev 
+=======================================================================================================================================================================
+                 |
+Testing Black Box|    No			No			Yes		 	No			Yes				No - independence
+		 |
+Testing White Box|    No			Yes			Yes		 	No			Yes				No - independence 
+                 |
+RV               |    Yes - Monitor		Only adding logging     Yes		 	No - not considering	N/A				N/A
+                 |				where not automatic				everything that could 
+		 |				Must take over when				possibly happen.
+		 |				monitor alerts					Impossible to consider
+		 |										Infinitely many traces
+		 |										in a system run
+		 |	
+Model Checking   |    No - Model often 		Yes			Yes		 	Yes			Possible			Yes
+                 |    auto extracted
+		 |    (possible with Java Pathfinder)
+                 |    KAndroid extracts models (from related work)
+                 |
+Program provers  |    Yes			Yes			Yes		 	Yes			Possible			Yes
+		      Work on original code										Might require special
+		      (KeY, Dafny, Spark ADA)										expertise
+                      Proof annotations
+                      (can become bigger than
+                       original code)
+
+
+
+                  	Requirement coverage			When performed		Degree of automation
+=======================================================================================================================================================================
+                 |
+Testing          |  A test for each requirement			Dev cycle		Development is manual 
+		 |									execution automated in case of unit testing 
+                 |
+RV               |  Only selected requirements are monitored	At runtime		Expressing property manual
+		 |  too much delay to monitor all					deriving monitor automatic
+		 |									Evaluating property automatic
+		 |									Response to alert is manual
+		 |
+Model Checking   |  All requirements				Dev cycle		Expressing property manual
+		 |  									Model checking is automatic
+                 |
+Program provers  |  Selected required (costly)			Dev cycle		Expressing and proving property is manual
+		  
+
+
+
+Write about extra code required, exhaustive, requirement coverage, when performed and degree of automation.
+
+Maybe include the table in some form.
+
+
+
+
+2.  In testing people often assume a testing hypothesis as follows:  Provided a system passes finite test cases, then the system is correct for all inputs.
+
+This hypothesis is often not proven but just assumed 'in a handwaving way / cavallier' and therefore safety and security cannot be guarenteed.
+
+
+RV has a unique position in verification techniques.
+
+

@@ -1,0 +1,30 @@
+Supervisor Meeting 11
+
+Date 19/02/2020 - 14:00 - 15:00
+
+Attendees
+Richard Allen (Myself)
+Markus Roggenbach
+
+
+Discussed
+=========
+
+.  LTL formula for detecting sensitive information theft (from last meetings prolog paper).  ¬(E(a -> E(c) -> E(s)))
+
+.  Communication is a two part activity - a writes to a channel, b reads from that channel.  Need to capture this in LTL.  May not be possible to capture it in a proposition so there may be a java function that has to match reads and writes to the same channel.  Ideally we should be able to detect a chain of communication of unlimited length.
+
+.  Discussed altering RosuHavelund algorithm to travers a trace forwards not backwards.
+
+
+Actions
+=======
+
+.  Investigate altering RosuHavelund to traverse trace forwards.
+
+.  Refine LTL formula for information theft with regard to communication channel (broadcast intent).  Two parts, write to channel then read from the same channel by a different app.  Extend in future to recognise communication across a chain of multiple channels.
+
+.  Investigate differences between LTL and LTL3 and how those difference will effect our monitors.
+
+.  Define an operator on traces for preceeds (a preceeds b) but define it with any mathematics other than LTL.  Then show that LTL is the equivalent.
+

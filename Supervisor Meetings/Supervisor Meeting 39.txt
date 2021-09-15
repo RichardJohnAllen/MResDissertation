@@ -1,0 +1,90 @@
+26/03/2021
+==========
+
+
+Notes from meeting:
+
+q s r p
+
+
+q1 s1 r1  q2 s2 r2  p1
+
+q1 s1 r1  q2 s2 r2  p2
+
+q1 s1 r1  q2 s2 r2  q3 s3 r3 p1 p3
+
+
+q2 s2 r2  p1 - matches, discarded due to data mismatch
+
+
+-------------------------
+
+monitoring principle:
+
+  if <something bad happens>
+  then take action and start monitoring again
+
+  take action: restart the phone + delete involved apps
+          (helps if info in volatile memory)
+          (if info in non volotile memory: more monitoring needed!)
+
+  this ensures: no collusion can happen
+
+design decision:
+  utilize only finite memory
+
+  by `storing' events in the formula registers after the last satisfaction
+
+consequences for verification:
+
+  positive example:
+     qsr a ...a p - we never miss it, independent of the size of n.
+           n
+
+  negative example:
+     qsr qsr p p
+             ^ here we say: something bad has happened
+
+     but the second p does not get a match as it is evaluated in
+     <> p
+
+alternative: finite history [last 100 events] + formula registers
+
+     q1 s1 r1  q2 s2 r2  p1  p2
+                         ^ here we say: something bad has happened
+
+     q2 s2 r2 p2 - then you could find this
+
+=====================
+
+     q1 s1 r1  q2 s2 r2  p1  p2
+               ------------
+               does not fit
+
+=====================
+
+
+concrete events:                   --- here the dynamic conditions appear
+  call with process id etc
+
+abstract events:                   --- here RS is looking into things
+  all data is ignored
+
+
+concrete collusion condition
+
+  there is exists a subsequence of the form
+  q(pid1) s(pid1, intent) r(pid2, intent) p(pid2)
+
+
+abstract collusion condition
+
+  there exists a subsequence of the form
+   qsrp
+
+
+<<correctness argument>>
+
+if the concrete collusion condition holds on a sequence of concrete events,
+then the abstract collusion condition holds on the sequence of abstract events
+     + the dynamic condition is fulfilled
