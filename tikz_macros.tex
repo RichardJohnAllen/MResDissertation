@@ -1,0 +1,27 @@
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+\usetikzlibrary{snakes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\tikzset{sortTZ/.style ={}}
+\tikzset{subsortTZ/.style = {draw, <-}}
+\tikzset{isomorphicTZ/.style = {subsortTZ, <->}}
+\tikzset{fixedTextHeightProblem/.style = {text height=1.5ex,text depth=.25ex}}
+\tikzset{every picture/.style={remember picture}}
+
+%\textwidth for tikz pictures
+\newsavebox\tikzpicturebox
+\newenvironment{resizedtikzpicture}[1]{%
+  \def\mywidth{#1}%
+  \begin{lrbox}{\tikzpicturebox}%
+  \begin{tikzpicture}
+}{%
+  \end{tikzpicture}%
+  \end{lrbox}%
+  \resizebox{\mywidth}{!}{\usebox\tikzpicturebox}%
+}

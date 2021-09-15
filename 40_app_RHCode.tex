@@ -1,0 +1,65 @@
+\chapter{Source Code}
+\label{app:Code}
+
+All the source code developed in this project is available in a public repository on GitHub.  The following sections list where to find the code and details of the development environment required to build the code.
+
+\section{\RH\ Test Harness}
+\label{app:RHCode}
+
+The standard \RH\ algorithm is written in Java and built using the Eclipse IDE, version: 2020-09 (4.17.0).\\
+\\
+\noindent The source code for the standard \RH\ implementation is here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/Eclipse/RosuHavelund\%20-\%20Standard}
+
+\section{\RRH\ Test Harness}
+\label{app:RRHCode}
+
+The \RRH\ algorithm is written in Java and built using the Eclipse IDE, version: 2020-09 (4.17.0).\\
+\\
+\noindent The source code for the \RRH\ implementation is here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/Eclipse/ReverseRosuHavelund}
+
+\section{Performance Test Code}
+\label{app:PerformanceTestCode}
+
+Performance tests were executed using two applications that were developed to stage a collusion attack at will.  The two applications are called the Reader and the Publisher.  Both applications are modified versions of applications developed by Callum Dicker \cite{Dicker}.  There were developed in Java using the Android Studio IDE, version: 4.1.3.\\
+\\
+\noindent The Reader app can be found here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/AndroidStudio/Reader}\\
+\\
+\noindent The Publisher app can be found here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/AndroidStudio/Publisher}\\
+
+\newpage
+
+\section{Interceptor Code}
+\label{app:InterceptorCode}
+
+The same Interceptor Xposed module is used for the standard \RH\ monitor and the \RRH\ monitor.  The source code is written in Java using Android Studio, version: 4.1.3.\\
+\\
+\noindent The source code of the Interceptor is here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/AndroidStudio/AndroidInterceptor}
+
+\section{Standard \RH\ Monitor Code}
+\label{app:StandardRHMonitorCode}
+
+The source code for the standard \RH\ Monitor application is written in Java using Android Studio, version: 4.1.3.\\
+\\
+\noindent The source code of the Monitor is here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/AndroidStudio/AndroidMonitor\%20-\%20Standard}
+
+\section{\RRH\ Monitor Code}
+\label{app:MonitorCode}
+
+The source code for the \RRH\ Monitor application is written in Java using Android Studio, version: 4.1.3.\\
+\\
+\noindent The source code of the Monitor is here:\\
+\noindent \url{https://github.com/RichardJohnAllen/RuntimeVerificationForAndroidSecurity/tree/main/AndroidStudio/AndroidMonitor}
+
+\section{Development Environments}
+
+\noindent Eclipse can be downloaded here:\\
+\noindent \url{https://www.eclipse.org/downloads/}\\
+
+\noindent Android Studio can be downloaded here:\\
+\noindent \url{https://developer.android.com/studio#downloads}\\

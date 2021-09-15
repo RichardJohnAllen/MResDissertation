@@ -1,0 +1,266 @@
+\chapter{Linear Temporal Logic}
+\label{chap:Linear Temporal Logic}
+
+Linear Temporal Logic is a non-classical logic introduced by Kr\"{o}ger, Manna and Pnueli \cite{Pnueli}.  It differs from classical first- and second-order logic by the introduction of first-class temporal operators.  Temporal operators allow us to reason about the order in which state changes occur in dynamic systems over time without specifying the precise moment they happened.  State changes get recorded as events in logs known as traces.  LTL tells us if properties, codified as LTL formula, are satisfied by a trace.  The LTL defined by Manna and Pnueli operates over infinite length traces.
+
+There are circumstances when evaluating LTL over an infinite trace is necessary, such as when dealing with issues of fairness.  For example, a print server should service all clients fairly.  But at any given moment, it may have received requests from only a minority of clients and therefore served some clients more than others.  But if the trace is infinite, all clients will be serviced equally by some point in the future.
+
+Here, we are not concerned with issues of fairness.  Instead, we use LTL within the scope of runtime verification.  We reason that we require a definition of LTL that operates on finite traces:  Runtime verification observes a system for a finite period to conclude whether it is running safely or not.  The number of execution cycles in a given period is finite, and logging events to a trace requires processor execution cycles.  It follows that, over a finite period, the number of trace events is finite and upper bounded.  We are lead to the definition of LTL in the Rosu-Havelund paper \cite{RosuHavelund} because it operates on finite traces.
+%We will monitor a system for an indefinite period by evaluating a property over an infinite number of finite traces.
+
+\section{Actions}
+\label{sec: LTL Actions}
+
+Actions are types of activities that we are interested in observing.  In the context of Android security, we are interested in when applications make Android operating system calls to use security-sensitive resources.  There are finitely many types of activities we want to observe, and we collect them in a set, $\Sigma$, called the alphabet.
+
+\begin{myEx}
+The actions we will observe in this study are: information being queried, sent, received and published.\\
+\\
+In this case our alphabet is $ \Sigma = \{ q, s, r, p \} $.\\
+\qed
+\end{myEx}
+
+\section{Events}
+\label{sec: LTL Events}
+
+While the number of actions is finite, each action can occur many times during the execution of an application, or never.  An event, $e$, is an instance of an action.
+
+\section{Traces}
+\label{sec:Traces}
+
+Traces are sequence of events that happen during the execution of running processes.  Each event within a trace represents one occurrence of an action.  At any given moment, a trace is finite in length.\\
+\\ \noindent
+Let us denote a trace as $t$.\\
+If no interesting events have occurred, then the trace is empty, $t = \epsilon$, or $t = \langle \rangle$.\\
+Non-empty traces are written as $t = \langle e_1,e_2,...,e_n \rangle$.\\
+$t_i$ denotes the $i^{th}$ element of the trace $t$.\\
+A non-empty trace always ends in the empty trace $\epsilon$, this gets omitted when the trace is written.\\
+An event in front of a trace is written $e\ t$.\\
+An event after a trace, is written $t\ e$.
+
+\begin{myEx}
+The typical user activities involved in sending an email are:\\
+
+\begin{enumerate}
+\item  Launch an email application.
+\item  Write a new email.
+\item  Select a recipient.
+\item  Send the email.
+\item  Check the sent mail folder for confirmation that email was sent.
+\item  Check for a read receipt.
+\end{enumerate}
+\newpage
+In our case, we are interested in observing when an application on the Android device has queried, sent, received or published information.  The interesting events that result from those user activities are:
+
+\begin{enumerate}
+\item  Contacts list queried.
+\item  Email sent.
+\item  Published to the user that the email has been sent.
+\item  Queried the published send confirmation.
+\item  Received a read receipt.
+\item  Published the read receipt was received.
+\item  Queried the published read receipt.
+\end{enumerate}
+
+Given that the interesting actions are query, send, receive and publish, the alphabet is $\Sigma = \{ q, s, r, p \}$ and the trace will look as follows:\\
+\\
+$ t = \langle q, s, p, q, r, p, q \rangle $\\
+\qed
+\end{myEx}
+
+\section{Grammar}
+
+\subsection{Grammar of the Future}
+\label{sec:LTLFutureGrammar}
+
+\begin{definition}Given a finite set of actions $ \Sigma $ the set of LTL formulae is defined as follows:
+
+$$ \begin{array}{lcll}
+\varphi, \psi & ::= & \top & \%\%\ \mbox{true}\
+\\
+& | & p & \%\%\ \mbox{the event is an occurrence of}\ p\ 
+\\ 
+&| & \neg\varphi & \%\%\ \mbox{negation of}\ \varphi\ 
+\\
+&| & \varphi\ \lor \psi & \%\%\ \mbox{logical or between}\ \varphi\ \mbox{and}\ \psi\
+\\
+&| & \varphi\ \land \psi & \%\%\ \mbox{logical and between}\ \varphi\ \mbox{and}\ \psi\
+\\
+& | & \varphi\ \rightarrow \psi & \%\%\ \mbox{logical implies between}\ \varphi\ \mbox{and}\ \psi\
+\\
+& | & \varphi\ U\ \psi & \%\%\ \varphi\ \mbox{will hold until}\ \psi\ \mbox{holds}\
+\\
+& | & \LTLnext\varphi & \%\%\ \varphi\ \mbox{will hold at the next event}\ 
+\\
+& | & \LTLalways\varphi & \%\%\ \varphi\ \mbox{will always hold henceforth}\
+\\
+& | & \LTLeventually\varphi & \%\%\ \varphi\ \mbox{will eventually hold}\ 
+\end{array}$$
+where $ p \in \Sigma $.
+\end{definition}
+
+\begin{myEx} Example Future LTL Formulae
+
+$$\begin{array}{ll}
+\varphi = \LTLalways(r \rightarrow \LTLeventually s)& \%\%\ \mbox{it will always be true that if there is a receive event then}\\
+& \mbox{eventually there will be a send event.}
+\\
+\\
+\varphi = \neg r\ U\ s& \%\%\ \mbox{there are no receive events until there is a send event.}
+\\
+\\
+\varphi = q \rightarrow \LTLnext p& \%\%\ \mbox{if there is a query event then the next event will be publish.}
+\\
+\\
+\varphi = ((q \rightarrow \LTLeventually p) \land q) \rightarrow \LTLeventually p& \%\%\ \mbox{if there is a query then there will eventually be a publish and}\\
+& \mbox{there is a query therefore there is eventually a publish.}
+\\
+\\
+\varphi = \LTLalways((p \ U\ q) \rightarrow \LTLeventually(q \rightarrow \LTLnext r))& \%\% \mbox{ it is always true that if there are publish events until a query}\\ & \mbox{event then eventually if there is a query event it will be immediately}\\ & \mbox{followed by a receive.}
+\end{array}$$
+\qed
+\end{myEx}
+
+\subsection{Grammar of the Past}
+\label{sec:LTLPastGrammar}
+
+\begin{definition}Given a finite set of actions $ \Sigma $ the set of LTL formulae is defined as follows:
+
+$$ \begin{array}{lcll}
+\varphi, \psi & ::= & \top & \%\%\ \mbox{true}\
+\\
+& | & p & \%\%\ \mbox{the event is an occurrence of}\ p\ 
+\\ 
+&| & \neg\varphi & \%\%\ \mbox{negation of}\ \varphi\ 
+\\
+&| & \varphi\ \lor \psi & \%\%\ \mbox{logical or between}\ \varphi\ \mbox{and}\ \psi\
+\\
+&| & \varphi\ \land \psi & \%\%\ \mbox{logical and between}\ \varphi\ \mbox{and}\ \psi\
+\\
+& | & \varphi\ \rightarrow \psi & \%\%\ \mbox{logical implies between}\ \varphi\ \mbox{and}\ \psi\
+\\
+& | & \varphi\ S\ \psi & \%\%\ \varphi\ \mbox{has held since}\ \psi\ \mbox{held}\
+\\
+& | & \LTLprevious\varphi & \%\%\ \varphi\ \mbox{held at the previous event}\ 
+\\
+& | & \LTLalwaysbeen\varphi & \%\%\ \varphi\ \mbox{has always held}\ 
+\\
+& | & \LTLonce\varphi & \%\%\  \varphi\ \mbox{has once}\ \mbox{held}\ 
+\end{array}$$
+where $ p \in \Sigma $.
+\end{definition}
+
+\newpage
+
+\begin{myEx} Example Past LTL Formulae
+
+$$\begin{array}{ll}
+\varphi = \LTLalwaysbeen(r \rightarrow \LTLonce s)& \%\%\ \mbox{it has always been true that if there is a receive event}\\
+& \mbox{then there was once a send event.}
+\\
+\\
+\varphi = \neg r\ S\ s& \%\%\ \mbox{there have been no receive events since there was a send event.}
+\\
+\\
+\varphi = p \rightarrow \LTLprevious q& \%\%\ \mbox{if there is a publish event then the previous event was a query.}
+\\
+\\
+\varphi = \LTLalwaysbeen((p \ S\ q) \rightarrow \LTLalwaysbeen(r \rightarrow \neg\LTLprevious q))& \%\% \mbox{ it has always been true that if there are publish events since a query}\\ & \mbox{event then it has always been true that if there was a receive event it was}\\ & \mbox{not immediately preceded by a query.}
+\end{array}$$
+\qed
+\end{myEx}
+\section{Semantics}
+
+The semantics below are separated into future and past operators, over empty and non-empty traces.  An explicit definition over an empty trace is useful later in the project when we describe the development of an algorithm for evaluating LTL formulae.  Rather than define semantics for the minimal collection of logical operators only, we define semantics for a more complete collection of operators.  We have made this decision for practical reasons because we use a larger collection of operators in our formulae.  Additionally, we are not attempting to prove or study the theoretical foundations of LTL because this has been done in earlier works \cite{Pnueli} therefore, the advantage of a minimal definition is not required here.
+
+\newpage
+
+\subsection{Semantics of the Future}
+\label{sec:LTLFutureSemantics}
+
+\begin{definition}Future Operator Semantics Over an Empty Trace\\
+\label{def:FutureEmptyTraceSemantics}
+\\
+Let $\Sigma$ be an alphabet of actions.\\
+Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.
+
+\begin{enumerate}[start=1]
+\item $ \epsilon \Vdash \varphi $ is false when $ \varphi $ is a literal
+\item $ \epsilon \Vdash \neg\varphi $ is true iff $ \epsilon \Vdash \varphi $ is false
+\item $ \epsilon \Vdash \varphi \lor \psi $ iff $ \epsilon \Vdash \varphi $ or $ \epsilon \Vdash \psi $
+\item $ \epsilon \Vdash \varphi \land \psi $ iff $ \epsilon \Vdash \varphi $ and $ \epsilon \Vdash \psi $
+\item $ \epsilon \Vdash \varphi \rightarrow \psi $ iff $ \epsilon \Vdash $ not $ \varphi $ or $ \epsilon \Vdash \psi $
+\item $ \epsilon \Vdash \LTLnext\varphi $ is false
+\item $ \epsilon \Vdash \LTLalways\varphi $ is true
+\item $ \epsilon \Vdash \LTLeventually\varphi $ iff $ \epsilon \Vdash \varphi $
+\item $ \epsilon \Vdash \varphi \,U \psi $ iff $ \epsilon \Vdash \psi $
+\end{enumerate}
+\end{definition}
+
+\begin{definition}Future Operator Semantics Over a Non-empty Trace\\
+\label{def:FutureNon-emptyTraceSemantics}
+\\
+Let $\Sigma$ be an alphabet of actions.\\
+Let $e$ be an element from $\Sigma$.\\
+Let $t$ be a trace over $\Sigma$.\\
+Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.
+
+\begin{enumerate}[start = 10]
+\item $e\ t  \Vdash \varphi$ is true iff $e = \varphi$ when $\varphi$ is a literal
+\item $e\ t  \Vdash \neg\varphi$ is true iff $e\ t \Vdash \varphi$ is false
+\item $e\ t  \Vdash \varphi \lor \psi$ iff $e\ t \Vdash \varphi$ or $e\ t \Vdash \psi$
+\item $e\ t  \Vdash \varphi \land \psi$ iff $e\ t \Vdash \varphi$ and $e\ t \Vdash \psi$
+\item $e\ t  \Vdash \varphi \rightarrow \psi$ iff $e\ t \Vdash $ not $\varphi$ or $e\ t \Vdash \psi$
+\item $e\ t  \Vdash \LTLnext\varphi$ iff $t \Vdash \varphi$
+\item $e\ t  \Vdash \LTLalways\varphi$ iff $e\ t \Vdash \varphi$ and $t \Vdash \LTLalways\varphi$
+\item $e\ t  \Vdash \LTLeventually\varphi$ iff $e\ t \Vdash \varphi$ or $t \Vdash \LTLeventually\varphi$
+\item $e\ t  \Vdash \varphi \,U\ \psi$ iff $e\ t \Vdash \psi$ or $(e\ t \Vdash \varphi$ and $t \Vdash \varphi \,U\ \psi)$
+\end{enumerate}
+\end{definition}
+
+\subsection{Semantics of the Past}
+\label{sec:LTLPastSemantics}
+
+\begin{definition}Past Operator Semantics Over an Empty Trace\\
+\label{def:Past Empty trace semantics}
+\\
+Let $\Sigma$ be an alphabet of actions.\\
+Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi$ = p for $ p \in \Sigma $.
+
+\begin{enumerate}[start = 19]
+\item $\epsilon \Vdash \varphi $ is false when $ \varphi $ is a literal
+\item $\epsilon \Vdash \neg\varphi $ is true iff $ \epsilon \Vdash \varphi $ is false
+\item $\epsilon \Vdash \varphi \lor \psi $ iff $ \epsilon \Vdash \varphi $ or $ \epsilon \Vdash \psi $
+\item $\epsilon \Vdash \varphi \land \psi $ iff $ \epsilon \Vdash \varphi $ and $ \epsilon \Vdash \psi $
+\item $\epsilon \Vdash \varphi \rightarrow \psi $ iff $ \epsilon \Vdash $ not $ \varphi $ or $ \epsilon \Vdash \psi $
+\item $\epsilon \Vdash \LTLprevious\varphi $ is false
+\item $\epsilon \Vdash \LTLalwaysbeen\varphi $ is true
+\item $\epsilon \Vdash \LTLonce\varphi $ iff $ \epsilon \Vdash \varphi $
+\item $\epsilon \Vdash \varphi \,S \psi $ iff $ \epsilon \Vdash \psi $
+\end{enumerate}
+\end{definition}
+
+\begin{definition}Past Operator Semantics Over a Non-empty Trace\\
+\label{def:PastNon-emptyTraceSemantics}
+\\
+Let $\Sigma$ be an alphabet of actions.\\
+Let $e$ be an element from $\Sigma$.\\
+Let $t$ be a trace over $\Sigma$.\\
+Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi = p$ for $p \in \Sigma$.
+
+\begin{enumerate}[start = 28]
+\item $t\ e  \Vdash \varphi$ holds iff $e = \varphi $ when $\varphi$ is a literal
+\item $t\ e  \Vdash \neg\varphi$ is true iff $t\ e \Vdash \varphi$ is false
+\item $t\ e  \Vdash \varphi \lor \psi$ iff $t\ e \Vdash \varphi$ or $t\ e \Vdash \psi$
+\item $t\ e  \Vdash \varphi \land \psi$ iff $t\ e \Vdash \varphi$ and $t\ e \Vdash \psi$
+\item $t\ e  \Vdash \varphi \rightarrow \psi$ iff $t\ e \Vdash $ not $\varphi$ or $t\ e \Vdash \psi$
+\item $t\ e  \Vdash \LTLprevious\varphi$ iff $t \Vdash \varphi$
+\item $t\ e  \Vdash \LTLalwaysbeen\varphi$ iff $t\ e \Vdash \varphi$ and $t \Vdash \LTLalwaysbeen\varphi$
+\item $t\ e  \Vdash \LTLonce\varphi$ iff $t\ e \Vdash \varphi$ or $t \Vdash \LTLonce\varphi$
+\item $t\ e  \Vdash \varphi \,S\ \psi$ iff $t\ e \Vdash \psi$ or $(t\ e \Vdash \varphi$ and $t \Vdash \varphi \,S\ \psi)$
+\end{enumerate}
+\end{definition}

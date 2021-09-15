@@ -1,0 +1,208 @@
+\chapter{Xposed Framework}
+\label{chap:Xposed Framework}
+
+The Xposed framework is a third-party framework we use to record the activities of applications running on Android.  It does so by intercepting methods called by processes.  Here we explain the origin of the Xposed framework, how it works, how to prepare a development environment for writing an Xposed module, then we develop a bare-bones example module.
+
+\section{Origins}
+\label{sec:Origins}
+
+The Xposed framework for Android was developed by someone we only known by the pseudonym rovo89 \cite{rovo89}.  The first release was in 2012, and development by rovo89 continued until 2018, after which other authors have taken it forward.  The version of Xposed used in this research is version 89 of the software development kit.  It was the latest stable version when the project was started and is compatible with Android up to version 7.1.1.  The version of Android chosen in the research is version 6, which is purposefully an early version.  We chose an earlier version of Android as the target so that a greater range of devices can run the software.
+
+\section{The Zygote Process}
+\label{sec:The Zygote Process}
+
+To understand how the framework intercepts method calls, we must understand that all processes in Android get forked from a single process started when the device boots, the zygote process.
+
+The term zygote got borrowed from biology.  A zygote is the first cell formed after fertilisation of a female gamete by a male gamete.  All cells in a multicellular organism are duplicates that stem from the zygote cell.  The term is used in Android to name the first process launched by Android that all other processes get forked from.
+
+The Xposed framework replaces the standard zygote with a modified zygote.  The modified zygote notifies Xposed modules when methods they specify get called.  Any identified method can get specified, even one identified via disassembly.  The ability gets duplicated to all running processes because they are all forked from the zygote.  Thus any identifiable method, called by any and all processes, can be intercepted.
+
+Our software is interested in intercepting operating system calls to read the contacts list.  When that call gets intercepted, our software will record that the call got made, some necessary details, then allow it to continue.
+
+\section{Requirements}
+\label{sec:Requirements}
+
+In order to use the Xposed framework the device does have to be rooted.  Rooting allows user processes to have the administrative permissions of a superuser and thus gain privileged control over the device that would otherwise not be possible.  This is necessary so that the Xposed framework can modify the zygote process.  The Xposed framework does this by replacing the \path{/system.bin/app_process} with it's own extended \path{app_process} and to do that root access is required.
+
+Although rooting the device may present a hurdle to casual users, some of the latest Android phones allow the user to root the phone just by enabling a setting in the UI.  Studies of the number of rooted Android devices vary significantly.  In 2017 Kaspersky quoted a global average of only 7.6\% of Android devices were rooted \cite{KaperskyRootedDevices}.  While a 2014 survey conducted by Chinese company Tencent, claims of 8959 users in China, 80\% rooted their devices \cite{CIWRootedDevices}.  It is often assumed that rooted devices are more open to security attacks because malicious software can exploit superuser rights.  While it is true that a rooted device is easier to exploit, a study by Semantic \cite{InsightsIntoRooted} found that there is no increase in malware on rooted devices.  No evidence is presented to why this is, but it may be because the expertise and motivation required to root a device selects people who are also security conscious.  At the very least, the requirement for the device to be rooted should not stop our proposed system being used by professionals to screen applications.
+
+\section{Development and Test Environments}
+\label{sec:Development and Test Environments}
+
+Android Studio was used to develop this project, versions for all major operating systems can be found at:\\
+\url{https://developer.android.com/studio#downloads}\\
+\\
+It is strongly recommended that development testing is done on an Android emulator because faults in an Xposed module can result in the operating system of the test environment being damaged to the extent that it requires a factory reset.  We discovered that the Xposed framework does not install correctly on the standard Android Virtual Machine included with Android Studio.  Instead, an alternative AVM called GenyMotion was used.\\
+\\
+GenyMotion requires virtualisation software to be installed first that can be found at:\\
+\url{https://www.virtualbox.org/wiki/Downloads}\\
+\\
+\\
+Once Virtual Box is installed GenyMotion can be installed from this location:\\
+\url{https://www.genymotion.com/download/}\\
+\\
+Finally Android Studio Plugins can be installed from here:\\
+\url{https://www.genymotion.com/plugins/}
+
+\section{Preparing the Android Device}
+\label{sec:Preparing the Android device}
+
+In order to be able to develop and run an Xposed module on an Android device the device must be rooted.  The following section describes how to use a Windows platform to root an Android device and install the Xposed framework.  The device used in this project was the Motorola G4 Play.  Rooting a different device will require some different steps.  To root the device we will install a tool called SuperSU onto the device, and to do this we require a recovery tool called TWRP to be installed on the device first, and to install TWRP we must unlock fastboot mode on the device.
+
+\subsection{Enabling Developer Options}
+\label{sec:Enabling developer options on the device}
+
+On the Android device go to Settings \textgreater\ System \textgreater\ About phone\\
+\indent Tap Build Number seven times to enable the developer options menu.  You may also have to tap in your PIN for verification.\\
+\\
+Go to Settings \textgreater\ Developer Options\\
+\indent Toggle the Developer options switch to On if it is not already\\
+\indent Enable USB Debugging\\
+\indent Enable OEM Unlocking
+
+\subsection{Installing Android Device Drivers on a Windows Platform}
+\label{sec:Installing Android device drivers on the Windows platform}
+
+Communication between a Windows PC and the Android device is via USB.  It requires drivers on the PC, and the drivers require the Android SDK.\\  
+\\
+Download and install the Android SDK onto the PC from here:\\
+\url{https://developer.android.com/studio}\\
+\\
+Once the SDK is installed download and install USB drivers for Motorola onto the Windows platform from here:\\
+\url{https://support.motorola.com/us/en/solution/MS88481}
+
+\subsection{Unlocking the Bootloader}
+\label{sec:Unlocking the Bootloader}
+
+Rooting the device requires a recovery tool called TWRP to be installed on it.  This is done using the Android bootloader to start the device in fastboot mode and update the firmware.  The bootloader is responsible for loading the Android operating system and is normally invisible to the user.  Unlock the bootloader on Motorola devices by following the instructions below.  If the reader uses a device from another manufacturer, they must investigate how to do so with their specific manufacturer.\\
+\\
+\\
+For a Motorola device, create a developer account with Motorola here:\\
+\url{https://accounts.motorola.com/ssoauth/login?TARGET=https://motorola-global-portal.custhelp.com/cc/cas/sso/redirect/standalone\%2Fbootloader\%2Funlock-your-device-b}\\
+\\
+Then follow the instructions here:\\
+\url{https://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-b}\\
+\\
+An unlock key will be sent to the email account you register with the developer account.  Follow the link in the email to further instructions here:\\
+\url{https://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-c}
+
+\subsection{Installing the TWRP Recovery Tool}
+\label{sec:Installing the recovery tool}
+
+Now the bootloader is unlocked, you can boot into fastboot mode and alter the device's flash memory.  Fastboot consists of three parts:\\
+Pre-installed software on the device that is available when the bootloader is unlocked.\\
+A utility on the PC.\\
+A protocol that allows the PC and the Android device to communicate via USB.\\
+\\
+Download and install the mfastboot utility from here:\\
+\url{https://forum.xda-developers.com/showthread.php?p=42407269#post42407269}\\
+
+\noindent Now your PC can modify the devices flash memory partitions.  We will use fastboot mode to install the TWRP recovery tool, then use TWRP to install custom firmware onto the device.\\
+\\
+Download TWRP onto the PC from here:\\
+\url{https://forum.xda-developers.com/devdb/project/dl/?id=25597}\\
+\\
+The file on the PC will be named something like: twrp-harpia-3.1.1-r1.img.  Now we will install TWRP from the PC onto the device.\\
+
+\noindent Restart the device in fastboot mode by first shutting it down, then start the device by holding the power button and the volume control buttons together.  The device will bootup and display the fastboot screen.  Various pieces of information about the device, such as the serial number, will get displayed.  It should also say that the device is unlocked.\\
+
+\noindent Copy the twrp-harpia-3.1.1-r1.img file to the folder on the PC where mfastboot is installed, open a command window from the mfastboot installation folder and execute the command:
+\begin{verbatim}mfastboot flash recovery twrp-harpia-3.1.1-r1.img\end{verbatim}
+
+\noindent Mfastboot will display 'waiting for device'.  Attach the device to the PC via a USB cable.  Mfastboot will detect the device and install TWRP.  When installation is complete, use the volume controls to select recovery mode, then press the power button to boot into the TWRP recovery tool.\\
+\\
+Select reboot from TWRP and the device will reboot into system mode.
+	
+\subsection{Rooting the Android Device}
+\label{sec:Rooting the Android device}
+
+With the TWRP recovery mode tool installed, we are ready to give superuser (root) access to the device.  Do this using the tools SuperSu and SuperSUFixer.\\
+\\
+Download SuperSu to your Windows platform from here:\\
+\url{https://androidfilehost.com/?fid=24686681827314977}\\
+\\
+Download SuperSUFixer to your Windows platform from the .zip attachment the start of this thread:\\
+\url{https://forum.xda-developers.com/g4-play/development/automatic-flashable-zip-fix-supersu-t3464396}\\
+\\
+The Android device should be booted into system mode.  Copy SuperSUFixer and SuperSu to internal storage of the device via the USB cable.\\
+\\
+Reboot the device into TWRP recovery mode and select install.\\
+\\
+Navigate to the internal storage folder that contains and SuperSU.zip and SuperSUFixer.zip files by taping Select Storage \textgreater\ Internal Storage.\\
+\\
+Tap FixSuperSU to select then tap Install Image.\\
+\\
+Repeat for SuperSu.\\
+\\
+Reboot into system mode.\\
+\\
+Open SuperSu and tap Create New User.
+
+\subsection{Installing Xposed Onto the Android Device}
+\label{sec:Installing Xposed onto the Android Device}
+
+Xposed comes in three parts, an administration tool called the Xposed Installer, a framework and Xposed modules.  The administration tool gets installed first, then it will download the framework.  The software developed in this project is the Xposed module.\\
+\\
+Go to Settings \textgreater\ Security\\
+\indent Enable Unknown sources\\
+\\
+Download and install Xposed Installer 3.1.5 to the Android device from here:\\
+\url{https://xposed-installer.en.uptodown.com/android/download}\\
+\\
+When the tool is installed, the Xposed Status will display there is no Xposed framework.\\
+\\
+Tap Install/Update.  If super user access is request then grant permanent access.\\
+\\
+The latest framework version that is compatible with Android on the device will get downloaded.  For this project, version 89 for Android 6.0, API 23 will get installed.
+
+\section{Developing an Xposed Module}
+\label{sec:Developing an Xposed module}
+
+We are ready to create an Xposed module now that the development environment and Android Virtual Machine are installed.  Intercepting operating system method calls follows a two-step process.  The module must find the methods to intercept, and then it must provide code to invoke when the methods get called by another process.  We call this \emph{hooking} a method.
+
+To find operating system methods, we implement an interface from the Xposed framework called \emph{IXposedHookLoadPackage}.  The packages that make up an application and the packages it utilises are mapped to memory by the operating system when the application gets launched.  At this point, the modified zygote process informs the Xposed module that a package got loaded by calling the \emph{IXposedHookLoadPackage.handleLoadPackage} method on all implementations of IXposedHookLoadPackage.
+
+When the Xposed module gets informed that a package possibly containing interesting methods has been loaded, the module searches the package for the methods it is interested in by calling \emph{XposedHelpers.findAndHookMethod}.  If it finds the methods, then the supplied classes are associated with those methods.  Now the method is hooked and calls to it will get intercepted.
+
+The code listing \ref{handleLoadPackageListing} is an example of how to implement the IXposedHookLoadPackage interface.  The interface contains a single method called handleLoadPackage that gets publicly implemented on the MethodHooks class.  HandleLoadPackage calls findAndHookMethod on line 10 and passes some parameters used when identifying the method to intercept.  It requires a fully qualified class name and the name of the method that we want to intercept.  In this case, the class is 'android.content.ContentResolver' and the method is 'query'.  Lines 13-17 list types that correspond to each of the parameters in the query method signature.  The final parameter, on line 18, is the class that gets associated with the query method and invoked when the method gets called.\\
+
+\begin{lstlisting}[caption=handleLoadPackage example, label=handleLoadPackageListing]
+import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.callbacks.XC_LoadPackage;
+
+import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+
+public class MethodHooks implements IXposedHookLoadPackage
+{
+    public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
+
+        findAndHookMethod("android.content.ContentResolver",
+                classLoader,
+                "query",
+                Uri.class,
+                String[].class,
+                String.class,
+                String[].class,
+                String.class,
+                new ContentResolverQueryHook());
+    }
+}
+\end{lstlisting}
+
+The associated class is called ContentResolverQueryHook and shown in listing \ref{beforeHookedMethodListing}.  It inherits (extends in Java parlance) from an Xposed framework class called \emph{XC\_MethodHook} and overrides a protected method called \emph{beforeHookedMethod}.  When a process later calls the query method, the modification to the zygote process will find the associated ContentResolverQueryHook class and call beforeHookedMethod.  The implementation of beforeHookedMethod is responsible for performing whatever actions the developer requires.  In our case, beforeHookedMethod will record that the hooked method got called, the process that called it, the time, and any relevant parameters.  The last line of the beforeHookedMethod (line 11) returns to the Xposed framework to continue executing the query method as normal.\\
+
+\begin{lstlisting}[caption=beforeHookedMethod example, label=beforeHookedMethodListing]
+import de.robv.android.xposed.XC_MethodHook;
+
+public class ContentResolverQueryHook extends XC_MethodHook
+{
+    @Override
+    protected void beforeHookedMethod(MethodHookParam param)
+      throws Throwable {
+
+        // Required actions performed here
+
+        super.beforeHookedMethod(param);
+    }
+}
+\end{lstlisting}

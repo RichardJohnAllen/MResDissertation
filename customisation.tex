@@ -1,0 +1,254 @@
+%% Here you can specify new commands and environments that you intend
+%% to use. Using commands can make your document easier to write, read
+%% and be more consistent.
+
+%% An example could be
+%% \newcommand{\CASL}{\textrm{\textsc{Casl}}\xspace}
+%% This would define the command \CASL, that would produce the LaTeX
+%% code '\textrm{\textsc{Casl}}' (with an appropriate space at the
+%% end) each time it was used.
+
+
+\newcommand{\CCSig}{\textsc{CspCaslSig}\xspace}
+\newcommand{\CCSigN}{\textsc{CspCaslSig}^{plain}\xspace}
+
+\newenvironment{LINES}{\array[t]{@{}l@{}}}{\endarray}
+
+
+\newcommand{\point}[1]{
+    \todo[inline, color=blue!20]{
+      $\blacktriangleright$ #1
+    }
+}
+
+\newcommand{\subpoint}[1]{
+    \todo[inline, color=blue!20]{
+      $\qquad \vartriangleright$ #1
+    }
+}
+
+\newcommand{\appendixLemma}[2]{\noindent \textbf{Lemma \ref{#1}} #2}
+
+\newcommand{\XML}{XML\xspace}
+\newcommand{\EP}{EP2\xspace}
+
+\newcommand{\ConsExt}{\mathrel{\text{\textit{ConsExt}}}}
+\newcommand{\image}{\mathop{\text{\textit{image}}}}
+
+%% WADT 06 paper
+\newcommand{\inp}{\mathit{param}}
+\newcommand{\comms}{\mathit{comms}}
+\newcommand{\denotation}{\mathit{denotation}}
+
+%% General
+\newcommand{\CASL}{\textrm{\textsc{Casl}}\xspace}
+\newcommand{\CSP}{\textrm{\textsc{Csp}}\xspace}
+\newcommand{\CC}{\CSP-\CASL}
+\newcommand{\SCC}{Structured \CSP-\CASL}
+\newcommand{\CSPProver}{\CSP-Prover\xspace}
+\newcommand{\CCProver}{\CC-Prover\xspace}
+\newcommand{\Hets}{\textrm{\textsc{Hets}}\xspace}
+\newcommand{\SPASS}{SPASS\xspace}
+\newcommand{\ML}{ML\xspace}
+
+\newcommand{\Nat}{\mathbb{N}\xspace}
+
+\newcommand{\expandsTo}{\widehat{=}}
+
+%% The def extension on sorts, .e.g., s_def
+\newcommand{\sortdef}{\text{\textit{def}}}
+
+\newcommand{\partialInv}[1]{{#1}^{-1}}
+\newcommand{\invImg}[1]{{#1}^{-}}
+
+\newcommand{\upCl}[1]{\mathop{\uparrow} #1\xspace}
+\newcommand{\downCl}[1]{\mathop{\downarrow} #1\xspace}
+\newcommand{\downClSet}[1]{{#1}_{\downarrow}\xspace}
+\newcommand{\overloadRelProc}{\sim_{N}}
+
+ %% CC: evaluation according to csp semantics relative to csp domain
+\newcommand{\cspSemantics}[2]{\sem{#1}_{#2}\xspace}
+ %% CC: evaluation according to casl semantics relative to cc
+ %% model, local and global variable valuations.
+\newcommand{\ccEvalCaslSem}[4]{\sem{#1}_{#2, #3, #4}\xspace}
+
+%% Related work
+\newcommand{\ActOne}{\textrm{\textsc{Act-One}}\xspace}
+\newcommand{\CCS}{\textrm{\textsc{Ccs}}\xspace}
+\newcommand{\CCSCASL}{\textrm{\textsc{Ccs-Casl}}\xspace}
+\newcommand{\CASLCHARTS}{\textrm{\textsc{Casl-Charts}}\xspace}
+\newcommand{\COCASL}{\textrm{\textsc{Co-Casl}}\xspace}
+\newcommand{\CASLLTL}{\textrm{\textsc{Casl-Ltl}}\xspace}
+\newcommand{\Lotos}{\textrm{\textsc{Lotos}}\xspace}
+\newcommand{\ELotos}{\textrm{\textsc{ELotos}}\xspace}
+\newcommand{\CSPM}{\textrm{\textsc{Csp}}\ensuremath{_{\textrm{M}}}\xspace}
+\newcommand{\ACP}{\textrm{\textsc{Acp}}\xspace}
+\newcommand{\ASF}{\textrm{\textsc{Asf}}\xspace}
+\newcommand{\PSF}{\textrm{\textsc{Psf}}\xspace}
+\newcommand{\MUCRL}{\ensuremath{\mu}\textrm{\textsc{Crl}}\xspace}
+\newcommand{\MCRL}{\textrm{\textsc{MCrl}}\xspace}
+\newcommand{\MUCRLTwo}{\ensuremath{\mu}\textrm{\textsc{Crl2}}\xspace}
+\newcommand{\CRL}{\textrm{\textsc{Crl}}\xspace}
+\newcommand{\CTLStar}{\ensuremath{\textrm{\textsc{Ctl}}^{*}}\xspace}
+\newcommand{\CSPOZ}{\textrm{\textsc{Csp-OZ}}\xspace}
+\newcommand{\Circus}{\textrm{\textsc{Circus}}\xspace}
+\newcommand{\Eucalyptus}{\textrm{\textsc{Eucalyptus}}\xspace}
+\newcommand{\CZT}{\textrm{\textsc{Czt}}\xspace}
+\newcommand{\FDR}{\textrm{\textsc{Fdr}}\xspace}
+\newcommand{\ProBE}{\textrm{\textsc{ProBE}}\xspace}
+\newcommand{\UTP}{\textrm{UTP}\xspace}
+\newcommand{\OSI}{\textrm{OSI}\xspace}
+\newcommand{\ISO}{\textrm{ISO}\xspace}
+\newcommand{\ObjectZ}{\textrm{\textsc{Object-Z}}\xspace}
+
+%% Semantics
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\concat}{\mathop{{}^{\smallfrown}}}
+\newcommand{\T}{\mathcal T}
+\newcommand{\F}{\mathcal F}
+\newcommand{\N}{\mathcal N}
+\newcommand{\R}{\mathcal R}
+\newcommand{\D}{\mathcal D}
+\newcommand{\failuresdivergences}{Failures/Divergences\xspace}
+\newcommand{\stablefailures}{Stable-Failures\xspace}
+\newcommand{\stablerevivals}{Stable Revivals\xspace}
+
+\newcommand{\tick}{\cspTick}
+\newcommand{\powerset}{\ensuremath{\mathcal P}}
+\newcommand{\trBot}{tr_{\bot}}
+\newcommand{\restrictedTo}[1]{\upharpoonright #1}
+\newcommand{\sem}[1]{\llbracket #1 \rrbracket}
+\newcommand{\cspRef}{\sqsubseteq}
+\newcommand{\cspRefReversed}{\sqsupseteq}
+\newcommand{\ccref}{\leadsto}
+
+
+\newcommand{\RefCl}{\mathop{\text{\textit{RefCl}}}}
+
+\newcommand{\traces}{\mathop{\text{\textit{traces}}}}
+\newcommand{\failures}{\mathop{\text{\textit{failures}}}}
+\newcommand{\failuresBot}{\mathop{\text{\textit{failures}}_{\bot}}}
+\newcommand{\failuresBotI}{\mathop{\text{\textit{failures}}_{\bot, I}}}
+\newcommand{\divergences}{\mathop{\text{\textit{divergences}}}}
+\newcommand{\Network}{\mathop{\text{\textit{Network}}}}
+
+\newcommand{\ccalph}{\ensuremath{\mathop{\textit{Alph}}}}
+\newcommand{\ccalphReduct}{\ensuremath{\mathop{\textit{Alph\_Reduct}}}}
+\newcommand{\alphEmb}[1]{\overline{#1}}
+\newcommand{\strip}{\ensuremath{\mathop{\text{\textit{strip}}}}}
+
+\newcommand{\cspTop}{\text{\textit{Top}}}
+
+%% From MPhil
+\newcommand{\category}[1]{\ensuremath{\mathop{\text{\textbf{#1}}}}}
+\newcommand{\functor}[1]{\ensuremath{\mathop{\text{\textbf{#1}}}}}
+\newcommand{\functorsymbol}[1]{#1}
+
+\newcommand{\ModReduct}{\ensuremath{\category{Mod\_Reduct}}\xspace}
+
+% These are institution functors
+\newcommand{\Sen}{\functor{sen}}
+\newcommand{\ModFunctor}{\functor{mod}}
+
+% these are (projection) functions
+\newcommand{\Sig}{\ensuremath{\mathop{\text{\textbf{Sig}}}}}
+\newcommand{\Mod}{\ensuremath{\mathop{\text{\textbf{Mod}}}}}
+\newcommand{\Axioms}{\ensuremath{\mathop{\text{\textbf{Ax}}}}}
+\newcommand{\flatten}{\ensuremath{\mathop{\text{\textit{flatten}}}}}
+\newcommand{\LHS}{L.H.S\xspace}
+\newcommand{\RHS}{R.H.S\xspace}
+\newcommand{\Isabelle}{Isabelle\xspace}
+\newcommand{\IsabelleHOL}{Isabelle/HOL\xspace}
+\newcommand{\inj}{\mbox{\texttt{inj}}\xspace}
+\newcommand{\pr}{\mbox{\texttt{pr}}\xspace}
+%% Structuring Abreviations
+\newcommand{\spec}[1]{\text{\textsc{#1}}}
+\newcommand{\Sand}{\mathrel{\mathbf{and}}}
+\newcommand{\Sthen}{\mathrel{\mathbf{then}}}
+\newcommand{\Srename}{\mathrel{\mathbf{rename}}}
+\newcommand{\Shide}{\mathrel{\mathbf{hide}}}
+\newcommand{\Sfree}[2]{\mathop{\mathbf{free}} #1 \mathrel{\mathbf{along}} #2}
+\newcommand{\Swith}{\mathrel{\mathbf{with}}}
+\newcommand{\FA}{\mathcm{FA}}
+\newcommand{\FM}{\mathcm{FM}}
+
+\newcommand{\singleValued}[1]{\mathop{\text{Single-valued}}(#1)}
+\newcommand{\procCons}[2]{\mathop{\text{ProcConst}}(#1, #2)}
+\newcommand{\isDF}[2]{#1 \, \mathbin{isDFin} \, #2 \xspace}
+\newcommand{\resToLiveTickOn}[4]{#1 \mathrel{ResToLive^{\tick}} #2 \mathrel{on} #3 \mathrel{in} #4}
+
+\newcommand{\FOL}{\text{\textit{FOL$^{=}$}}\xspace}
+\newcommand{\PFOL}{\text{\textit{PFOL$^{=}$}}\xspace}
+\newcommand{\PCFOL}{\text{\textit{PCFOL$^{=}$}}\xspace}
+\newcommand{\SubPFOL}{\text{\textit{SubPFOL$^{=}$}}\xspace}
+\newcommand{\SubPCFOL}{\text{\textit{SubPCFOL$^{=}$}}\xspace}
+\newcommand{\ResSubPCFOL}{\text{\textit{ResSubPCFOL$^{=}$}}\xspace}
+
+\newcommand{\fst}{\mathop{\text{\textit{fst}}}}
+\newcommand{\snd}{\mathop{\text{\textit{snd}}}}
+\newcommand{\SET}{\category{SET}\xspace}
+\newcommand{\SETINJ}{\category{SET\_INJ}\xspace}
+\newcommand{\op}{op}
+%% The projection of the controlled traces of a csp model
+\newcommand{\contTraces}{cTr}
+
+%% Tikz Styles
+\tikzstyle{category}     =[circle,draw, minimum size=3cm]
+\tikzstyle{categoryLarge}=[ellipse,draw, minimum width=10cm, minimum height=5.5cm]
+\tikzstyle{functor}      =[->, above, shorten <=0.2cm, shorten >=0.2cm]
+\tikzstyle{object}       =[]
+\tikzstyle{morphism}     =[->]
+
+
+\newenvironment{discussion}
+{\begin{Sbox}\begin{minipage}{0.95\textwidth}\textbf{Discussion:}}
+{\end{minipage}\end{Sbox}\begin{center}\shadowbox{\TheSbox}\end{center}}
+
+
+% Haskell listings.
+%
+% Style for all Haskell code.
+%
+\lstdefinestyle{haskell}
+    {language=Haskell,
+      columns=fixed,
+      %%columns=fullflexible,
+      showstringspaces=false,
+      %%numbers=left,
+      %%numberstyle=\tiny,
+      basicstyle=\small\ttfamily,
+      numbersep=5pt,
+      %%numberblanklines=false,
+      %% breaklines=true,
+    }
+%
+% Environment for long Haskell listings.
+%
+\lstnewenvironment{HaskellCode}
+  {\lstset{style=haskell, frame=single}}
+  {}
+
+\newcommand{\inHaskell}[1]{\lstinline[style=haskell]{#1}}
+
+\newcommand{\amalgamate}{\oplus}
+\newcommand{\abovearrow}[1]{\overset{\rightarrow}{#1}}
+
+\newcommand{\GRKH}{\text{Grigore Ro\c{s}u and Klaus Havelund}}
+\newcommand{\RH}{\text{Ro\c{s}u-Havelund}}
+\newcommand{\RRH}{\text{Reverse-Ro\c{s}u-Havelund}}
+\newcommand{\Buchi}{\text{B\"{u}chi}}
+
+%LTL symbols
+\newcommand{\LTLeventually}{\Diamond}
+\newcommand{\LTLnext}{\scalebox{1.4}{$\circ$}}
+\newcommand{\LTLalways}{\square}
+
+\newcommand{\LTLonce}{\ensurestackMath{%
+  \stackengine{.5pt}{\Diamond}{\scalebox{.6}[1.2]{$-$}}{O}{c}{F}{F}{L}}}
+
+\newcommand{\LTLprevious}{\scalebox{1.4}{\ensurestackMath{%
+  \stackengine{.5pt}{\circ}{\scalebox{.4}[.85]{$-$}}{O}{c}{F}{F}{L}}}}
+
+\newcommand{\LTLalwaysbeen}{\ensurestackMath{%
+  \stackengine{.5pt}{\square}{\scalebox{.7}[1.2]{$-$}}{O}{c}{F}{F}{L}}}
+

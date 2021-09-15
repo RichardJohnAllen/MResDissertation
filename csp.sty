@@ -1,0 +1,70 @@
+\def\fileversion{v1}
+\def\filedate{2010/03/30} 
+
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{csp}[{%
+  \filedate\space\fileversion\space csp package}]
+
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+
+%% Utility Fucntions
+
+\newcommand{\cspText}[1]{\text{#1}}
+
+\usepackage{bbold}
+\newcommand\bbsemi{\mathop{\mbox{\textbb;}}} 
+
+\newcommand{\cspEvent}[1]{\mathop{\text{\textit{#1}}}}
+\newcommand{\cspPN}[1]{\mathop{\text{\textit{#1}}}}
+\newcommand{\cspRun}{\mathop{\text{\textit{Run}}}}
+\newcommand{\cspChaos}{\mathop{\text{\textit{Chaos}}}}
+
+%% Syntax
+
+\newcommand{\cspSkip}{\mathop{\cspText{SKIP}}}
+\newcommand{\cspStop}{\mathop{\cspText{STOP}}}
+\newcommand{\cspDiv}{\mathop{\cspText{DIV}}}
+
+\newcommand{\cspPrefix}[1]{#1 \mathrel{\rightarrow}}
+\newcommand{\cspExtPrefixChoice}[2]{\mathop{\square} #1 :: #2 \mathrel{\rightarrow}}
+\newcommand{\cspIntPrefixChoice}[2]{\mathop{\sqcap} #1 :: #2 \mathrel{\rightarrow}}
+\newcommand{\cspChanSend}[2]{#1 \mathbin{!} #2 \rightarrow}
+\newcommand{\cspChanNonDetSend}[3]{#1 \mathbin{!} #2 \mathbin{::} #3 \rightarrow}
+\newcommand{\cspChanRece}[3]{#1 \mathbin{?} #2 \mathbin{::} #3 \rightarrow}
+
+\newcommand{\cspSeq}{\bbsemi}
+\newcommand{\cspIntChoice}{\mathbin{\sqcap}}
+\newcommand{\cspExtChoice}{\mathbin{\Box}}
+\newcommand{\cspUntimedTimeout}{\mathbin{\vartriangleright}}
+
+\newcommand{\cspInterleave}{\mathbin{\mid\mid\mid}}
+\newcommand{\cspSParallel}{\mathbin{\parallel}}
+\newcommand{\cspGParallel}[1]{\,\mathord{\mid}[\,#1\,]\mathord{\mid}\,}
+\newcommand{\cspAParallel}[2]{\,\mathord{\mid}[\,#1\mid#2\,]\mathord{\mid}\,}
+
+\newcommand{\cspHide}[1]{\mathrel{\backslash} #1}
+\newcommand{\cspRename}[1]{[#1]}
+
+\DeclareMathOperator \cspCondIfAux {if}
+\DeclareMathOperator \cspCondThenAux {then}
+\DeclareMathOperator \cspCondElseAux {else}
+
+\newcommand{\cspCondIf}{\mathop{\cspCondIfAux}}
+\newcommand{\cspCondThen}{\mathrel{\cspCondThenAux}}
+\newcommand{\cspCondElse}{\mathrel{\cspCondElseAux}}
+
+% Semantics
+
+\DeclareMathSymbol{\cspTick}{0}{AMSa}{"58}
+\newcommand{\cspCons}{\mathbin{\raise 0.8ex\hbox{$\smallfrown$}}}
+
+\newcommand{\cspTrace}[1]{\langle #1 \rangle}
+
+\newcommand{\cspTr}[1]{traces(#1)}
+\newcommand{\cspTrB}[1]{traces_{\bot}(#1)}
+\newcommand{\cspF}[1]{failures(#1)}
+\newcommand{\cspFB}[1]{failures_{\bot}(#1)}
+
+\endinput

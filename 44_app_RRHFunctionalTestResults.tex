@@ -1,0 +1,392 @@
+\chapter{\RRH\ Functional Test Results}
+\label{app:RRHFunctionalTestResults}
+
+\subsection{PREVIOUS Operator}
+
+Formula:\\
+(P(b))\\
+\\
+Subformulae:\\
+P(b)\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless b,a\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+
+\subsection{NOT Operator}
+
+Formula:\\
+(!a)\\
+\\
+Subformulae:\\
+!a\\
+a\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+
+\subsection{ALWAYSBEEN Operator}
+
+Formula:\\
+(\texttt{\textless -\textgreater}(a))\\
+\\
+Subformulae:\\
+\texttt{\textless -\textgreater}(a)\\
+a\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+  Prefix: 2 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\subsection{ONCE Operator}
+
+Formula:\\
+(\texttt{\textless -\textgreater}(a))\\
+\\
+Subformulae:\\
+\texttt{\textless -\textgreater}(a)\\
+a\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+
+Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+  Prefix: 2 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\subsection{IMPLIES Operator}
+
+Formula:\\
+(a \texttt{=>} (\texttt{<->}(b)))\\
+\\
+Subformulae:\\
+a \texttt{=>} (\texttt{<->}(b))\\
+a\\
+\texttt{<->}(b)\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: true\\
+\\
+Actual Result = true\\
+
+\newpage
+
+\noindent Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+Running Trace: \textless a,a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+Running Trace: \textless a,b\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+  Prefix: 2 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+
+\subsection{AND Operator}
+
+Formula:\\
+(a\ \&\& (\texttt{<->}(b)))\\
+\\
+Subformulae:\\
+a\ \&\& (\texttt{<->}(b))\\
+a\\
+\texttt{<->}(b)\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\noindent Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\subsection{OR Operator}
+
+Formula:\\
+(a $\mid\mid$ b)\\
+\\
+Subformulae:\\
+a $\mid\mid$ b\\
+a\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+
+\noindent Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless c\textgreater\\
+  Prefix: 1 Event: c Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\subsection{SINCE Operator}
+
+Formula:\\
+(a S b)\\
+\\
+Subformulae:\\
+a S b\\
+a\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+  Prefix: 1 Event:  Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: a Formula satisfied: false\\
+\\
+Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a,b\textgreater\\
+  Prefix: 1 Event: a Formula satisfied: false\\
+  Prefix: 2 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+  Prefix: 2 Event: a Formula satisfied: true\\
+\\
+Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+  Prefix: 1 Event: b Formula satisfied: true\\
+  Prefix: 2 Event: b Formula satisfied: true\\
+\\
+Actual Result = true\\

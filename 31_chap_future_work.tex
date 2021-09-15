@@ -1,0 +1,34 @@
+\chapter{Future Work}
+\label{chap:Future Work}
+
+In this chapter we look into which directions we can take this research in the medium term, what future research into Android security and runtime verification has been enabled thanks to the progress made here, and what progress is enabled in computer science. \\
+
+\noindent
+In the medium term, say with a further six months of research, we would concentrate on three areas:
+
+\begin{enumerate}
+\item Conduct systematic experimentation with the monitor to investigate if we can detect at least part of the Pegasus malware.  An organisation called Lookout directed research into the inner workings of Pegasus on Android \cite{PegasusOnAndroid}.  They discovered that Pegasus makes use of several operating system calls, and the parameters are hardcoded.  We can intercept and log these calls, and therefore we have good reason to assume we could detect Pegasus.
+
+\item Extend the LTL grammar and semantics so properties can be formulated from an unspecified number of colluding applications.
+
+\item Concerning the technical implementation of the monitor, we would seek to cover the latest Android versions, integrate the function of the Xposed framework into the monitor and provide a fully-fledged security monitoring app.
+\end{enumerate}
+
+\noindent
+Beyond six months, the project has raised some questions in the field of runtime verification that open opportunities for deeper investigations:
+
+Can our technique for deriving monitors for concrete events from monitors for abstract events yields better results than using monitors derived from LTLFO (first-order linear temporal logic)?
+
+When we implemented the \RH\ algorithm in chapter \ref{chap:Runtime Verification with the Rosu-Havelund Algorithm}, we learned that the fundamental problem when evaluating future operators is not knowing what a future event will be.  The algorithm is unsuitable for realtime use because it must evaluate the trace from the latest event to the earliest, which raises complexity.  There is a range of different paths of research into this problem:
+
+The solution we presented here is to formulate properties with past operators and reverse the order of evaluation. To back this up, in chapter \ref{chap:Reverse Rosu-Havelund Algorithm} we made the conjecture that: Any security property we wish to formulate can be written in terms of past events and past operators.  We would start by examining the relationship between future and past LTL operators an attempt to confirm the conjecture.
+
+Next, there is an opportunity to explore whether we can combine forward and reverse evaluation into a single algorithm capable of evaluating both past and future operators.  While it is likely possible, we expect it will still be unsuitable for realtime use when future operators are employed.
+
+The greatest advancement might be to adapt the algorithm to use a three-valued variation of LTL, similar to the logic Bauer et al. described in their paper Runtime Verification for LTL and TLTL \cite{RVForLTLAndTLTL}.  The LTL they use includes a logical value for unknown.  After all, when evaluating future operators, it appears that unknown future events are precisely what we are dealing with.\\
+\\
+\noindent
+In the broader field of computer science, the development of the \RRH\ algorithm has brought progress.  We now have a general algorithm for constructing monitors that evaluate past logic propositional LTL formulae in realtime.  This brings new possibilities for investigating monitoring in the fields of safety and security.\\
+\\
+\noindent
+We are aware that alongside the main CPU that runs Android, a mobile device has a baseband modem that implements mobile network and WiFi connectivity.  The issue is that the baseband modem is a System-on-Chip (SoC) device with its own processor.  The processor has direct hardware access to all the network connectivity features implemented by the baseband modem without going through Android.  The significance is that none of the Android security features have any influence over the baseband modem.  Our monitor observes Android activity on the main CPU, but the baseband modem can run programs that communicate outside the device without even informing Android.  Zero-click attacks on the baseband modem have been performed by sending an SMS containing malicious code to the mobile device.  The baseband modem receives the SMS first and the code is run by the SoC.  Although we have been monitoring Android applications, we believe there is value in investigating if it is possible to monitor the baseband modem.

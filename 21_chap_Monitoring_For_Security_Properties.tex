@@ -1,0 +1,216 @@
+\chapter{Monitoring For Security Properties}
+\label{chap:Monitoring For Security Properties}
+
+This chapter discusses the intricacies of using a monitor to detect security breaches.  We start with the formulation of a property to detect collusion between two applications, then identify the operating system methods used to perform each step of a collusion attack.  We continue by describing data-related conditions that we cannot formulate in LTL.  Next, we draw attention to some of the hazards involved in monitoring, different approaches to overcome those hazards and the advantages versus disadvantages of each approach.  The last section talks about how the monitor will react to a security breach.
+
+\section{A Formula for Collusion}
+
+Our aim is to use runtime verification to recognise collusion.  We will record the activity of applications running on the device in a trace then a background process will monitor the trace until it exhibits a property that expresses collusion.  The collusion property will be formulated in LTL and comprise four propositions: 
+
+\begin{enumerate}
+\item First, information will get queried,
+\item At some time following the query, information will get sent.
+\item Following the send, information will get received.
+\item Following receipt, information will get published.
+\end{enumerate}
+
+\noindent We call the four collusion actions query, send, receive and publish, or q, s, r, p for short.  If this sequence of events is observed within the trace, the trace exhibits the collusion property.
+
+The key condition we must be able to formulate is that events follow one another.  First, we will try the simple case:  Somewhere in the trace, there will be an arbitrary event a, and somewhere following, there will be event b.  The eventually operator $\LTLeventually$ does just that: $\LTLeventually(a \land \LTLeventually b)$.\\
+
+With the simple case complete, we can extend the formula to recognise a chain of events by nesting the formula within the right operand.  So, if we want to recognise that event c follows b follows a, then the formula appears as:
+$\LTLeventually(a \land \LTLeventually(b \land \LTLeventually c))$.\\
+
+When we apply this process to our desired property: Following a query, there is a send, followed by a receive, followed by a publish; we get our collusion formula:\\
+\\
+$$\LTLeventually(q \land \LTLeventually(s \land \LTLeventually(r \land \LTLeventually p)))$$\\
+
+\begin{myEx} Collusion Formula Examples\\
+
+Examples of the collusion formula evaluating a positive and negative trace are in appendix \ref{app:FutureLogicCollusionFormulaExamples}.
+
+\qed
+\end{myEx}
+
+\section{Operating System Methods Of Interest}
+\label{sec:OSMethodsOfInterest}
+
+Until now, we have only described the steps of a collusion attack as query, send, receive and publish.  There are many different ways to realise these abstract actions.  For example, we will recognise publication as the screen displaying the contacts list, but it could be when an application uploads data to a remote server.  We must identify which concrete operating system methods can perform the attack and monitor those methods.
+
+An analysis of which operating system methods can be used to perform information theft has been done already by Blasco et al.\cite{PrologAppCollusion}.  If we wish to detect other security threats we may need to monitor other operating system methods, but it is not essential to have an example of a threat in the wild before we construct a monitor.  It is enough to identify weaknesses, speculate that in future they will be exploited, monitor the relevant operating system methods, and construct monitors before any exploits go live.\\
+
+\noindent To detect the steps of a collusion attack, we will monitor five operating system methods:
+
+\begin{enumerate}
+\item To recognise information getting queried we will monitor the method to read the contacts list:\\
+\textbf{android.content.ContentResolver.query()}.\\
+Documented here:\\
+\url{https://developer.android.com/reference/android/content/ContentResolver#query(android.net.Uri,\%20java.lang.String[],\%20java.lang.String,\%20java.lang.String[],\%20java.lang.String)}
+
+\item To recognise information getting sent we will monitor the method to broadcast an intent:\\
+\textbf{android.content.ContextWrapper.sendBroadcast()}.\\
+Documented here:\\
+\url{https://developer.android.com/reference/android/content/ContextWrapper#sendBroadcast(android.content.Intent)}
+
+\item To recognise information getting received we have to monitor two methods, the first is a method that registers for receipt of intents:\\
+\textbf{android.content.ContextWrapper.registerReceiver()}.\\
+Documentation here:\\
+\url{https://developer.android.com/reference/android/content/ContextWrapper#registerReceiver(android.content.BroadcastReceiver,\%20android.content.IntentFilter)}
+%When registering to receive intents, a class is supplied that will handle receipt of the intent.  When we hook the registerReceiver() method above, we copy the name of the class being registered so that we can use it to hook the onReceive() method of that specific class.  It is also at this point that we ignore intents sent between the interceptor and the monitor.
+
+\item The second is the method that receives an intent:\\
+\textbf{android.content.BroadcastReceiver.onReceive()}.\\
+Documentation found here:\\
+\url{https://developer.android.com/reference/android/content/BroadcastReceiver?hl=en#onReceive(android.content.Context,\%20android.content.Intent)}
+
+\item To recognise information getting published we will monitor the method called to display a list on screen :\\
+\textbf{android.widget.ListView.setAdapter()}.\\
+And the documentation:\\
+\url{https://developer.android.com/reference/android/widget/ListView?hl=en#setAdapter(android.widget.ListAdapter)}
+\end{enumerate}
+
+\section{Static and Dynamic Conditions}
+
+Satisfaction of the collusion formula alone is not enough to indicate collusion has taken place. For instance, in our example of app collusion, we can specify the attack sequence at design-time, so it is a static condition.  But some conditions require that data relating to the events have a particular assignment known only at runtime.  In the case of collusion, we only want to catch groups of applications that perform the attack sequence and communicate with each other.  But we want to ignore benign applications that independently go about their normal activities, even if they make the operating system calls that interest us.  Therefore, when the monitor identifies the attack sequence: query, send, receive and publish, it also needs to satisfy:
+
+\begin{enumerate}
+\item If an app is publishing data, it is an app that received data some time earlier.
+\item The app receiving data, does so from the same communication channel that another app sent across earlier.
+\item The app sending data, queried data earlier.
+\end{enumerate}
+
+\noindent If these conditions also get met, we can assert that two applications may be colluding because: The publisher received from a channel that another app sent across, and that sender also queried information.  We can see an information trail.
+
+In Android, communication channels get called intents, and an action name identifies an intent.  Apps get identified by a process id (Pid).  The identifiers get assigned at runtime by actors outside our influence.  The assignments will vary and are impossible to know until runtime.  Therefore conditions involving this type of metadata are dynamic.
+
+\subsection{Implementing Dynamic Conditions}
+\label{subsec:ImplementingDynamicConditions}
+
+Although we cannot know the assigned value of the metadata at design-time, we do know what metadata we need to consider.  So, in the case of collusion on Android, the dynamic conditions are more specifically:
+
+\begin{enumerate}
+\item The process id of a publishing app must equal the process id of an app that received earlier.  
+\item The intent name that the receiving app received from must match the intent name that another app sent across earlier.
+\item The process id of the sending app must equal that of an app that earlier made a query.  
+\end{enumerate}
+
+From this, we can gather that when an application calls a monitored operating system method, we should capture the time the call got made, the process id of the caller, and the action name of the intent when relevant, then include them in the trace events. The monitor can then interrogate this metadata.
+
+But the grammar and semantics from chapter \ref{chap:Linear Temporal Logic} have no provisions for describing assignments that can vary at runtime, meaning we cannot encode dynamic conditions in an LTL formula.  To solve the problem, we will take advantage of the fact that we know at design-time what metadata we must consider and hardcode evaluation of the dynamic conditions in the monitor.  When the monitor evaluates a trace, it will do so until the static collusion formula is satisfied and add the events that led to satisfaction to a list. The monitor will then evaluate the dynamic conditions by selecting events from the list that meet the aforementioned conditions.  The monitor will declare it has detected possible collusion if it finds events that satisfy the static and dynamic conditions.
+
+The advantage of this approach is that the LTL remains a simple propositional language, and the computational cost for recognising static conditions is low. The disadvantage is that full recognition of a trace property becomes a two-stage process that involves specific development for each property we wish to monitor.
+
+\section{Overlapping Sequences}
+
+The collusion property above involves a sequence of multiple events rather than a single event.  A problem arises when properties comprise more than a single event:  It is possible for many sequences to be in progress at once.  
+
+\begin{myEx} Concurrent Collusions\\
+
+\noindent Here is an example of two groups of applications with collusion inside each group.  Both groups perform the actions: query, send, receive, publish.  In the trace, the attack sequences are denoted as q, s, r, p with a numeric suffix after each event to denote the group that performed the action.\\
+
+\noindent
+The following trace is after group 1 has produced a sequence of events:\\
+$\langle q_1, s_1, r_1 \rangle$\\
+\\
+\noindent
+Before group 1 performs the publish action that completes the sequence, group 2 starts a sequence and the trace becomes:\\
+$\langle q_1, s_1, r_1, q_2, s_2, r_2\rangle$\\
+\\
+\noindent
+The two sequences overlap.  If the next event is $p_1$ then the trace will appear:\\
+$\langle q_1, s_1, r_1, q_2, s_2, r_2, p_1 \rangle$\\
+\\
+\noindent
+The monitor will recognise that the group 1 sequence is now complete.
+\qed
+\end{myEx}
+
+The problem is that when the collusion formula is satisfied, the \RH\ algorithm will continue to return satisfaction for all successive events.  It is important that once a sequence completes, the monitor can still recognise all other sequences that follow or overlap.  If not, a sequence can be masked by another and go unnoticed.  We consider two approaches to tackle this problem.
+
+\subsection{Spawning Multiple Monitors}
+
+For a given property, we could create multiple monitors, where each monitor looks for different instances of the attack sequence.  A monitor would create a new monitor each time it sees the first event in a sequence.  It is an interesting idea that deserves further exploration, but the striking difficulty with this approach is the question of when to destroy a monitor?
+
+Until a sequence completes and the monitor is satisfied, we cannot destroy it because the next event may complete the sequence and satisfy the monitor.  Equally, the final event in the sequence may never occur, so a monitor might never get destroyed.  The number of attacks that can be in progress simultaneously is unbounded.  It follows that the number of monitors that could spawn is also unbounded.  Each new monitor would multiply the computational steps required to evaluate the trace and, unless we limit the number of monitors, they would eventually consume all memory and processor time.  If we set a limit, then we will ignore potential attack sequences.
+
+\subsection{Resetting the Monitor}
+\label{subsec:ResettingTheMonitor}
+
+An alternative to spawning many monitors is a single monitor per property that resets after recognising a complete sequence.  Resetting the monitor would require removing the completed sequence from the trace, then re-initialising the \textit{next} register from the remaining trace.  The monitor would then recognise when other in-progress sequences are complete.
+
+\begin{myEx} Removing Satisfying Events From the Trace\\
+\\
+\noindent
+Using our previous example of two groups of colluding applications, we have the following trace:\\
+$\langle q_1, s_1, r_1, q_2, s_2, r_2, p_1 \rangle$\\
+\\
+\noindent
+The monitor is triggered and the satisfying events are:\\
+$q_1, s_1, r_1, p_1$\\
+\\
+\noindent
+If those events are removed from the trace, it leaves:\\
+$\langle q_2, s_2, r_2 \rangle$\\
+\\
+\noindent
+The \textit{next} register within the monitor can be reinitialised from the remaining trace and the overlapping sequence will be recognised when a $p_2$ event occurs.
+
+\qed
+\end{myEx}
+
+An advantage to resetting the monitor is that it does not increase dynamic complexity because intensive processing happens after the monitor is triggered.  But if we are to re-initialise the \textit{next} register without the events from the completed sequence, then we need to record all the events we receive in a trace.  Until now, a recorded trace was unnecessary because the \textit{next} register gives us everything we need when evaluating a new event.  A monitor that does not record the trace has constant memory use over time.  It has the superb ability to detect sequences indefinitely, no matter how long ago they began.  When a trace gets recorded, finite memory limitations confine its length.  We can employ a policy of limiting trace length by removing the earliest event when a new event occurs.  However, deleting information comes at the price that monitoring is again prone to miss attacks: The size of an attack sequence is unbounded and, compounding the problem, unrelated events from benign applications might happen between the events in the sequence.\\
+
+\indent Let $e_n$ be the first event in an attack sequence, $e_m$ be the last event in the sequence and $n \leq m$.\\
+\indent Lets denote an attack sequence $e_n...e_m$ with $s$.\\
+\indent Lets call the trace $t$.\\
+\indent Then to detect all attack sequences requires $| s | \leq | t |$.\\
+\\
+If the length of the trace is limited, and the length of the attack sequence exceeds it, then the first act of the attack will have happened so far in the past that the event is no longer in the trace.  Therefore it becomes impossible to detect the attack.  Taking this approach requires a sequence to complete within a limited period or it will be missed.
+
+\section{Limitations}
+
+We already know the monitor cannot be certain that it has detected collusion: We are unable to check if an application's observed behaviour is within specification because we do not have any specifications.  And the monitor cannot see the information that applications are communicating between each other.  So the monitor cannot discern benign collaboration from malicious collusion.  Our monitor can only say when there might be collusion.
+
+But the problem of overlapping sequences has revealed another limitation.  As explained earlier, when an attack sequence spans multiple events, one sequence can mask another.  Both solutions we investigated impose limits:  If we take the spawning solution and limit the number of monitors, then the number of concurrent attacks we can monitor is limited, and some will get ignored.  Instead, if we reset the monitor after it is satisfied, then we must record the trace.  Then we hit memory limitations that mean we can also miss attacks.  It appears that the monitor is always limited.  Either by concurrent attacks masking each other, getting ignored, or starting too far in the past to be recognised.  Note that this is only a problem when the monitored attack comprises multiple actions.  If an attack consists of a single action then only one attack can be in progress at any moment.  Of the two solutions, we favour resetting the monitor because memory limitations are less confining than processor limitations, and we expect the trace history can be sufficiently long to detect most attacks.  Regardless of the solution, we cannot guarantee all collusion attacks are detected. 
+
+\section{Responding to a Security Breach}
+
+When the monitor has detected a security breach, we could respond in several different ways.  At the very least, we want to report whenever incidents happen and allow the user to decide what to do.  The simplest way forward would be to advise them to remove the applications involved and then restart the device.  But we would prefer the monitor to run indefinitely, so we will implement a solution that starts the monitor afresh after an attack is detected.\footnote{During development we fell short of removing completed attack sequences from a limited length trace.  Instead we re-initialise registers from an empty trace.  Thus the monitor restarts with no history.  It detects sequences that follow the reset but not those that began before.}
+
+Beyond the basic response, we could attempt to intervene and prevent security breaches from ever happening.  Given an attack sequence, the monitor could alert the user when it observes the penultimate action rather than the final action in the sequence.  A more advanced monitor could automatically prevent the final action by blocking the method call that realises the action.  There is also an opportunity to dynamically check that when an application receives information, it has permission to have queried that information itself.  If so, we would ignore the collusion.  Of course, for that policy to be most effective implies knowing what the information is and not simply that an application received something.  If applications are colluding, they could always encrypt their communications.  For now we will simply raise an alert that collusion may have occurred and leave more advanced responses to future work.
+
+%c) idea that would work for any formula:
+%  start a new monitor for each time we see the first event in the sequence
+%
+%  example: extreme sequence:
+%
+%   q1 q2 q3 q4 q5 ....
+%
+%  example: how this 1st idea solves the problem
+%
+%  problem: unbounded number of monitors
+%
+%
+%---- all your sections on LTL monitoring
+%
+%
+%new section: manually, we implement a monitor for the collusion
+%formula
+%
+%Working without LTL:
+%
+%                       |  1st element | 2nd element | 3rd element | 4th element
+%elements and their     |              |             |             |
+%meta data              |              |             |             |
+%
+%
+%rule: ignore all elements i+1, which are not matching elements i
+%
+%
+%new section: run time comparison
+%
+%-> if one is not interested in overlapping - LTL is fine
+%-> experiments show that spawning monitors is not a problem?????
+%-> naturally, one would like to work with LTL, however
+%   manual monitor is fast and effective
+%

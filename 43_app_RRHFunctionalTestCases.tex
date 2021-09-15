@@ -1,0 +1,152 @@
+\chapter{\RRH\ Functional Test Cases}
+\label{app:RRHFunctionalTestCases}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l r}
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		PREVIOUS & $ (P(b)) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & False \\
+		$ \langle a \rangle $ & False \\
+		$ \langle b \rangle $ & False \\
+		$ \langle a,a \rangle $ & False \\
+		$ \langle a,b \rangle $ & False \\
+		$ \langle b,a \rangle $ & True \\
+		$ \langle b,b \rangle $ & True \\
+		\hline
+		\end{tabular}
+	&
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		NOT & $ (!a) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & True \\
+		$ \langle a \rangle $ & False \\
+		$ \langle b \rangle $ & True \\
+		\hline
+		\end{tabular}
+	\end{tabular}
+	\caption{Operator Functional Tests}
+	\label{tab:OperatorFunctionalTests}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l c r}
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		ALWAYSBEEN & $ (\texttt{[-]}(a)) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & False \\
+		$ \langle a \rangle $ & True \\
+		$ \langle b \rangle $ & False \\
+		$ \langle a,a \rangle $ & True \\
+		$ \langle a,b \rangle $ & False \\
+		$ \langle b,a \rangle $ & False\\
+		$ \langle b,b \rangle $ & False \\
+		\hline
+		\end{tabular}
+	&
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		ONCE & $ (\texttt{<->}(a)) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & False \\
+		$ \langle a \rangle $ & True \\
+		$ \langle b \rangle $ & False \\
+		$ \langle a,a \rangle $ & True \\
+		$ \langle a,b \rangle $ & True \\
+		$ \langle b,a \rangle $ & True \\
+		$ \langle b,b \rangle $ & False \\
+		\hline
+		\end{tabular}
+	&
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		IMPLIES & $ (a\ \ \texttt{=>} (\texttt{<->}(b))) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & True \\
+		$ \langle a \rangle $ & False \\
+		$ \langle b \rangle $ & True \\
+		$ \langle a,a \rangle $ & False \\
+		$ \langle a,b \rangle $ & True \\
+		$ \langle b,a \rangle $ & True \\
+		$ \langle b,b \rangle $ & True \\
+		\hline
+		\end{tabular}
+	\end{tabular}
+	\caption{Operator Functional Tests continued}
+	\label{tab:OperatorFunctionalTestsContinued}
+\end{table}		
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l c r}
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		AND & $ (a\ \&\&\ (\texttt{<->}(b))) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & False \\
+		$ \langle a \rangle $ & False \\
+		$ \langle b \rangle $ & False \\
+		$ \langle a,a \rangle $ & False \\
+		$ \langle a,b \rangle $ & False \\
+		$ \langle b,a \rangle $ & True \\
+		$ \langle b,b \rangle $ & False \\
+		\hline
+		\end{tabular}
+	&
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		OR & $ (a\ ||\ b) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & False \\
+		$ \langle a \rangle $ & True \\
+		$ \langle b \rangle $ & True \\
+		$ \langle c \rangle $ & False \\
+		\hline
+		\end{tabular}
+	&
+		\begin{tabular}{c|c} 
+		Operator & Formula\\
+		\hline
+		SINCE & $ (a\ S\ b) $\\
+		\hline
+		Trace & Expected Result \\
+		\hline\hline
+		$ \langle \rangle $ & False \\
+		$ \langle a \rangle $ & False \\
+		$ \langle b \rangle $ & True \\
+		$ \langle a,a \rangle $ & False \\
+		$ \langle a,b \rangle $ & True \\
+		$ \langle b,a \rangle $ & True\\
+		$ \langle b,b \rangle $ & True \\
+		\hline
+		\end{tabular}
+	\end{tabular}
+	\caption{Operator Functional Tests continued}
+	\label{tab:OperatorFunctionalTestsContinued}
+\end{table}

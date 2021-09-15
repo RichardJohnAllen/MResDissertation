@@ -1,0 +1,171 @@
+\documentclass[11pt, a4paper, twoside]{custard}
+\RequirePackage[l2tabu, orthodox]{nag}
+\usepackage{amsmath}
+\usepackage{bussproofs}
+\usepackage{csp}
+\usepackage{fancybox}
+\usepackage{hetcasl}
+
+\usepackage{listings}
+\lstset{
+language=Java,
+basicstyle=\small,
+numbers=left, numberstyle=\tiny, numbersep=5pt, numberblanklines=false,
+linewidth=\linewidth, breaklines=true,
+framexleftmargin=5mm, frame=single,
+captionpos=b}
+
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{stmaryrd}
+\usepackage{placeins}
+\usepackage{mathtools}
+\usepackage{adjustbox}
+\usepackage{framed}
+\usepackage{xfrac}
+\usepackage{appendix}
+\usepackage{geometry}
+\usepackage{afterpage}
+\usepackage{wrapfig}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{stackengine}
+\usepackage{latexsym} 
+\usepackage{a4wide}
+
+\usepackage{float}
+
+%Bibliography
+\usepackage[square,numbers]{natbib}
+%\bibliographystyle{plainnat}
+\bibliographystyle{abbrvnat}
+%\bibliographystyle{dinat}
+%\bibliographystyle{plain}
+%\bibliographystyle{alpha}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+%\usepgfplotslibrary{external}
+%\tikzexternalize 
+
+\usepackage{xurl}
+%\usepackage[obeyspaces,spaces,hyphens]{url}
+\urlstyle{sf}
+
+\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue, filecolor=blue, menucolor=blue, runcolor=blue, urlcolor=blue]{hyperref}
+%\usepackage[colorlinks, linkcolor=black, anchorcolor=black, citecolor=black, filecolor=black, menucolor=black, runcolor=black, %urlcolor=black]{hyperref}
+
+%% packages required for UML diagrams
+\usepackage{tikz-uml} %%package not found
+%\usepackage{pgf-umlsd}
+
+%% packages required for simple tree diagrams
+\usepackage{tikz-qtree}
+\usetikzlibrary{trees}
+
+\newtheorem{myEx}{Example}
+
+\setlength{\arrayrulewidth}{.25 mm}
+\renewcommand{\arraystretch}{1.5}
+
+\DeclareMathAlphabet{\mathcm}{T1}{cmr}{m}{it}
+
+%Enumeration number styles
+\usepackage{enumitem}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+
+%% Include the users customisations.
+\input{customisation}
+\input{tikz_macros}
+
+%% The custom data for Swansea University and your degree name.
+%\title{Detecting Collusion Between Android Processes Using Linear Temporal Logic}
+\title{Runtime Verification For Android Security}
+\author{Richard Allen}
+\awardinginst{Swansea University}
+\degree{Master of Research}
+\department{Department of Computer Science}
+\university{Swansea University}
+\unilogo{graphics/swansea-university-logo}
+\date{2021}
+
+%% Memoir defines a variety of styles and can be easily customised to
+%% the users preference. Possible values for chapter style include:
+%% demo, demo2, demo3, section, hangnum, companion, bianchi,
+%% brotherton, chappell, crosshead, culver, dash, madsen. More styles
+%% can be found in the memoir manual (currently called
+%% memman.pdf). This line can also be commented out so that we don't
+%% use a memoir chapter style.
+\chapterstyle{bianchi}
+
+\begin{document}
+
+\frontmatter %% Start roman numbering
+
+\maketitle
+\declaration
+
+%Abstract
+\include{00_abstract}
+
+%Acknowledgements
+\begin{Acknowledgements}
+I first want to thank my primary supervisor Markus Roggenbach for his continuous support in all aspects of the project.
+\end{Acknowledgements} 
+
+\newgeometry{top = 4cm}
+
+%Table Of Contents
+\tableofcontents*
+
+\restoregeometry
+
+\mainmatter %% Start plain numbering
+
+\include{01_chap_Introduction}
+
+\part{Background}
+\include{10_chap_Collusion}
+\include{11_chap_Runtime_Verification}
+\include{12_chap_Linear_Temporal_Logic}
+\include{13_chap_Rosu-Havelund_Algorithm}
+\include{14_chap_Android_Platform}
+\include{15_chap_Xposed_Framework}
+\include{16_chap_Related_Work}
+
+\part{Contributions}
+\include{21_chap_Monitoring_For_Security_Properties}
+\include{22_chap_Architecture_Of_The_Monitoring_System}
+\include{23_chap_Runtime_Verification_with_the_Rosu-Havelund_Algorithm}
+\include{24_chap_Reverse_Rosu-Havelund_Algorithm}
+\include{25_chap_Demonstration}
+
+\part{Conclusion}
+\include{30_chap_summary}
+\include{31_chap_future_work}
+
+%Bibliography
+\bibliography{bibliography}
+
+%Table Of Contents
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+
+%Appendices
+\appendix
+\newgeometry{left=1cm,bottom=0.1cm, top = 2cm}
+\include{40_app_RHCode}
+\include{41_app_RHFunctionalTestCases}
+\include{42_app_RHFunctionalTestResults}
+\include{43_app_RRHFunctionalTestCases}
+\include{44_app_RRHFunctionalTestResults}
+\include{45_app_FutureLogicCollusionFormulaExamples}
+\include{46_app_PastLogicCollusionFormulaExamples}
+
+\restoregeometry
+
+\end{document}

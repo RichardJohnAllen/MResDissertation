@@ -1,0 +1,152 @@
+\chapter{Related Work}
+\label{chap:Related Work}
+
+As related work, we consider publications on collusion detection and publications on monitoring for security in Android.  We have identified two main streams of work that we discuss below.  Regarding collusion detection, we look into the outcomes of the ACiD project, and regarding monitoring for security, we look at publications from the group of Bauer.
+
+\section{Main outcomes from the ACiD project}
+
+All the papers we consider in the field of collusion are from an over-arching project called ACiD (App Collusion Detection) \footnote{\url{https://cs.swan.ac.uk/~csmarkus/ACID/}}.  The ACiD project was a collaboration between City University London, Swansea University, Coventry University and Intel Security (McAfee). The project started in July 2014 and completed in 2018.  The research explored three static analysis approaches to detecting collusion:  A policy driven approach, a data driven approach and a modeling approach to detecting collusion.  The consequences of using static analysis are the same for all the sub-projects within; from a users perspective all the different approaches analyse applications before they are installed and tell the user what \textit{not} to install.  The drawback with this approach is that applications are being produced at a prodigious rate and updates are issued at an even greater rate.  It must surely be too difficult to keep up with the work required to validate all these applications.
+
+In comparison, the approach we propose would be considered to be policy driven.  However we use a dynamic analysis technique called runtime verification to evaluate those policies.  The significant difference is that runtime verification tells the user when something occurs with the software after it has been installed rather than before.  The computation requirements are low which means analysis can be performed by the user's own device.  This makes runtime verification effective because it does not require an organisation to find and certify every application before it is made available to the public.  After all, a malicious actor would seek to bypass this process.
+
+\subsection{Detection of app collusion potential using logic programming, Jorge Blasco et al. (2017) \cite{PrologAppCollusion}}
+
+The first paper makes a significant contribution by confirming that collusion is definitely happening in the wild.  It goes on to define collusion and then identifies three types of malicious attacks; information theft, monetary theft and controlling device services.  The authors use static analysis to extract Prolog facts from application code and manifests.  The facts encode signature sequences of actions that indicate potential collusion.  
+
+The technique produces false positives because the intention of the developers is not known and the data that is being transmitted between applications is not known until runtime.  It is not feasible to use static analysis to analyse all possible combinations of applications that a user might install.  To overcome this, the technique was used to analyse over 50,000 applications that were available at the time of the research.  This represents an attempt to analyse all possible applications for collusion at once.  However, the technique was found to be best suited to sets of applications up to approximately 30 and did not scale well above that amount.  To remedy this problem the paper looked into improvements that could be made to reduce the complexity by filtering out communication across trusted channels or by trusted applications.
+
+McAfee classified the 50,000 applications into three categories, malicious, potentially unwanted and clean, these categories were used as the starting point of this paper.  But it was found that the applications in these three categories behaved differently in the investigation, leading to some of the applications being reclassified.
+
+\subsection{Towards a threat assessment framework for apps collusion, Kalutarage et al. (2017) \cite{ThreatAssesmentAppCollusion}}
+
+This paper considers all three static analysis techinques: policy driven, data driven and model checking but focuses on a data driven solution.  The work centres on collusion being the likelihood of a set of applications possessing the necessary permissions that allow a threat to occur, combined with the likelihood of those applications communicating with each other.   Machine learning was used to infer a classifier from a set of training examples.  The classifier categorised cases on the likelihood that attributes in the training data correlated to collusion.  The advantage is that it does not require expertise to explicitly state rules, and collusion indicated by multiple attributes can be detected.  But threats that are not covered by the training data will not be discovered.
+
+We would like to assert that the technique is surely retroactive because a classifier cannot be trained to detect theoretical cases of collusion when there are no examples.  If an example of collusion must exist before a classifier can be produced then a classifier of this kind will always be one step behind malicious actors.
+
+The paper goes on to describe that when looking for collusion in sets of applications, many combinations of apps can be ignored by filtering them out.  Initially applications can be filtered by a computationally cheap filter that discards those that have not requested threatening permissions.  The remaining combinations can then be further filtered by static analysis of code that looks for the combinations that communicate with each other.  The result of these two filtering processes will be combinations where the likelihood of collusion is high because they request threatening permissions and they communicate with each other.
+
+\subsection{Software Model Checking for Mobile Security, As{\u a}voae et al. (2018) \cite{ModelCheckingCollusion}}
+
+The last paper we look at from the ACiD project uses bounded-model checking to detect collusion between mobile applications.  Model checking is a static analysis technique that creates an abstract model from a piece of software and analyses all possible execution paths for a property.
+
+The files comprising Android software are binary files in the Dalvic assembly format.  From these files an automaton can be produced that covers every possible state of the device after each instruction is executed.  But this results in an automaton that is too large to be analysed.  To overcome this problem of scale, methods of abstract interpretation are used to abstract memory.  This reduces the automaton to a smaller finite automaton.  The small automaton is constructed using K and then automatically translated to a Maude model that can be trusted to be equivalent.  The Maude model can then be model checked.  This method is sound, i.e., if there is no collusion then none will be found but the method is not complete.  Therefore if it does find collusion it may be due to the abstraction.
+
+\section{Runtime Verification for LTL and TLTL, Bauer et al. (2011) \cite{RVForLTLAndTLTL}}
+
+The article studies runtime verification of properties expressed as linear temporal logic (LTL) or timed linear temporal logic (TLTL).  Three-valued semantics are introduced with truth values of true, false and inconclusive for LTL and TLTL.  This allows a deterministic LTL monitor to be generated that is minimal in size and can identify a trace as satisfying or violating a property as early as possible.  Monitors are based on B\"{u}chi automata.  Techniques are proposed that are suitable foundations for monitoring of realtime and discrete-time systems.  The authors produced a prototype implementation that demonstrates the feasibility for discrete-timed monitoring.
+
+\section{Runtime Verification meets Android Security, Bauer et al. (2012) \cite{bauer2012runtime}}
+
+This paper is possibly the closest relation to our own.  The authors set out to observe the behaviour of applications at runtime by monitoring the prefix of an infinite trace of events.  Security properties are modelled by a three-valued LTL, with a grammar rich enough to permit functions to be called.  The functions are computed in the background without interpreting the trace.
+
+Their solution modifies two files within the Android stack to circumvent sandboxing.  The modifications enable notification of when other applications request permission to perform specific operations.  Or when there are system events, e.g., when an application tries to send an SMS message.  However, intercepting high-level Android permission checks does not provide all the relevant data regarding an event, such as the phone number an SMS is directed to.  To obtain all the required data, they have outsourced detailed information gathering to their own kernel mode module that is dynamically loaded during bootup of Android.  We assume this is why they included the ability to call functions within LTL formulae.
+
+Evaluation of an LTL formula is realised by \textit{formula progression}.  They state that the performance overhead is generally negligible but, there are cases where the formula to progress gets longer with the length of the observed trace.  In the aforementioned cases, this leads to the performance of the monitor deteriorating over time.
+
+The architectural changes they have made to observe an application's activity, appear familiar but we use a third-party framework to achieve the same result.  Another similarity is that we also require detailed information regarding events.  While our use of the third-party framework allows us to gather this information in the trace, our LTL is not rich enough to include it as conditions in the formula.  Where the Bauer group delegate this to background functions that can be included in the LTL, we solve the problem by writing specific functions that are called by our monitor after the LTL property is satisfied.
+
+We also differ in that their paper does not mention collusion or the observation of more than a single application.  Whereas, we have made it the focus of this paper.  And as we will reveal later, our means of evaluating LTL is by interpretation rather than formula progression.  This keeps the time required to evaluate a formula constant if it is accepted that collusion attempts must complete within a limited time frame.  
+
+%
+%Model-Checking paper
+%---------------------
+%
+%file in dalvic format (binary)
+%    |
+%    v
+%file with assembler mnemonics [automaton too big]
+%   |
+%   V
+%consider the assembler commands with memory abstractions [automaton finite]
+%[apply methods of "abstract interpretation" to the program]
+%["small" automaton is effectively constructed in K]
+%  |
+%  V
+%check if collusion happens in the "small" automaton [here we use Maude as model checker
+%through an automatic translation (should be correct, the model in K should be equivalent to the model in Maude)
+%from K to Maude]
+%
+%
+%the method is sound, i.e., if there is no collusion, we won't find collusion
+%the method is not complete, i.e., if we find collusion, the collusion might be there due to abstraction
+%
+%    
+%method analysis all possible execution paths
+
+
+
+%B)  Other approaches for security on Android  - the two papers from the collegues we know.  The paper that we cite in out abstract and the follow up paper.
+
+
+%Papers Citing Runtime Verification Meets Android Security (Bauer, Kuster, Vegliach)\\
+%\\
+%1.  RV-Android: Efficient Parametric Android Runtime Verification, a Brief Tutorial (Daian, Falcone, Meredith, Rosu)\\
+%\\
+%\cite{RV-Android}\\
+%\\
+%The abstract talks about using an open-source runtime library called RV-Android that runs in user mode.  RV-Android is a monitor generation technology.  It also says it replaces JavaMOP and is more efficient in terms of resources and battery usage.  It uses a commercial library called RV-Monitor.
+%\\
+%\\
+%2.  Predictive Runtime Verification of Timed Properties (Pinisetty, Jéron, Tripakis, Preoteasa)\\
+%\\
+%\cite{Predictive-RV}\\
+%\\
+%This paper is studying the verification of 'timed properties'.  That is properties where the elapsed time since an event has an influence of the satisfiability of the property.  It uses a-priori knowledge of the system being monitored to forsee the satisfaction or violation of a property.  While the timed element of the properties may be of use in our project, the predictive element will be unachievable since our project should be able to spot security violations in third party software therefore it will have no a-priory knowledge of the systems being monitored.
+%\\
+%\\
+%3.  Auditing Anti-Malware Tools by Evolving Android Malware and Dynamic Loading Technique (Xue, Meng, Liu, Zhang)\\
+%\\
+%\cite{AuditingAnti-MalwareTools}\\
+%This paper is concered with the effectiveness of existing malware detection tools.  In particular it attempts to rate the tools ability to recognised never before seen malware by generating malware examples.  It then suggests improvements to existing malware.
+%
+%While this paper is not directly useful to our project it would be interesting to see how this techinque rates our developed anti-malware tool when it is finished.
+%\\
+%\\
+%%4.  Operating System Support for Run-Time Security with a Trusted Execution Environment (González)
+%%https://www.itu.dk/~/media/d602e06412af44b69e3c86924fca9820.ashx
+%%
+%%
+%6.  Android Fragmentation Classification, Causes, Problems and Solutions (Kamran, Rashid, Nisar)\\
+%\\
+%\cite{AndroidFragmentation}\\
+%\\
+%This paper is concerned with the phenomenon of platform fragmentation due to the open-source nature of Android development.  This is similar to the fragmentation of Linux due to many different distributors producing their own variation of Linux.  In the same way many vendors produce their own version of Android in order to differentiate themselves in the market and give themselves a unique selling point (USP).  This is a concern that we should pay attention to as it raises possible security risks.
+%\\
+%\\
+%%7.  An Operational Semantics for Android Applications (El-Zawawy)
+%
+%%This paper appears to be about static analysis of Android apps.  The abstract begins by drawing attention to the difference between Android and Java platforms in that Android uses a register-based virtual machine called the Dalvik Virtual Machine(DVM) rather than the stack-base Java Virtual Machine (JVM).  This renders existing Java static analysis tools useless.
+%%It appears the paper is proposing an operational semantics for use with the DVM.
+%
+%%I think this paper is outside our area of study.
+%
+%%https://www.researchgate.net/publication/304672686_An_Operational_Semantics_for_Android_Applications
+%%
+%%
+%%8.  Efficient runtime-enforcement techniques for policy weaving (Joiner, Reps, Jha, Ganapathy)
+%%
+%%This paper describes a technique to rewrite an application to perform its own monitoring of a policy.  Static analysis of the program code is used to identify areas of the code that when executed could violate a policy.  The code is the rewritten to perform dynamic checks at those points to determine at runtime if the policy will be violated and instead execute a dynamically generated alternative.
+%
+%%Interesting but I think outside our area of study.
+%%https://www.researchgate.net/publication/301392322_Efficient_runtime-enforcement_techniques_for_policy_weaving
+%%
+%%
+%9.  Device-Centric Monitoring for Mobile Device Management (Chircop, Colombo, Pace)\\
+%\cite{Device-CentricMonitoring}\\
+%\\
+%This paper investigates an alternative to what it describes as application-centric monitoring.  The paper is concerned with monitoring properties that operate across the who device rather than specific to individual application.  Properties such as the device as a whole not being able to send more than 100 SMS messages per day.  The paper also presents an implementation.
+%
+%This may be of interest to us to see how they achieve this.  I suspect our techinique of intercepting O/S calls can achieve this as well.
+%\\
+%\\
+%10.  CRYLogger Detecting Crpto Misuse Dynamically.  \cite{CRYLogger}
+%\\
+%\\
+%11.  Detection of App Collusion Potential Using Logic Programming.  \cite{PrologAppCollusion}
+%\\
+%\\
+%12.  Software Model Checking for Mobile Security -- Collusion Detection in $$\mathbb {K}$$K.  \cite{ModelCheckingCollusion}
+%\\
+%\\
+%13.  Runtime verification meets Android security.  \cite{bauer2012runtime}
+%

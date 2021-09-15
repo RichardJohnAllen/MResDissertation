@@ -1,0 +1,582 @@
+\chapter{\RH\ Functional Test Results}
+\label{app:RHFunctionalTestResults}
+
+\subsection{NEXT Operator}
+
+Formula:\\
+(N(b))\\
+\\
+Subformulae:\\
+N(b)\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+
+\subsection{NOT Operator}
+
+Formula:\\
+(!a)\\
+\\
+Subformulae:\\
+!a\\
+a\\
+
+\newpage
+
+\noindent Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+
+\subsection{ALWAYS Operator}
+
+Formula:\\
+(\texttt{\textless \textgreater}(a))\\
+\\
+Subformulae:\\
+\texttt{\textless \textgreater}(a)\\
+a\\
+\\
+Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\subsection{EVENTUALLY Operator}
+
+Formula:\\
+(\texttt{\textless \textgreater}(a))\\
+\\
+Subformulae:\\
+\texttt{\textless \textgreater}(a)\\
+a\\
+
+\newpage
+
+\noindent Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\subsection{IMPLIES Operator}
+
+Formula:\\
+(a \texttt{=>} (\texttt{<>}(b)))\\
+\\
+Subformulae:\\
+a \texttt{=>} (\texttt{<>}(b))\\
+a\\
+\texttt{<>}(b)\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+
+\subsection{AND Operator}
+
+Formula:\\
+(a \&\& (\texttt{<>}(b)))\\
+\\
+Subformulae:\\
+a \&\& (\texttt{<>}(b))\\
+a\\
+\texttt{<>}(b)\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\newpage
+
+\noindent Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+
+\subsection{OR Operator}
+
+Formula:\\
+(a  $ \mid \mid $  b)\\
+\\
+Subformulae:\\
+a  $ \mid \mid $  b\\
+a\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+
+\newpage
+
+\noindent Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+
+\subsection{UNTIL Operator}
+
+Formula:\\
+(a U b)\\
+\\
+Subformulae:\\
+a U b\\
+a\\
+b\\
+\\
+Running Trace: \textless \textgreater\\
+\\
+  Prefix: \textless \textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless a,a\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Actual Result = false\\
+\\
+\\
+Running Trace: \textless a,b\textgreater\\
+\\
+  Prefix: \textless a\textgreater\\
+  Formula satisfied = false\\
+\\
+  Prefix: \textless a, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,a\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless b, a\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true\\
+\\
+\\
+Running Trace: \textless b,b\textgreater\\
+\\
+  Prefix: \textless b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Prefix: \textless b, b\textgreater\\
+  Formula satisfied = true\\
+\\
+  Actual Result = true
