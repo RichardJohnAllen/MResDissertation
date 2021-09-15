@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{PrologAppCollusion}
+J.~Blasco, T.~Chen, I.~Muttik, and M.~Roggenbach, ``Detection of app collusion
+  potential using logic programming,'' {\em Journal of Network and Computer
+  Applications}, vol.~105, 06 2017.
+
+\bibitem{ModelCheckingCollusion}
+I.~Asăvoae, N.~Nguyen, and M.~Roggenbach, {\em Software Model Checking for
+  Mobile Security – Collusion Detection in $$\mathbb {K}$$K}, pp.~3--25.
+\newblock 06 2018.
+
+\bibitem{bauer2012runtime}
+A.~Bauer, J.-C. K{\"u}ster, and G.~Vegliach, ``Runtime verification meets
+  android security,'' in {\em NASA Formal Methods Symposium}, pp.~174--180,
+  Springer, 2012.
+
+\bibitem{PredictiveRV}
+S.~Pinisetty, T.~Jéron, S.~Tripakis, Y.~Falcone, H.~Marchand, and
+  V.~Preoteasa, ``Predictive runtime verification of timed properties,'' {\em
+  Journal of Systems and Software}, vol.~132, 06 2017.
+
+\end{thebibliography}

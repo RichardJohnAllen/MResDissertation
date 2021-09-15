@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.0.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.0.2}{Related Work}{}% 2
+\BOOKMARK [1][-]{section.0.3}{Technical Background - Fundamental Domain Principles}{}% 3
+\BOOKMARK [2][-]{subsection.0.3.1}{Android security}{section.0.3}% 4
+\BOOKMARK [2][-]{subsection.0.3.2}{Inter-application communication}{section.0.3}% 5
+\BOOKMARK [2][-]{subsection.0.3.3}{Collusion}{section.0.3}% 6
+\BOOKMARK [2][-]{subsection.0.3.4}{Runtime Verification}{section.0.3}% 7
+\BOOKMARK [2][-]{subsection.0.3.5}{xPosed framework}{section.0.3}% 8
+\BOOKMARK [1][-]{section.0.4}{First Own Steps}{}% 9
+\BOOKMARK [1][-]{section.0.5}{Planning}{}% 10
