@@ -1,0 +1,14 @@
+1.  How the project started:  To detect information theft by applications colluding to circumvent Android security.
+
+Define collusion?
+
+2.  Use of runtime verification to detect surity threats
+
+3.  Rosu-Havelund algorithm to evaluate LTL over a trace
+
+4.  Complexity of RH made it unusable in realtime
+
+5.  Reverse RH solved this problem
+
+
+

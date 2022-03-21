@@ -1,0 +1,64 @@
+Corrections from the external examiner:
+
+Most significant corrections:
+•	While the LTL checking algorithm is apparently novel (a modified version of an existing algorithm to address identified shortcomings), this is rarely explicitly stated. This key contribution should be emphasised; the abstract may be the only place where it is noted as “our new algorithm.”
+•	Section 5.2 should be revised to make it more precise. Step 3 should refer to repetition of step 1 and 2 and Example 10 should have the typo removed, i.e, should it not be [] rather than <>?  - DONE
+•	P77 There are conceivably multiple interpretations (most incorrect) of what is/could be meant by the algorithm’s ‘order is reversed’. The 'new' algorithm should really be laid out independently of the RH algorithm and of the implementation. - DONE
+
+Additional minor corrections/observations:
+•	Page v (and throughout abstract) - The abstract contains a number of grammatical mistakes that distract from its narrative, e.g., “Attacks happens” and “threat reports opens.” References should appear within the appropriate sentence (e.g., end of first paragraph) and sufficient information for understanding from the reference should be included in the body of the text. For example, “Our approach is similar to Bauer et al. [5]” what is their approach and how is this approach similar? As a second example, “There is evidence of collusion based cyber attacks in the wild”, could you elaborate?
+•	Page v “Our approach is similar to Bauer et al. [5]” what is their approach and how is this approach similar? 
+•	Page v “There is evidence of collusion based cyber attacks in the wild”, could you elaborate?
+•	Page vii (and throughout thesis) All figures should have titles and should be referenced within the text. The text size is often too small in the figures.
+•	P15 Knowledge of BA is assumed when referenced. A brief explanation and reference should be included to aid the reader in differentiating this approach from the one being proposed.
+•	P28 (and all binary trees) The binary trees should really have left diagonals even when only one child exists (rather than vertical lines).
+•	P35 Android Platform explanation is largely missing references. Instead it falls on a single book explanation.
+•	P42 You outline an issue in using the standard android AVM and instead used GenyMotion. Could you outline somewhere how you decided which engineering details were worthy of inclusion/exclusion in/from the report? 
+•	P43. Example 7.5.2 - what happens when these links change? Have you version numbers of sw/drivers? Largely just says follow instructions from here. Are you able to give an overview/outline of the underlying process?
+•	Page 49 The approach taken in the related work section includes insufficient synthesis, cross comparison and critical analysis for an effective research degree literature review. It is instead an itemised summary of papers. I recommend addressing this by expanding to have a subsection that explicitly cross references the related works in comparison to one another. The alternative would be a more significant overhaul of the chapter that takes this approach throughout. The report would benefit from an evaluation of the approach and its implementation in subsequent chapters in relation to prior work.
+•	P51 “This paper is possibly the closest relation to our own.” How so?  
+•	P61 Footnote “During development we fell short of removing completed attack sequences from a limited length trace. Instead we re-initialise registers from an empty trace. Thus the monitor restarts with no history. It detects sequences that follow the reset but not those that began before.” I’d encourage you to elaborate on this footnote and lift it to the main text. In the viva you showed tests of the implementation working as intended, I’d also encourage these to be included somewhere in section 13 in the thesis or its appendices).  
+•	P72 Fig 11 - “Free for personal use” - is this personal use?
+•	P87 (and throughout results) Explanations of results are often insufficiently thorough and reflective. For example, more explanation would be useful in section 12.5, e.g., what does the duration take into account?
+•	P99 Could you elaborate on “Extend the LTL grammar and semantics so properties can be formulated from an unspecified number of colluding applications”?  
+•	P99 How do you foresee the monitor being rolled out in the future? What challenges remain? For example, do you expect users to root their phones to install your monitor? What security issues are raised by this approach and how may they be mitigated? How else could the monitor be rolled out? How would the property checking and monitoring be affected by n>=3 colluding applications? How about an arbitrary number of colluding applications? How would the property checking and monitoring be affected by checking a number of properties in parallel?
+•	P99 How about future work (or applicability of existing work) outside of android and/or outside of security?
+
+
+Corrections from the internal examiner:
+The thesis summarises work on the problem of detecting possible collusion between apps on the Android platform. The underlying project studied abstract properties of collusion and developed an approach based on runtime verification to flag possible instances of collusion while running software. 
+The advantages of a runtime approach over static analysis are sketched and an existing algorithm is modified to increase efficiency for runtime verification. Some inaccuracies, as marked up in the thesis, need to be corrected.
+An ample amount of work is documented, albeit some effort to streamline the presentation is required. Assuming the reverse algorithm is an original contribution, the work is sufficient to award an MRes with some corrections. Some aspects should be made more prominent, including the original contribution. Future work should include a discussion of how the algorithm could be utilised and potential ways of circumventing detection of collusion attacks.
+If the contribution has not yet been submitted for publication at a conference or in a journal, we would encourage to pursue this route.
+
+Some further remarks
+•	The abstract looks more like an extended abstract that could be submitted to a conference. It should be turned into a more succinct abstract suitable for a report. In particular, the objectives of the project should not be part of the abstract.
+•	In general, the thesis could be structured a little more systematically; E.g., when speculating that runtime verification could be a solution, it would have been desirable to define the concept of runtime verification first. Similarly, define what you mean by attack (p. 8), safety, security (p. 12), Büchi automata (p. 15).
+•	Ensure that full sentences are used and avoid colloquialisms. (see annotated thesis)
+•	The project aims need to be more focused on the actual project. When speaking of security breaches, only collusion is actually studied.
+•	The introduction (Chapter 1) is a jumble of aims, a certain spyware, and a note on having given a presentation. This needs to be fixed and turned into a systematic introduction.
+•	For a relatively short report, it seems excessive to include parts.
+•	When introducing collusion, this is immediately connected with the Android OS. Discuss collusion as an abstract concept, then explain which OS might be affected and justify the choice of focusing on Android.
+•	Make sure figures are explained fully in the body of the thesis, e.g. shared prefs in Fig. 1
+•	Justify that the model of collusion you create is representative of all possibilities of collusion 'in real life'.
+•	Some aspects hardly warrant a separate section, e.g., peer reviews (Section 3.2.2).
+•	Some statements are given without reference or discussion. E.g., Runtime verification offers a lightweight approach to verification that is akin to black box testing but the automation aspect makes it more cost-effective. (p. 15)
+•	In Section 3.3.2, some more discussion of benefits outweighing the slowdown would be useful.
+•	Sections 4.1 to 4.3 should be definitions.
+•	In terms of the OS, are the actions described here not rather action categories, where multiple concrete actions could be mapped to a more abstract class of actions?
+•	In Def. 4.1, drop the comment symbols %%
+•	Def. 4.4 and Def 4.6 need to mention \psi as well as \phi
+•	I would have liked to see a section on Büchi automata as the standard model for LTL, even if this were not very formal, especially, since Chapter 3 opens with a statement that the Rosu-Havelund Algorithm is an alternative that claims ’that it is hard, if not impossible, to find more efficient algorithms than those presented in this paper’. For the latter, there should at least be a reference if not a justification that the claim is correct.
+•	The reverse algorithm needs to be specified in more detail.
+•	Example 10 seems to have an error where an 'eventually' and 'always' operator are mixed up.
+•	On p. 30/31, clarify what i, j, k are. In particular, is it really the case that i < j < k?
+•	The main reference for Android security is from 2014. How about more recent literature, such as Sheran A. Gunasekera (2020) or the official Android documentation?
+•	Android Runtime ART vs Dalvik (DVM). Only the latter is me, more detail is needntioned.
+•	ML could detect a pattern indicating collusion. If not, further details would be required to establish why not?
+•	Discussion of false positives/false negatives should come earlier, e.g. in Chapter 9
+•	Conclusion and Future work could be more substantive and include some critical analysis.
+•	Use the current uni logo on the title page.
+
+
+
+From Markus:  In the future work refer back to the section in contribution where we discuss strategies for handling security breaches.
