@@ -11,6 +11,8 @@ Here, we are not concerned with issues of fairness.  Instead, we use LTL within 
 \section{Actions}
 \label{sec: LTL Actions}
 
+\begin{definition}
+\label{def: LTLActions}
 Actions are types of activities that we are interested in observing.  In the context of Android security, we are interested in when applications make Android operating system calls to use security-sensitive resources.  There are finitely many types of activities we want to observe, and we collect them in a set, $\Sigma$, called the alphabet.
 
 \begin{myEx}
@@ -19,15 +21,21 @@ The actions we will observe in this study are: information being queried, sent, 
 In this case our alphabet is $ \Sigma = \{ q, s, r, p \} $.\\
 \qed
 \end{myEx}
+\end{definition}
 
 \section{Events}
 \label{sec: LTL Events}
 
+\begin{definition}
+\label{def: LTLEvents}
 While the number of actions is finite, each action can occur many times during the execution of an application, or never.  An event, $e$, is an instance of an action.
+\end{definition}
 
 \section{Traces}
 \label{sec:Traces}
 
+\begin{definition}
+\label{def: LTLTraces}
 Traces are sequence of events that happen during the execution of running processes.  Each event within a trace represents one occurrence of an action.  At any given moment, a trace is finite in length.\\
 \\ \noindent
 Let us denote a trace as $t$.\\
@@ -67,6 +75,7 @@ Given that the interesting actions are query, send, receive and publish, the alp
 $ t = \langle q, s, p, q, r, p, q \rangle $\\
 \qed
 \end{myEx}
+\end{definition}
 
 \section{Grammar}
 
@@ -76,25 +85,25 @@ $ t = \langle q, s, p, q, r, p, q \rangle $\\
 \begin{definition}Given a finite set of actions $ \Sigma $ the set of LTL formulae is defined as follows:
 
 $$ \begin{array}{lcll}
-\varphi, \psi & ::= & \top & \%\%\ \mbox{true}\
+\varphi, \psi & ::= & \top & \mbox{true}\
 \\
-& | & p & \%\%\ \mbox{the event is an occurrence of}\ p\ 
+& | & p & \mbox{the event is an occurrence of}\ p\ 
 \\ 
-&| & \neg\varphi & \%\%\ \mbox{negation of}\ \varphi\ 
+&| & \neg\varphi & \mbox{negation of}\ \varphi\ 
 \\
-&| & \varphi\ \lor \psi & \%\%\ \mbox{logical or between}\ \varphi\ \mbox{and}\ \psi\
+&| & \varphi\ \lor \psi & \mbox{logical or between}\ \varphi\ \mbox{and}\ \psi\
 \\
-&| & \varphi\ \land \psi & \%\%\ \mbox{logical and between}\ \varphi\ \mbox{and}\ \psi\
+&| & \varphi\ \land \psi & \mbox{logical and between}\ \varphi\ \mbox{and}\ \psi\
 \\
-& | & \varphi\ \rightarrow \psi & \%\%\ \mbox{logical implies between}\ \varphi\ \mbox{and}\ \psi\
+& | & \varphi\ \rightarrow \psi & \mbox{logical implies between}\ \varphi\ \mbox{and}\ \psi\
 \\
-& | & \varphi\ U\ \psi & \%\%\ \varphi\ \mbox{will hold until}\ \psi\ \mbox{holds}\
+& | & \varphi\ U\ \psi & \varphi\ \mbox{will hold until}\ \psi\ \mbox{holds}\
 \\
-& | & \LTLnext\varphi & \%\%\ \varphi\ \mbox{will hold at the next event}\ 
+& | & \LTLnext\varphi & \varphi\ \mbox{will hold at the next event}\ 
 \\
-& | & \LTLalways\varphi & \%\%\ \varphi\ \mbox{will always hold henceforth}\
+& | & \LTLalways\varphi & \varphi\ \mbox{will always hold henceforth}\
 \\
-& | & \LTLeventually\varphi & \%\%\ \varphi\ \mbox{will eventually hold}\ 
+& | & \LTLeventually\varphi & \varphi\ \mbox{will eventually hold}\ 
 \end{array}$$
 where $ p \in \Sigma $.
 \end{definition}
@@ -102,21 +111,21 @@ where $ p \in \Sigma $.
 \begin{myEx} Example Future LTL Formulae
 
 $$\begin{array}{ll}
-\varphi = \LTLalways(r \rightarrow \LTLeventually s)& \%\%\ \mbox{it will always be true that if there is a receive event then}\\
+\varphi = \LTLalways(r \rightarrow \LTLeventually s)& \mbox{it will always be true that if there is a receive event then}\\
 & \mbox{eventually there will be a send event.}
 \\
 \\
-\varphi = \neg r\ U\ s& \%\%\ \mbox{there are no receive events until there is a send event.}
+\varphi = \neg r\ U\ s& \mbox{there are no receive events until there is a send event.}
 \\
 \\
-\varphi = q \rightarrow \LTLnext p& \%\%\ \mbox{if there is a query event then the next event will be publish.}
+\varphi = q \rightarrow \LTLnext p& \mbox{if there is a query event then the next event will be publish.}
 \\
 \\
-\varphi = ((q \rightarrow \LTLeventually p) \land q) \rightarrow \LTLeventually p& \%\%\ \mbox{if there is a query then there will eventually be a publish and}\\
+\varphi = ((q \rightarrow \LTLeventually p) \land q) \rightarrow \LTLeventually p& \mbox{if there is a query then there will eventually be a publish and}\\
 & \mbox{there is a query therefore there is eventually a publish.}
 \\
 \\
-\varphi = \LTLalways((p \ U\ q) \rightarrow \LTLeventually(q \rightarrow \LTLnext r))& \%\% \mbox{ it is always true that if there are publish events until a query}\\ & \mbox{event then eventually if there is a query event it will be immediately}\\ & \mbox{followed by a receive.}
+\varphi = \LTLalways((p \ U\ q) \rightarrow \LTLeventually(q \rightarrow \LTLnext r))& \mbox{ it is always true that if there are publish events until a query}\\ & \mbox{event then eventually if there is a query event it will be immediately}\\ & \mbox{followed by a receive.}
 \end{array}$$
 \qed
 \end{myEx}
@@ -127,25 +136,25 @@ $$\begin{array}{ll}
 \begin{definition}Given a finite set of actions $ \Sigma $ the set of LTL formulae is defined as follows:
 
 $$ \begin{array}{lcll}
-\varphi, \psi & ::= & \top & \%\%\ \mbox{true}\
+\varphi, \psi & ::= & \top & \mbox{true}\
 \\
-& | & p & \%\%\ \mbox{the event is an occurrence of}\ p\ 
+& | & p & \mbox{the event is an occurrence of}\ p\ 
 \\ 
-&| & \neg\varphi & \%\%\ \mbox{negation of}\ \varphi\ 
+&| & \neg\varphi & \mbox{negation of}\ \varphi\ 
 \\
-&| & \varphi\ \lor \psi & \%\%\ \mbox{logical or between}\ \varphi\ \mbox{and}\ \psi\
+&| & \varphi\ \lor \psi & \mbox{logical or between}\ \varphi\ \mbox{and}\ \psi\
 \\
-&| & \varphi\ \land \psi & \%\%\ \mbox{logical and between}\ \varphi\ \mbox{and}\ \psi\
+&| & \varphi\ \land \psi & \mbox{logical and between}\ \varphi\ \mbox{and}\ \psi\
 \\
-& | & \varphi\ \rightarrow \psi & \%\%\ \mbox{logical implies between}\ \varphi\ \mbox{and}\ \psi\
+& | & \varphi\ \rightarrow \psi & \mbox{logical implies between}\ \varphi\ \mbox{and}\ \psi\
 \\
-& | & \varphi\ S\ \psi & \%\%\ \varphi\ \mbox{has held since}\ \psi\ \mbox{held}\
+& | & \varphi\ S\ \psi & \varphi\ \mbox{has held since}\ \psi\ \mbox{held}\
 \\
-& | & \LTLprevious\varphi & \%\%\ \varphi\ \mbox{held at the previous event}\ 
+& | & \LTLprevious\varphi & \varphi\ \mbox{held at the previous event}\ 
 \\
-& | & \LTLalwaysbeen\varphi & \%\%\ \varphi\ \mbox{has always held}\ 
+& | & \LTLalwaysbeen\varphi & \varphi\ \mbox{has always held}\ 
 \\
-& | & \LTLonce\varphi & \%\%\  \varphi\ \mbox{has once}\ \mbox{held}\ 
+& | & \LTLonce\varphi & \varphi\ \mbox{has once}\ \mbox{held}\ 
 \end{array}$$
 where $ p \in \Sigma $.
 \end{definition}
@@ -155,35 +164,37 @@ where $ p \in \Sigma $.
 \begin{myEx} Example Past LTL Formulae
 
 $$\begin{array}{ll}
-\varphi = \LTLalwaysbeen(r \rightarrow \LTLonce s)& \%\%\ \mbox{it has always been true that if there is a receive event}\\
+\varphi = \LTLalwaysbeen(r \rightarrow \LTLonce s)& \mbox{it has always been true that if there is a receive event}\\
 & \mbox{then there was once a send event.}
 \\
 \\
-\varphi = \neg r\ S\ s& \%\%\ \mbox{there have been no receive events since there was a send event.}
+\varphi = \neg r\ S\ s& \mbox{there have been no receive events since there was a send event.}
 \\
 \\
-\varphi = p \rightarrow \LTLprevious q& \%\%\ \mbox{if there is a publish event then the previous event was a query.}
+\varphi = p \rightarrow \LTLprevious q& \mbox{if there is a publish event then the previous event was a query.}
 \\
 \\
-\varphi = \LTLalwaysbeen((p \ S\ q) \rightarrow \LTLalwaysbeen(r \rightarrow \neg\LTLprevious q))& \%\% \mbox{ it has always been true that if there are publish events since a query}\\ & \mbox{event then it has always been true that if there was a receive event it was}\\ & \mbox{not immediately preceded by a query.}
+\varphi = \LTLalwaysbeen((p \ S\ q) \rightarrow \LTLalwaysbeen(r \rightarrow \neg\LTLprevious q))& \mbox{ it has always been true that if there are publish events since a query}\\ & \mbox{event then it has always been true that if there was a receive event it was}\\ & \mbox{not immediately preceded by a query.}
 \end{array}$$
 \qed
 \end{myEx}
 \section{Semantics}
 
-The semantics below are separated into future and past operators, over empty and non-empty traces.  An explicit definition over an empty trace is useful later in the project when we describe the development of an algorithm for evaluating LTL formulae.  Rather than define semantics for the minimal collection of logical operators only, we define semantics for a more complete collection of operators.  We have made this decision for practical reasons because we use a larger collection of operators in our formulae.  Additionally, we are not attempting to prove or study the theoretical foundations of LTL because this has been done in earlier works \cite{Pnueli} therefore, the advantage of a minimal definition is not required here.
+The semantics below are separated into future and past operators, over empty and non-empty traces.  An explicit definition over an empty trace is useful later in the project when we describe the development of an algorithm for evaluating LTL formulae.  Rather than define semantics for the minimal collection of logical operators only, we define semantics for a more complete collection of operators.  We have made this decision for practical reasons because we use a larger collection of operators in our formulae.  Additionally, we are not attempting to prove or study the theoretical foundations of LTL because this has been done in earlier works \cite{Pnueli}.  Therefore, the advantage of a minimal definition is not required here.
 
 \newpage
 
 \subsection{Semantics of the Future}
 \label{sec:LTLFutureSemantics}
 
-\begin{definition}Future Operator Semantics Over an Empty Trace\\
+\begin{definition}Future Operator Semantics Over an Empty Trace $\epsilon$\\
 \label{def:FutureEmptyTraceSemantics}
 \\
 Let $\Sigma$ be an alphabet of actions.\\
 Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
-$\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.
+Let $\psi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.\\
+$\psi$ is a literal if $\psi = p$ for all $p \in \Sigma$.
 
 \begin{enumerate}[start=1]
 \item $ \epsilon \Vdash \varphi $ is false when $ \varphi $ is a literal
@@ -205,7 +216,9 @@ Let $\Sigma$ be an alphabet of actions.\\
 Let $e$ be an element from $\Sigma$.\\
 Let $t$ be a trace over $\Sigma$.\\
 Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
-$\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.
+Let $\psi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.\\
+$\psi$ is a literal if $\psi = p$ for all $p \in \Sigma$.
 
 \begin{enumerate}[start = 10]
 \item $e\ t  \Vdash \varphi$ is true iff $e = \varphi$ when $\varphi$ is a literal
@@ -223,12 +236,14 @@ $\varphi$ is a literal if $\varphi = p$ for all $p \in \Sigma$.
 \subsection{Semantics of the Past}
 \label{sec:LTLPastSemantics}
 
-\begin{definition}Past Operator Semantics Over an Empty Trace\\
+\begin{definition}Past Operator Semantics Over an Empty Trace $\epsilon$\\
 \label{def:Past Empty trace semantics}
 \\
 Let $\Sigma$ be an alphabet of actions.\\
 Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
-$\varphi$ is a literal if $\varphi$ = p for $ p \in \Sigma $.
+Let $\psi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi$ = p for $ p \in \Sigma $.\\
+$\psi$ is a literal if $\psi$ = p for $ p \in \Sigma $.
 
 \begin{enumerate}[start = 19]
 \item $\epsilon \Vdash \varphi $ is false when $ \varphi $ is a literal
@@ -250,7 +265,9 @@ Let $\Sigma$ be an alphabet of actions.\\
 Let $e$ be an element from $\Sigma$.\\
 Let $t$ be a trace over $\Sigma$.\\
 Let $\varphi$ be an arbitrary LTL formula over $\Sigma$.\\
-$\varphi$ is a literal if $\varphi = p$ for $p \in \Sigma$.
+Let $\psi$ be an arbitrary LTL formula over $\Sigma$.\\
+$\varphi$ is a literal if $\varphi = p$ for $p \in \Sigma$.\\
+$\psi$ is a literal if $\psi = p$ for $p \in \Sigma$.
 
 \begin{enumerate}[start = 28]
 \item $t\ e  \Vdash \varphi$ holds iff $e = \varphi $ when $\varphi$ is a literal

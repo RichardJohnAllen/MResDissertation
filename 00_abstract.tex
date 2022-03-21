@@ -1,53 +1,39 @@
 \begin{abstract}
 
-%Android has found many applications in devices such as phones, tablets, watches and smart TVs.  These are all applications of computing systems where the primary use of the system is not computation.   In the example cases the primary use is providing information and communication channels to the user.  By their nature these systems are open to information theft through the communication interfaces they provide.
+Users of computer systems face a constant threat of cyberattacks by malware designed to cause harm or disruption to services, steal information, or hold the user to ransom.  Cyberattacks are becoming increasingly prevalent on mobile devices like Android.  Attacks become more sophisticated along with countermeasures in an ever-increasing arms race.  A novel attack method is 'collusion', where the attack gets hidden by distributing the steps through many malicious software actors \cite{PrologAppCollusion}.
+
+We investigate the use of runtime verification to detect collusion attacks on the end-users device.  We have developed a novel algorithm called \RRH\ that is a variation of an existing algorithm by Grigore Ro\c{s}u and Klaus Havelund \cite{RosuHavelund}.  Our approach is computationally efficient enough to detect collusion in realtime on the Android device and does not require prior knowledge of malware source code.  Thus, it can detect future malware without modification to the detection system or the software under scrutiny.
+
+%The Android operating system has found many applications in devices, such as phones, tablets, watches and smart TVs.  It is characteristic that the primary use of these devices is not computation, although they include a computing system as an integral component.  Furthermore, communication with other external computing systems is essential for their functionality, i.e., they are open systems by design.  As such, these devices are vulnerable to typical cyberattacks, including information theft, service abuse, or ransomware.  Attacks happen to such extent that the McAfee Q1 2020 threat report opens with the headline ``Mobile Malware Is Playing Hide and Steal''. \cite{McAfeeMobileThreatReport}
 %
-%The work we present here uses runtime verification techniques to dynamically monitor the activity of all processes running on an Android device with the intention of detecting cases of information theft, including theft by colluding processes.
+%Android regulates what an app is allowed or is not allowed to do, with a \emph{static} permission system.  However, this system has known deficiencies.  First, apps tend to request excessive permissions.  Second, users tend to grant permission without fully understanding the implications in terms of risk.  Third, the permissions system is concerned only with limiting the actions of individual apps.  Even when apps are properly restricted, we have evidence \cite{PrologAppCollusion} that two or more apps in the wild can circumvent the system and collude in malicious activities by combining their permissions.  In a nutshell: under Android, the user does not know what data an app collects, what it does with, or even who it shares data with on or off the device.
 %
-%We intercept calls to security sensitive Android O/S functions and log those calls in a trace.  We define sequences of activity that indicate possible information theft as linear temporal logic formulae and use an algorithm derived from Grigore Rosu and Klaus Havelund to look for those sequences within the activity trace.
+%In this context, we propose to \emph{dynamically} monitor operating system calls on the device and use techniques from runtime verification to alert the Android user if there is a potential security breach.  The user will have the opportunity to react, e.g., by closing or removing the involved apps.\\
+%\\
+%Our approach has some advantages:
+%\begin{itemize}
+%\item The user is informed immediately when the device is under attack.
+%\item It is independent of the application code.
+%\item It is extensible to further security properties.
+%\end{itemize}
 %
-%The LTL formula we use to detect collusion between processes engaging in information theft is:
+%Bauer et al. \cite{bauer2012runtime} conducted similar research into using runtime verification within the field of security.  We advance by considering attacks where many apps are involved.  Furthermore, we guarantee that our monitor does not deteriorate over time, i.e., becomes slower with more observations.
 %
-%$
-%\square(p) \land (\neg p\ U\ (\neg r\ U\ (\neg s\ U\ q)))
-%$
-
-The Android operating system has found many applications in devices such as phones, tablets, watches and smart TVs.  It is characteristic for these that their primary use is not computation, though they include a computing system as an integral component.  Furthermore, communication with other external computing systems is essential for their functionality, i.e., they are open systems by design.  As such, they are vulnerable to typical cyber attacks, including information theft, service abuse, ransom-ware.  Attacks happens to such extent that the McAfee Q1 2020 threat reports opens with the headline ``Mobile Malware Is Playing Hide and Steal''. \cite{McAfeeMobileThreatReport}
-
-What an app is allowed or is not allowed to do, Android regulates \emph{statically} with a permission system.  However, this system has known deficiencies.  First, apps tend to request for excessive permissions.  Second, users tend to grant permissions to apps without fully understanding the permissions or their implications in terms of risk.  Third, the permissions system is concerned only with limiting the actions of individual apps.  It is possible for two or more apps to collude for a malicious action by combining their permissions, even though each of the colluding apps is properly restricted by permissions.  In a nutshell: under Android, the user does not know what data an app collects, what an app is doing with that data, or even who it shares it with: on the device or off the device.
-
-In this context we suggest to \emph{dynamically} monitor operating system calls on the device with techniques from runtime verification in order to alert the user of an Android device if there is a potential security breach.  This will allow the user to react, e.g., by closing or removing the involved apps. Our approach comes with a number of advantages:
-\begin{itemize}
-\item The user is informed immediately when the device is under attack.
-\item It is independent of the application code.
-\item It is extensible to further security properties.
-\end{itemize}
-
-Our approach is similar to work by Bauer et al. \cite{bauer2012runtime}.  However, we are also considering security properties that concern several different apps.  Furthermore, we can make the guarantee that our monitor does not deteriorate over time, i.e., becomes slower with more observations.
-
-In order to illustrate our approach, we use a simple form of information theft through app collusion as our running example \cite{DetectingMaliciousCollusion}: two apps $A$ and $B$ combine their permissions in order to steal some information.  To this end, app $A$ first reads the information, then shares is via Android inter app communication with app $B$, which finally sends the information off the device.  A typical example for $A$ could be a contact managing app with read and write access for contacts, however, no Internet access; $B$ could be a weather app, without access to contacts, however, access to the
-Internet in order to obtain the weather forecast.  There is evidence of collusion based cyber attacks in the wild \cite{PrologAppCollusion}. 
-
-Android apps run in a `sandbox'.  Any access to a system resource requires a call to the operation system.  Thus, \emph{conceptually}, information theft through app collusion can be detected by monitoring operation system calls.  For information theft through app collusion to possibly happen, the following sequence of calls is necessary: app $A$
-makes a query $q$ to some resource protected by Android and then initiates an interapp communication on the device by a send call $s$; app $B$ makes a receive call $r$ and performs a publish call $p$. \footnote{Note that a sequence $\langle q, s, r, p \rangle$ of operating system calls describes information theft only if the published data can be `traced back' to the queried data.}  It is possible to express such trace properties in linear temporal logic (LTL). For instance, the LTL formula
-
-$$     \LTLonce(p \land \LTLonce(r \land \LTLonce(s \land \LTLonce q)))$$ 
-
-is true if a trace includes the call pattern necessary for information theft through app collusion.
-
-It is possible to express other relevant security properties in LTL, ``alert whenever an app takes an image from the camera'' or ``the microphone is never activated before a telephone call has been initiated or accepted''.
-
-In the \emph{technical realisation} of our approach, our system architecture makes use of the Xposed framework \cite{rovo89} in order to intercept calls to security sensitive Android O/S functions.  It adds a monitor app to the user's device which logs
-these calls and, at arrival of a new event, checks for each security property of interest if it is fulfilled or not.
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{graphics/HighLevelArchitecture.pdf}
-\end{center}
-
-In a first attempt to implement the monitor app, we utilised an algorithm by Grigore Ro\c{s}u and Klaus Havelund \cite{RosuHavelund} which appeared to
-be interesting thanks to its low complexity: the cost for evaluating a property $\varphi$ on a trace $t$ is $O(|t| * |\varphi|)$, i.e., is linear. However, as this algorithm traverses the trace $t$ from the last event to the first event, it is impossible to re-use intermediate results from evaluating $\varphi$ on $t$ for evaluating $\varphi$ on $t {\mathbin{\raise 0.8ex\hbox{$\frown$}}} \langle e \rangle$, i.e., the trace $t$ extended by an event $e.$  In our experiments this limits the trace length to about 100 events, beyond that, the device did not respond any more.  Such length is far too short to be of any use in a real world scenario.  Thus, we implemented a `reverse' version of this algorithm that allows for re-use. While our new algorithm performs
-well, i.e., traces can grow to arbitrary size (we have tested the algorithm up to a trace length of 100,000 without encountering any issues) and evaluation time for new events is in the area of milliseconds for the formula stated above, this comes at a price: our new algorithm does not support the future LTL operators.
-
-By utilising colluding apps developed for testing purposes, cf.\ \cite{DetectingMaliciousCollusion}, we have successfully demonstrated that our monitoring approach effectively works on Android hardware and does not cause any significant performance reductions (occurrence of an event causes CPU usage in the area of 1.5\%).  However, further experimentation, in particular with monitoring simultaneously for different security properties, will be necessary to completely evaluate the performance properties of our approach.  First experiments suggest a linear increase in CPU usage with the number of formulae monitored for.\footnote{Abstract submitted to the CPS-IOT conference for cyber physical systems on the 18th of May 2021 \url{https://sites.google.com/virginia.edu/mt-cps2021/program}}
+%To illustrate our approach, we use a simple form of information theft through app collusion as our running example \cite{DetectingMaliciousCollusion}: two apps $A$ and $B$ combine their permissions to steal some information.  To this end, app $A$ first reads information, then shares it with app $B$ via Android inter-app communication, app $B$ then sends information off the device.  A typical example for $A$ could be a contact managing app with access to a user's contacts but no internet access.  App $B$ could be a weather app, without access to contacts, but with access to the
+%internet for obtaining the weather forecast.
+%
+%The Android operating system restricts apps to run in a 'sandbox' that requires access to system resources to go through the operating system.  Thus, \emph{conceptually}, information theft through app collusion can be detected by monitoring operation system calls.  For information theft through collusion to happen, the following sequence of calls is necessary: app $A$ makes a query $q$ to some resource protected by Android and then initiates an inter-app communication to $B$ by calling a send method $s$; app $B$ receives information by calling a receive method $r$, then calls some method to publish information $p$.\footnote{Note that a sequence $\langle q, s, r, p \rangle$ of operating system calls describes information theft only if the published data can be `traced back' to the queried data.}  It is possible to express such trace properties in linear temporal logic (LTL).  For instance, the LTL formula: $$ \LTLonce(p \land \LTLonce(r \land \LTLonce(s \land \LTLonce q)))$$ is satisfied if a trace includes the call pattern necessary for information theft through app collusion.  Other relevant security properties can be expressed in LTL, like ``alert whenever an app takes an image from the camera'' or ``the microphone is never activated before a telephone call has been initiated or accepted''.
+%
+%In the \emph{technical realisation} of our approach, we use the Xposed framework \cite{rovo89} to intercept calls to security-sensitive Android O/S functions.  A monitor app gets installed on the user's device that logs calls and checks if the collusion security property gets fulfilled.
+%
+%\begin{center}
+%\includegraphics[width=1\textwidth]{graphics/HighLevelArchitecture.pdf}
+%\end{center}
+%
+%For our first attempt to implement a monitor app, we utilised an algorithm by Grigore Ro\c{s}u and Klaus Havelund \cite{RosuHavelund}.  The algorithm appeared interesting thanks to its low complexity: the cost for evaluating a property $\varphi$ on a trace $t$ is $O(|t| * |\varphi|)$, i.e., is linear.  However, the algorithm evaluates a property by traversing the trace from the last event to the first.  This makes it impossible to re-use intermediate results from evaluating $\varphi$ over $t$ for evaluating $\varphi$ over $t {\mathbin{\raise 0.8ex\hbox{$\frown$}}} \langle e \rangle$, i.e., the trace $t$ extended by an event $e$.  In our experiments, this limits the trace length to about 100 events.  Beyond that, the device stopped responding.  Such a trace length is far too short to be of any use in a real-world scenario.
+%
+%Thus, we created a novel `reverse' version of the algorithm that allows the re-use of intermediate results.  Our new algorithm performs well, i.e., traces can grow to an arbitrary size, and we have tested up to a trace length of 100,000 without encountering any issues.  Evaluation time for new events is in the region of milliseconds for the formula stated above, but this comes at a price: our new algorithm does not support the future LTL operators.
+%
+%Tests with apps developed for collusion, cf.\ \cite{DetectingMaliciousCollusion}, successfully demonstrated that monitoring is effective on Android hardware without any significant performance reductions.  Evaluation of a new trace event causes CPU usage in the area of 1.5\%.  But to entirely evaluate the performance of our approach, further experimentation into simultaneous monitoring of different security properties will be necessary.  First experiments suggest a linear increase in CPU usage with the total monitored properties.\footnote{Abstract submitted to the CPS-IOT conference for cyber physical systems on the 18th of May 2021 \url{https://sites.google.com/virginia.edu/mt-cps2021/program}}
 
 \end{abstract}

@@ -1,16 +1,12 @@
 \chapter{Summary}
 \label{chap:Summary}
 
-%6.  Make the summary short.  We fulfilled all our project aims - list them and reflect upon how well we have achieved them and why that are achived.  We have an app etc.
-
-%We have found the original algorithm not to be suitable to realtime RV.  We have developed the RRH algorithm and shown that it is effective for realtime RV on android thanks to its constant monitoring time.  We have developed an app for runtime monitoring and instantiated it with a property for collusion detection of information theft and shown that it worked effectively.
-
 In this chapter we reflect upon our original aims, what we did and how well we have achieved them.\\
 
 \noindent
 We began this project aiming to detect a security attack performed by colluding applications running on an Android device.  We wanted to detect the attack without modifying the applications under scrutiny, and the performance impact on the device should be minimal.  We decided the user doesn't need to enter their own security properties, and that the response to a security breach could be limited to recognition only.  Our question was whether we could use runtime verification to do this.
 
-\GRKH\ presented a persuasive argument for constructing a monitor using their algorithm on the basis that it would meet our requirement for low computation cost when evaluating a security property.  On investigation, we found that the algorithm was only computationally light when evaluating a property over prerecorded traces.   When we attempted to use the algorithm in realtime, the computational cost increased at a quadratic rate with trace length.  Thus it was unsuitable for runtime verification in realtime.  But by modifying the algorithm, we overcame this.  We demonstrated that the \RRH\ algorithm is computationally light enough to be suitable for realtime use thanks to the constant evaluation time.
+\GRKH\ presented a persuasive argument for constructing a monitor using their algorithm on the basis that it would meet our requirement for low computation cost when evaluating a security property.  On investigation, we found that the algorithm was only computationally light when evaluating a property over prerecorded traces.   When we attempted to use the algorithm in realtime, the computational cost increased at a quadratic rate with trace length.  Thus it was unsuitable for runtime verification in realtime.  But by modifying the algorithm to produce a new variation we call \RRH\, we overcame this.  We demonstrated that the \RRH\ algorithm is computationally light enough to be suitable for realtime use thanks to the constant evaluation time.
 
 We developed a detection system around the \RRH\ algorithm that monitors application activity for the sequence of actions required to perform an attack.  The actions that provide the signature sequences are operating system calls made by applications involved in the attack.  A third-party framework applies a modification to the operating system that allows us to log these key operating system calls.  By working at the operating system level, we can monitor any application without changing it.  This is of utmost importance because it allows us to detect novel attacks by malicious applications developed after our monitor.\\
 
@@ -21,7 +17,7 @@ Overall, we can effectively monitor for security threats on Android devices if s
 
 \item Runtime verification is effective at detecting malware if the threat utilises identifiable method calls in identifiable packages.  This includes documented operating system calls but could be calls from any known package.  We reason that many threats require the use of the O/S to access resources because Android runs on a diverse array of hardware and the O/S provides the only unified means to access resources.
 
-\item Without a specification of the intent of software being scrutinised, the monitor will incur false positives.
+\item Without a specification of the intent of software being scrutinised, the monitor will incur false positives.  Thus we can only alert the user to possible security breaches.
 
 \item If the monitor relies only on the satisfaction of an abstract LTL formula without considering the metadata associated with the events in the trace, then it can detect collusion sequences that span an infinite period.  However this will result in additional false positives.
 
@@ -29,6 +25,3 @@ Overall, we can effectively monitor for security threats on Android devices if s
 
 \end{itemize}
 
-%Limited time frame because of overlapping sequences.
-
-%We remove complete sequences from the log but incomplete must stay indefinitely.  We have limited memory so we have to remove the earliest part of the log eventually.  If a sequence spans longer than this period we will not recognises it.

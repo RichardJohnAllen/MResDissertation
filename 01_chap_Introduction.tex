@@ -2,75 +2,84 @@
 
 In 2019 it was estimated there were 3.4 billion smartphone users worldwide \cite{SmartphoneUsers2019}.  Smartphones are becoming deeply integrated into our everyday lives.  We use them to navigate, hail taxis, order goods online, and even pay for goods using contactless payment.  Of those 3.4 billion smartphones users, 1.6 billion were using Android devices \cite{AndroidUsers2019}.  But, the use of Android goes beyond just smartphones.  Android is a popular O/S for smart TVs, tablets, automobile infotainment, smartspeakers, smartwatches, and multitudes of other IoT devices.
 
-The threat of malware increases as we adopt these devices.  McAfee has claimed security attacks on Mobile devices are so prevalent that in 2020 they opened their threat report with the headline ``Mobile Malware Is Playing Hide and Steal'' \cite{McAfeeMobileThreatReport}.  Android is so prevalent that security gaps and exploitations can affect massive groups of people.  When a person installs an application from an app store, how do they know it is not performing some secret activity?\\
+The threat of malware increases as we adopt these devices.  McAfee has claimed security attacks on Mobile devices are so frequent that in 2020 they opened their threat report with the headline ``Mobile Malware Is Playing Hide and Steal'' \cite{McAfeeMobileThreatReport}.  Android is so prevalent that security gaps and exploitation's can affect large groups of people.  When a person installs an application from an app store, how do they know it is not performing some secret activity?\\
 \\
 \noindent How can a person be certain that their smartphone is not eavesdropping on conversations?\\
 \noindent How can a person be sure the camera on their phone is not surreptitiously sending images to an unknown observer?\\
 \\
-For the sake of peoples privacy and the prevention of crime, the user must always be aware when software is using privacy-sensitive features of their device.
+For the sake of people's privacy and the prevention of crime, the user must always be aware when software is using privacy-sensitive features of their device.
 
-Android security prevents applications from accessing sensitive features of the device if the user has not permitted that.  But, evidence shows that applications can collude to circumvent this security system \cite{PrologAppCollusion}:  If an application with permission to read the user's contacts passes that information to another application with permission to communicate with an outside party, then the two are colluding with one another to expose the user's contacts without the user's permission and knowledge.
+\section{Malware Through Collusion}
 
-\section{Project Aims}
+Android security prevents applications from accessing sensitive features of the device if it is not permitted by the user.  But, evidence shows that applications can collude to circumvent security permissions \cite{PrologAppCollusion}.  To illustrate collusion, we use a simple form of information theft as our running example \cite{DetectingMaliciousCollusion}: two apps $A$ and $B$ combine their permissions to steal some information.  To this end, app $A$ first reads information, then shares it with app $B$ via Android inter-app communication, app $B$ then sends information off the device.  A typical example for $A$ could be a contact managing app with access to a user's contacts but no internet access.  App $B$ could be a weather app, without access to contacts, but with access to the
+internet for obtaining the weather forecast.
 
-Our objective is to use a program validation technique called runtime verification to monitor the device for security attacks.  We will produce an app that will monitor activity on Android devices and warn users if a potential security breach has happened.
+The Android operating system restricts apps to run in a 'sandbox' that requires access to system resources to go through the operating system.  Thus, \emph{conceptually}, information theft through app collusion can be detected by monitoring operation system calls.  For information theft through collusion to happen, the following sequence of calls is necessary: app $A$ makes a query $q$ to some resource protected by Android and then initiates an inter-app communication to $B$ by calling a send method $s$; app $B$ receives information by calling a receive method $r$, then calls some method to publish information $p$.  It is possible to express such trace properties in linear temporal logic (LTL).  For instance, the LTL formula: $$ \LTLonce(p \land \LTLonce(r \land \LTLonce(s \land \LTLonce q)))$$ is satisfied if a trace includes the call pattern necessary for information theft through app collusion.
 
+\section{Existing Techniques for Detecting Malware}
+
+Present techniques for detecting malware include machine learning \cite{ThreatAssesmentAppCollusion}, model checking \cite{ModelCheckingCollusion}, and the analysis of Prolog facts extracted from applications regarding their behaviour \cite{PrologAppCollusion}.  Machine learning techniques can estimate the probability that applications are colluding based on their permitted access to sensitive resources and their ability to communicate with each other.   Model-checking is prone to detecting collusion that only exists in the abstract model extracted from source code.  As such, it produces false positives.  Analysing extracted Prolog facts can detect colluding applications, but only within small groups.
+
+All the aforementioned techniques are classified as static analysis and operate at design time.  Publishers like the Google Play store are perfectly positioned to use these techniques to vet applications before the end-user installs them.  But applications and their patches get released at such a prodigious rate that we cannot rely on publishers to do so.
+
+\section{Our Aims}
+
+In this context, we propose to \emph{dynamically} monitor applications after installation by using runtime verification.  The advantages of our approach are:
 \begin{itemize}
-\item It should be possible to install the application on an Android device.
-\item The application should be capable of detecting security breaches involving any other applications without modification to those other applications.
-\item The impact of the application on the device's performance will be minimal.
-\item It should be possible to detect a security breach in realtime.
-\item It is not required that the user can enter security properties themselves.
-\item We leave the concrete form of warning open and concentrate on recognising security breaches only.
+\item The user is informed immediately when the device is under attack.
+\item It is independent of the application code.
+\item It is extensible to further security properties.
 \end{itemize}
 
-Part of the challenge is that monitoring increases the use of hardware resources and Android runs on devices with limited processor and power resources.  It is unclear if runtime verification can be used on Android while maintaining adequate performance.  We will answer this question.
-
-\section{Pegasus}
-
-%Pegasus spyware was discovered in 2016 and recently exposed in the mainstream media \cite{PegasusGuardian}.  The claim is that Pegasus has infected at least 50,000 devices belonging to people in government and journalism.  What we know about Pegasus on Android\cite{PegasusOnAndroid}:
-
-Pegasus spyware was discovered in 2016.  A mainstream media expose\'e \cite{PegasusGuardian} claims Pegasus has infected at least 1400 devices belonging to people in government and journalism.  What we know about Pegasus on Android\cite{PegasusOnAndroid}:
+We will produce an Android app that will monitor all other application activity on the device and alert the user if there is a potential security breach.  The user will have the opportunity to react, e.g., by closing or removing the involved apps.
 
 \begin{itemize}
-\item After the infected device boots, Pegasus looks for configuration settings by parsing query string parameters from a URL in the browser's history or reading a file present on the device.
-\item It gathers information by querying the databases of messaging and communication apps.
-\item It can actively take images from the camera.
-\item It will eavesdrop on the user by answering calls from specific numbers without indicating a call is in progress.
-\item It sends information to an attacker via a network connection.
+\item It will be possible to install the monitor application on an Android device.
+\item The monitor will be capable of detecting security breaches, of the information theft through collusion type, in realtime.
+\item The impact of the monitor on the device's performance will be minimal.
+\item It will not be necessary to modify the applications involved in a security breach.
+\item It is not required for the user to enter security properties themselves.
+\item The concrete form of warning the user of a security breach is left open.
 \end{itemize}
 
-In the context of Pegasus, we speculate that our runtime verification approach could successfully detect at least some Pegasus attacks:  We reason that threats require the use of the operating system to access resources because Android runs on a diverse array of hardware, and the O/S is the only unified means to access resources.  Consequently, the Pegasus spyware works at the operating system level.  We will warn the user if any security-sensitive resource gets used without user interaction.
+\section{Performance}
+
+For our first attempt to implement a monitor app, we use an algorithm by Grigore Ro\c{s}u and Klaus Havelund \cite{RosuHavelund}.  The algorithm appears interesting thanks to its low complexity: the cost for evaluating a property $\varphi$ on a trace $t$ is $O(|t| * |\varphi|)$, i.e., is linear.  However, the algorithm evaluates a property by traversing the trace from the last event to the first.  This makes it impossible to re-use intermediate results from evaluating $\varphi$ over $t$ for evaluating $\varphi$ over $t {\mathbin{\raise 0.8ex\hbox{$\frown$}}} \langle e \rangle$, i.e., the trace $t$ extended by an event $e$.  In our experiments, this limits the trace length to about 100 events.  Beyond that, the device stops responding.  Such a trace length is far too short to be of any use in a real-world scenario.
+
+Thus, we introduce a novel `reverse' version of the algorithm that allows the re-use of intermediate results.  Our new algorithm performs well, i.e., traces can grow to an arbitrary size, and we have tested up to a trace length of 100,000 without encountering any issues.  Evaluation time for new events is in the region of milliseconds for the formula stated above, but this comes at a price: our new algorithm does not support the future LTL operators.
+
+Tests with apps developed for collusion, cf.\ \cite{DetectingMaliciousCollusion}, successfully demonstrate that monitoring is effective on Android hardware without any significant performance reductions.  Evaluation of a new trace event causes CPU usage in the area of 1.5\%.
+
+\section{Chapter Overview}
+
+\noindent Starting with Chapter \ref{chap:Collusion} we establish the concept of collusion.  The villain of this story is malware who, in this case, steals information from the Android user.  We refer to prior studies that demonstrate colluding applications can circumvent the security model.\\
+
+\noindent Chapter \ref{chap:Runtime Verification} proposes a software validation technique called Runtime Verification can detect a collusion threat. We first explain the technique and then put its distinguishing features into context with other validation techniques. Then we examine some challenges of using runtime verification to detect collusion.\\
+
+\noindent Linear Temporal Logic goes hand-in-hand with runtime verification and is the subject we introduce in Chapter \ref{chap:Linear Temporal Logic}.  We cover the concept of a trace of events, followed by the grammar, and semantics of LTL.\\
+
+\noindent Chapter \ref{chap:Rosu-Havelund Algorithm} looks at an algorithm developed by \GRKH\ for evaluating an LTL formula over a trace with low computational cost.  We explain the algorithm using examples that walk through the evaluation of a formula over a trace step-by-step.\\
+
+\noindent Chapter \ref{chap:Android Platform} is an overview of the Android platform architecture, the security model, and communication provisions.\\
+
+\noindent Next, we require a means to record the activities of Android apps. Chapter \ref{chap:Xposed Framework} presents a third-party framework called Xposed for this purpose.  We go into what it does, its origins, and how the framework gives us the ability to log operating system calls made by any application running on Android.  In this chapter, we also describe how to set up the development environment we used.\\
+
+\noindent Chapter \ref{chap:Related Work} puts the project into context with other related work.  We discuss other approaches to detecting collusion and other approaches to Android security in general.\\
+
+\noindent Our contribution begins with Chapter \ref{chap:Monitoring For Security Properties} where we introduce a formula for detecting collusion, discuss some the hazards encountered when developing a monitor, strategies for overcoming them and how we might respond to a security breach.\\
+
+\noindent Chapter \ref{chap:Monitoring System Architecture} progresses to outline the software architecture of our monitoring system, why we have taken this structure, and its benefits.  Then we give some advice on development with the Xposed framework based on experiences acquired during this project.\\
+
+\noindent We investigate the suitability of the \RH\ algorithm to realtime monitoring in Chapter \ref{chap:Runtime Verification with the Rosu-Havelund Algorithm}.  We start with a complexity analysis of the algorithm then seek to validate the outcome by performing practical tests on an implementation.  The results lead us to a discussion of the algorithm's scalability and a conclusion about its suitability to this application.\\
+
+\noindent Following our discoveries regarding the \RH\ algorithm, we propose a novel algorithm in Chapter \ref{chap:Reverse Rosu-Havelund Algorithm} that is a variation upon the standard algorithm and name it \RRH.  We compare our new algorithm to the standard, declare a consequence of using our new algorithm and then demonstrate the algorithm in operation by dry running it with an example property.\\
+
+\noindent Implementation of the novel algorithm within a working realtime monitor is covered in Chapter \ref{chap:Implementing The Monitor}.  We describe the design of the monitor, functional and performance testing, and then discuss the scalability improvement that the \RRH\ algorithm brings and it suitability to realtime monitoring.\\
+
+\noindent In the final chapter of the contribution, Chapter \ref{chap:MonitorInAction}, we bring together everything from the design and implementation into a demonstration of our monitor detecting collusion between two applications running on a real Android device.\\
+
+\noindent Chapter \ref{chap:Summary} summarises the project and we pose research questions for further studies in chapter \ref{chap:Future Work}.
 
 \section{Presentation}
 
 On the 18th of May 2021, we presented our work to a workshop conference for cyber-physical systems (2021 CPS-IOT).  The conference was hosted by Vanderbilt University and sponsored by the Association for Computing Machinery, IEEE, NSF, and SIGBED.  An abstract got submitted, peer-reviewed and is on the conference website at \url{https://sites.google.com/virginia.edu/mt-cps2021/program}.  We received positive feedback and some valuable points on our presentation.
-
-\section{Overview}
-
-\noindent Starting with chapter \ref{chap:Collusion} we establish the concept of collusion.  The villain of this story is malware who, in this case, steals information from the Android user.  We refer to prior studies that demonstrate colluding applications can circumvent the security model.\\
-
-\noindent Chapter \ref{chap:Runtime Verification} proposes that a software validation technique called Runtime Verification can solve the collusion threat. We first explain the technique and then put its distinguishing features into context with other validation techniques. Then we examine some challenges of using runtime verification to detect collusion.\\
-
-\noindent Linear Temporal Logic goes hand-in-hand with runtime verification and is the subject we introduce in chapter \ref{chap:Linear Temporal Logic}.  We cover the concept of a trace of events, followed by the grammar, and semantics of LTL.\\
-
-\noindent Chapter \ref{chap:Rosu-Havelund Algorithm} looks at an algorithm developed by \GRKH\ for evaluating an LTL formula over a trace with little computational cost.  We explain the algorithm using examples that walk through the evaluation of a formula over a trace step-by-step.\\
-
-\noindent In chapter \ref{chap:Android Platform} we go into detail about the Android platform architecture, the security model, and communication provisions.\\
-
-\noindent Next, we require a means to capture the activities of applications running on Android. Chapter \ref{chap:Xposed Framework} presents a third-party framework called Xposed for this purpose.  We go into what it does, its origins, and how the framework gives us the ability to log operating system calls made by any application running on Android.  In this chapter, we also describe how to set up the development environment we used.\\
-
-\noindent Chapter \ref{chap:Related Work} puts the project into context with other related work.  We discuss other approaches to detecting collusion and other approaches to Android security in general.\\
-
-\noindent Our contribution begins with chapter \ref{chap:Monitoring For Security Properties} where we introduce a formula for detecting collusion, discuss some the hazards encountered when developing a monitor, strategies for overcoming them and how we might respond to a security breach.\\
-
-\noindent Chapter \ref{chap:Monitoring System Architecture} progresses to outline the software architecture of our monitoring system, why we have taken this structure, and its benefits.  Then we give some advice on development with the Xposed framework based on experiences acquired during this project.\\
-
-\noindent We investigate the suitability of the \RH\ algorithm to realtime monitoring in chapter \ref{chap:Runtime Verification with the Rosu-Havelund Algorithm}.  We start with a complexity analysis of the algorithm then seek to validate the outcome by performing practical tests on an implementation.  The results lead us to a discussion of the algorithm's scalability and a conclusion about its suitability to this application.\\
-
-\noindent Following our discoveries regarding the \RH\ algorithm, we propose a variation in chapter \ref{chap:Reverse Rosu-Havelund Algorithm}.  We implement the new algorithm, carry out similar practical tests, and compare the results to those of the standard algorithm.\\
-
-\noindent In the final chapter of the contribution, chapter \ref{chap:MonitorInAction}, we bring together everything from the design and implementation into a demonstration of our monitor detecting collusion between two applications running on a real Android device.\\
-
-\noindent Chapter \ref{chap:Summary} summarises the project and we discuss where we might go next in chapter \ref{chap:Future Work}.
-
